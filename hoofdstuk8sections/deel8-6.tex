@@ -1,0 +1,85 @@
+\subsection{TCP connecties beveiligen: SSL}
+
+Op de transport laag kijken hoe cryptografie TCP kan versterken met beveiligingsdiensten. Deze verbeterde versie van TCP is beter bekend als Secure Socket Layer (SSL). Een enigszins gewijzigde versie van SSL versie 3, wordt de Transport Layer Security (TLS) genoemd.
+Het SSL protocol is ontworpen door Netscape. SSL wordt veel geïmplementeerd en wordt door alle populaire web browsers en servers ondersteund. Elk jaar worden er biljoenen uitgegeven aan SSL.
+
+\includegraphics[width=4in]{./img/imghfdst8/hfdst8puntje27.png}\\[1cm]
+ 
+
+SSL verbeterd TCP door te zorgen dat er confidentialiteit, data integriteit, server en client authenticatie is. Omdat SSL TCP beveiligd, kan het worden gebruikt door eender welke applicatie die TCP gebruikt. SSL voorziet een API met sockets, die analoog is met de API van TCP. Wanneer een applicatie SSL wil gebruiken zal de applicatie SSL klassen/bibliotheken toe voegen.
+
+\subsubsection{Het grote plaatje}
+
+Eerst een eenvoudige versie van SSL beschrijven. Dit gaan we de Almost-SSL noemen. Almost-SSL en SSL hebben vier fasen: de handshake, key derivation, data transfer en connectie sluiten.
+
+\subsubsubsection{Handshake}
+
+\includegraphics[width=4in]{./img/imghfdst8/hfdst8puntje28.png}\\[1cm]
+
+Gedurende de handshake fase, heeft Bob behoefte aan een TCP connectie op te zetten met Alice, bevestigen dat Alice echt Alice is, en vervolgens Alice de master secret key te sturen die gebruikt zal worden om bij Alice en Bob de symmetrische sleutels te genereren die ze nodig hebben voor de SSL sessie.
+Wanneer de TCP connectie opgezet is, zend Bob naar Alice een hallo bericht. Alice reageert met haar certificaat, die haar publieke sleutel bevat. Bob genereert vervolgens een Master Secret (MS) die enkel gebruikt gaat worden voor deze SSL sessie, ecrypteerd de MS met de publieke sleutel van Alice om zo de \textbf{Encrypted Master Secret (EMS)} te maken, en zendt deze dan door naar Alice. Alice decrypteerd het EMS met haar prive sleutel. Na deze fase kennen enkel Bob en Alice de MS voor deze SSL sessie.
+
+\clearpage
+
+\subsubsubsection{Key derivation}
+
+In principe kan de MS gebruikt worden als de symmetrische sessie sleutel voor alle volgende encryptie en data integriteit controle. Hoewel het algemeen overwegend veiliger voor Alice en Bob is om verschillende cryptografische sleutels te gebruiken, en dus ook andere sleutels te gebruiken voor encryptie en integriteit controle. Dus Alice en Bob genereren elk vier sleutel door de MS te gebruiken:
+\begin{itemize}
+\item $E_B$ = sessie encryptie sleutel voor data die verzonden wordt van Bob naar Alice
+\item $M_B$ = sessie MAC sleutel voor data die verzonden wordt van Bob naar Alice
+\item $E_A$ = sessie encryptie sleutel voor data die verzonden wordt van Alice naar Bob
+\item $M_A$ = sessie MAC sleutel voor data die verzonden wordt van Alice naar Bob
+\end{itemize}
+Dit kan gedaan worden door gewoon de MS te splitsen in \textbf{vier} sleutels. Op het einde van deze fase hebben Alice en Bob elk alle vier sleutels. De twee encryptie sleutels gaan gebruikt worden om de data te encrypteren. De twee MAC sleutels worden gebruikt om de integriteit van de data te controleren.
+
+\subsubsubsection{Data transfer}
+
+Sinds TCP een byte stream protocol is, zou een natuurlijke benadering voor SSL zijn om de applicatie data on the fly te encrypteren en vervolgens de geëncrypteerde data on the fly door te geven aan TCP. Maar als we dit doen, waar zouden we MAC zetten voor de integriteit check?
+SSL breekt de data stroom in verschillende records, voegt een MAC toe aan elk record voor integriteit controle en encrypteerd vervolgens de record+MAC. Om de MAC te maken voegt Bob de record data met de sleutel MB toe in een hash functie. Om het pakket te encrypteren gebruikt Bob zijn sessie sleutel $E_B$. Dit geëncrypteerde pakket wordt dan doorgestuurd naar TCP voor transport over het internet.
+Maar er is nog een probleem. Een indringer heeft de mogelijkheid om segmentent toe te voegen, vervangen en te verwijderen. Bijvoorbeeld, een indringer vangt twee pakketten die verzonden zijn door Bob, en vervangt de TCP sequentie nummers (die niet geëncrypteerd zijn), en verzend deze omgewisselde segmenten door naar Alice.
+De gedecrypteerde byte stream gaat niet in de juiste volgerde staan, en zal dus niet de juiste informatie weergeven.
+
+De oplossing voor dit probleem is om \textbf{sequentie nummers} te gebruiken. SSL doet dit als volgt. Bob onderhoud een sequentie nummer teller, die bij nul begint en wordt verhoogt bij elke SSL record dat hij stuurt. Bob voegt niet echt een sequentie nummer toe aan de record zelf, maar wanneer hij de MAC berekent, voegt hij het sequentie nummer toe bij MAC berekening. Dus MAC is nu een hash van data + de MAC sleutel $M_B$ + de huidige sequentie nummer.
+Alice volgt Bob zijn sequentie nummers, wat haar toe laat om de data integriteit met de passende sequentie nummer van een record te controleren.
+Een indringer kan nog altijd heel de communicatie opnieuw afspelen. Oplossing hiervoor is om een nonce te gebruiken.
+
+\clearpage
+
+\subsubsubsection{SSL record}
+
+De SSL record bestaat uit de volgende velden:
+\begin{itemize}
+
+\item Type
+\item Versie
+\item Lengte
+\item Data
+\item MAC
+\end{itemize}
+
+De eerste 3 velden zijn niet geëncrypteerd. Deze velden tonen aan of de record een handshshake bericht is of een bericht dat applicatie data bevat. Het wordt ook gebruikt om de SSL connectie te sluiten. De lengte is om de SSL records uit de TCP byte stream te krijgen.
+
+\clearpage
+
+\subsubsection{Een iets completer beeld}
+
+\subsubsubsection{SSL Handshake}
+
+SSL schrijft niet voor dat Alice en Bob een specifieke symmetrische sleutel algoritme, een specifieke publieke sleutel algoritme of een specifiek MAC moete gebruiken. In plaats daarvan laat SSL toe dat Alice en Bob zelf overeenkomen over de cryptografische alogritmes in het begin van een SSL sessie. Doorheen de handshake fase, zenden Alice en Bob nonces naar elkaar, die zijn gebruikt in het maken van de sessie sleutels (EB MB EA en MA). De stappen van de echte SSL zijn als volgt:
+\begin{enumerate}
+
+\item De client zend een lijst van cryptografische algoritmes die hij ondersteunt, samen met een client nonce.
+\item Van die lijst kiest de server een symmetrische algortime, een publieke sleutel algoritme en een MAC algoritme. De server stuurt zijn keuzes terug naar de client en ook een certificaat en een server nonce.
+\item De client verifiëert het certificaat, leid de server’s publieke sleutel af, genereert een Pre-Master Secret (PMS), encrypteerd de PMS met de publieke sleutel van de server en verzendt de geëncrypteerde PMS naar de server.
+\item Gebruik makend van dezelfde key derivation functie, gaan de client en server onafhankelijk van elkaar de Master Secret berekenen van de PMS en nonces. De MS is vervolgens opgedeeld om twee encryptie en twee MAC sleutels te genereren. Bovendien wanneer de symmetrische cipher CBC gebruikt, worden er twee Initialisatie Vectors (VI) verkregen uit de MS. Voortaan zijn alle berichten verzonden tussen de client en server geëncrypteerd en geauthentificeerd (met de MAC).
+\item De client verzend een MAC van alle handshake berichten.
+\item De server verzend een MAC van alle handshake berichten.
+\end{enumerate}
+De laatste twee stappen beschermen de handshake van geknoei.
+Bij stap 1 wordt een lijst van algoritmes doorgestuurd in cleartext. Een indringer kan de sterkere algoritmes uit de lijst halen zodat de server een zwakker algoritme gaat kiezen. Om zo’n geknoei te voorkomen, wordt in stap 5 sruurt de client een MAC met een aaneenschakeling van alle handshake berichten gemaakt die verzonden en ontvangen zijn. De server kan deze MAC controleren door op dezelfde manier te werk te gaan. Als er een tegenstrijding is, gaat de server de connectie onmiddelijk beïndigen. De server stuurt zijn berekende MAC terug naar de client zodat deze ook kan controleren op tegenstrijdigheden.
+In SSL worden nonces gebruikt om zich te verdedigen tegen de connection replay attack en sequentie nummers worden gebruikt om zich te verdedigen tegen het hersturen van pakketten tijdens een open sessie.
+
+\subsubsubsection{Connection closure}
+
+Op een moment gaat Bob of Alice de SSL sessie afsluiten. Een benadering zou kunnen zijn dat Bob de SSL sessie beïndigd door de onderliggende TCP connectie af te sluiten, dat is als Bob een TCP FIN segment stuurt naar Alice. Maar zo’n ontwerp kan leiden naar een truncation attack waar een indringer een SSL sessie vroeger kan aflsuiten.
+De oplossing tot dit probleem is om aan te duiden in het type veld als de record dient om de SSL sessie af te sluiten. Het type veld word ongeëncrypteerd gestuurd en kan zo gelezen worden, maar wordt geauthentificeerd bij de ontvanger door gebruik te maken van de Record’s MAC. Dus als er eerst een TCP FIN gestuurd wordt voor een closure SSL record, kan men er van uitgaan dat er iets niet juist is.

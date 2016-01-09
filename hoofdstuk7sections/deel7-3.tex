@@ -1,0 +1,72 @@
+\subsection{Voice-over-IP}
+
+\subsubsection{Limitaties van de Best-effort IP service}
+
+Het internets netwerk laag protocol, IP, voorziet best-effort dienst. De dienst doet zijn best om elk datagram van bron naar bestemming zo snel mogelijk de verplaatsen maar maakt geen belofte over in welke tijdspanne of aantal verloren pakketten dit pakket op de bestemming geraakt. Het tekort van zo’n garanties stelt een aantal uitdagingen voor het ontwikkelen van live conversatie applicaties, welk eigenlijk gevoelig zijn aan pakket vertraging en verlies.
+
+De zender genereert bytes aan de snelheid van 8 000 bytes per seconde. Elke 20 msecs verzameld de zender deze bytes in een blok. Een block en een speciale header worden geëncapsuleerd in een UDP segment. Dus de aantal bytes in een blok is (20 msecs) * (8 000 bytes / sec) = 160 bytes en een UDP segment wordt elke 20 msec verzonden.
+Als elke pakket tot de ontvanger geraakt met een constante end-to-end vertraging, dan zullen de pakketten elke 20 msec aankomen. In deze ideale omstandigheden kan de ontvanger elk stukje na elkaar afspelen wanneer het aankomt.
+De ontvanger moet meer zorg nemen met het bepalen wanneer het een stuk gaat afspelen, en wat te doen met een ontbrekend stuk.
+
+\subsubsubsection{Pakket verlies}
+
+Verlies kan geëlimineerd worden door de pakketten over TCP in plaats van UDP te sturen. Hoewel herzendings mechanisme meestal als onacceptabel beschouwd bij live conversatie applicaties zoals VoOP, omdat ze de end-to-end delay verhogen. Dankzij TCP congestie controle, kan pakket verlies leiden in een vermindering van de TCP verzenders overdracht snelheid naar een snelheid die trager is dan de ontvangers verwerk snelheid wat zal leiden tot lege buffers. Dit kan een grote inpakt hebben op de stem verstaanbaarheid bij de ontvanger. Daarom lopen meeste VoIP als standaard over UDP.
+Maar het verlies van pakketten is niet zo erg als men denkt. Pakket verliezen tussen 1 en 10 percent kunnen getolereerd worden, afhankelijk van hoe de stem gecodeerd en verzonden is, en hoe het verlies verborgen is bij de ontvanger.
+
+\subsubsubsection{End-to-end delay}
+
+End-to-end delay is de opsomming van overdracht, verwerking en wachtrij vertragingen in de routers. Bij live conversatie applicaties zoals VoIP, zijn end-to-end delays kleiner dan 150 msecs niet waargenomen. Delays tussen 150 en 400 msecs zijn acceptable, maar niet ideaal. En delays die meer dan 400 msec bedragen kan de interactie in stem conversaties serieus hinderen.
+
+\clearpage
+
+\subsubsubsection{Packet Jitter}
+
+Een crusiaal component van end-to-end delay is de veranderlijke queuing delays dat een pakket evenaart in de routers van het netwerk. Door deze veranderlijke delays, zal de tijd vanaf het genereren van het pakket tot het aangekomen is bij de bestemming schommellen van pakket tot pakket. Dit fenomeen wordt jitter genoemd. Wanneer de ontvanger de aanwezigheid van jitter negeert en elk stukje afspeelt wanneer het binnenkomt, zal het resulterende audio kwaliteit gemakelijk onverstaanbaar worden. Gelukkig kan jitter vaak verwijderd worden door sequentie nummer, timestamps en een playout delay te gebruiken.
+
+\subsubsection{Jitter verwijderen bij de ontvanger voor audio}
+
+Bij VoIP applicaties, moet de ontvanger proberen om een periodieke afspeling van stem stukjes te voorzien in aanwezigheid van willekeurige netwerk jitter. Dit kan gedaan worden door de volgende twee mechanismen te combineren:
+\begin{itemize}
+\item Een timestamp toevoegen aan het begin van elke stukje
+\item Delaying playout van stukjes bij de ontvanger. De playout delay kan oftwel vast zijn doorheen de duratie van de audio sessie of aanpassend variëren gedurende de audio sessie levenstijd.
+\end{itemize}
+
+\subsubsubsection{Fixed playout delay}
+
+Met de fixed-delay strategie, gaat de ontvanger proberen om elk stukje precies q msecs nadat het gemaakt is af te spelen. Dus als een stukje getimestamped is op tijd t, dan gaat de ontvanger dit afspelen op tijd t + q, er vanuit gaand dat het stukje is aangekomen. Pakketten die na hun geplande afspeling aankomen worden weggegooid en worden als verloren beschouwd.
+Wat zou een goede waarde voor q kunnen zijn? Een bevredigend gesprek wordt bereikt door een kleine q waarde. Maar als q veel kleiner dan 400 msec gemaakt wordt, gaan veel pakketten hun geplande afspelingstijd missen. Als er grote variaties in delay typisch zijn, is het dus verkieslijk om een grote q te gebruiken. Aan de andere kant is het verkieslijk om een kleine q te gebruiken bij kleine delays en variaties.
+
+\subsubsubsection{Adaptive Playout delay}
+
+De natuurlijk manier om met de afweging delay-loss om te gaan is om de netwerk delay en variantie van de delay in te schatten, en om de playout delay aan te passen overeenkomstig aan het begin van elke talk spurt. Deze adaptieve aanpassing van playout delays aan het begin van talk spurts gaat ervoor zorgen dat de stille periodes van de zender gecompreseerd en verlengt gaan zijn. Echter is compressie en verlening van stilte door een kleine hoeveelheid niet opmerkbaar in spraak.
+
+\subsubsection{Herstellen van pakket verlies}
+
+Schema’s die proberen om accepteerbare audio kwaliteit te behouden in aanwezigheid van pakket verlies, noemen we loss recovery schemes. VoIP applicaties gebruiken vaak een type van loss anticipation scheme. De twee types van schema’s zijn forward error correction (FEC) en interleaving.
+
+\subsubsection{Forward Error Correction (FEC)}
+
+Het basis idee van FEC is om redundante informatie toe te voegen aan de originele pakket stroom. Voor de kost van marginaal verhogen van de transmissie snelheid, kan de redundante informatie gebruikt worden om een benadering of exacte versie herconstrueren van sommige verloren pakketten. Deze manier wordt ook wel piggybacking genoemd.
+Er zijn twee FEC mechanismen. De eerste mechanisme zend een redundant gecodeerd stuk elke n stukjes. Het redundante stuk wordt verkregen door de n orginele stukjes te XORen. Op deze manier wanneer er één pakket van de groep n + 1 verloren gaat, kan de ontvanger het verloren pakket herconstrueren. Als dit meer als één is, kan dit niet meer. Echter hoe kleiner de groep grootte, hoe groter de relatieve verhoging van de transmissie snelheid. Dus de transmissie snelheid stijgt met de factor 1/n. Bovendien wordt de playout delay verhoogt in dit schema, omdat de ontvanger moet wachten tot de hele groep aangekomen is voordat het kan afspelen.
+Het tweede mechanisme verzend een lagere audio resolutie stream als de redundante informatie. De zender construeert de nde pakket door het nde stukje te pakken van de nominale stroom en dit toevoegen bij het (n – 1)de stukje van de redundante stream. Op deze manier waneer er geen opeenvolgende pakket verliezen zijn, kan de ontvanger het verlies verbergen door een lagere bit rate stukje af te spelen. 
+Om om te gaan met opeenvolgende verliezen, kunnen we een simpele variatie gebruiken. In plaats van gewoon enkel de (n – 1)de low-bit rate stuk bij de nde nominale stuk toe te voegen, kan de zender de (n – 1)de en (n – 2)de low-bit rate stuk toe voegen. Door meerdere low-bit rate stukjes toe te voegen bij elke nominaal stuk, gaat de audio kwaliteit bij de ontvanger acceptabel worden voor een breder scala van agressieve best-effort omgevingen. Aan de andere kant, gaan de extra stukjes de transmissie bandbreedte en playout delay verhogen.
+
+\subsubsection{Interleaving}
+
+De zender herordend de eenheden van audio data voor de transmissie, zodat de originele aangrenzende eenheden gescheiden zijn door een bepaalde afstand in de transmissie stroom. Interleaving kan het effect van pakket verlies verzachten. Interleaving kan de waargenomen audio aanzienlijk verbeteren. Er is ook lage overhead. De duidelijk nadeel van interleaving is dat het vertraging verhoogt. Dit limiteerd zijn gebruik voor conversatie applicaties, maar het kan wel goed functioneren voor het streamen van opgeslagen audio. Een hoofd voordeel van interleaving is dat het de bandbreedte eisen van een stream niet verhoogt.
+
+\subsubsection{Error concealment}
+
+Error concealment schema’s proberen een vervanging te produceren voor het verloren pakket die op het origineel lijkt. Dit is mogelijk omdat audio signalen grote hoeveelheden gelijkenissen vertonen op een korte termijn. Deze techniek werkt bij relatieve kleine verlies ratio’s (minder dan 15 percent) en voor kleine pakketten (4 – 40 msecs). De simpelste vorm van ontvanger gebaseerde herstel is pakket herhaling. Pakket herhaling verplaatst onmiddelijk verloren pakketten met kopiën van de pakketten die aangekomen zijn voor het verlies. Een andere vorm is interpolatie (tussenvoegen), dit gebruikt de audio van voor en het verlies om zo een passend pakket tussen te voegen.
+
+\subsubsection{Case study: VoIP met Skype}
+
+Omdat het Skype protocol gepanteerd is, en alle Skype controle en media packeten geëncrypteerd zijn, is het moeilijk om precies te bepalen hoe Skype werkt. Maar voor zowel stem als video, hebben Skype clienten veel verschillende codecs tot hun beschikking, deze hebben de mogelijkheid om de media te encoderen op uiteenlopende ratios en qualiteiten. Als standaard stuurt skype audio en video pakketten via UDP. Hoewel Skype controle pakketten over TCP verzend, worden media pakketten ook over TCP verzonden als de firewall UDP blokeert. Skype gebruikt FEC voor verlies herstel van zowel audio als stem stromen die over UDP gezonden zijn. De Skype client past ook de audio en video stromen aan die het zend aan de huidige netwerk condities, door video kwaliteit te veranderen en FEC overhead.
+Skype gebruikt P2P technieken in een aantal innovatieve manieren, wat mooi illustreert hoe P2P gebruikt kan worden in applicaties die verder gaan dan inhoud verspreiding en bestand deling. Zoals bij instant messaging, is host-to-host internet telefonie van nature P2P, sinds groepen van gebruikers met elkaar live communiceren. Maar Skype gebruikt ook P2P technieken voor twee andere belangrijke functies, namelijk voor gebruikers locatie en voor NAT traversal.
+De peers in Skype zijn in een hiërarchische overlay netwerk georganiseerd, met elke peer geclassificeerd als een super of ordinaire peer. Skype onderhoudt een index die Skype gebruikersnamen aan huidige IP adressen (en poort nummers) mapt. Deze index is verdeeld over alle super peers. Wanneer Alice met Bob wilt bellen, gaat haar Skype client de verspreide index doorzoeken om Bob’s huidige IP adres te bepalen. P2P technieken zijn gebruikt in Skype relais, wat nuttig is om gesprekken op te zetten tussen hosts in thuis netwerken. Veel thuis netwerk configuraties voorzien toegang tot het internet via NAT’s. Maar een NAT voorkomt dat een host van buiten het thuis netwerk die een connectie wilt beginnen met een host binnen het thuis netwerk. Als beide Skype bellers NATs hebben, dan is er een probleem. Dan kan geen van beide een gesprek accepteren die door de ander gestart is. Het slimme gebruik van peers en relays lost die probleem fijntjes op.
+Veronderstel dat wanneer Alice inlogt, dat ze toegewezen is aan een niet NATed super peer en zet een sessie op naar die super peer. Deze sessie laat Alice en haar super peer toe om controle berichten uit te wisselen. Hetzelfde gebeurt voor Bob wanneer hij inlogt. Wanneer Alice Bob wilt bellen, informeert ze haar super peer, wie op zijn beurt Bob zijn super peer informeert, wie dan Bob inkommende oproep van Alice informeert. Als Bob de oproep accepteerd, selecteren de twee super peers een derde niet NATed super peer (de relay peer) en die zijn job zal zijn om data tussen Alice en Bob door te geven. De peers van Alice en Bob dragen Alice en Bob op om een sessie te initialiseren met de relay.
+Als er meer dan twee personen zijn, als elke gebruiker een kopie van zijn audio stroom zou sturen naar elke N – 1 andere gebruikers, dan is er een totaal van N(N – 1) audio stromen die over het netwerk gezonden moeten worden om de audio conferentie te ondersteunen. Om de bandbreedte gebruik te verlagen, gebruikt Skype een slime verdelings techniek. Elk gebruiker zend zijn audio stroom naar diegene die de conferentie heeft opgestart. Deze combineert de audio stromen in één stroom en zend een kopie van elke gecombineerde stroom naar de andere N – 1 deelnemers. Op deze manier zijn de aantal audio stromen verminderd naar 2(N – 1).
+Voor een video conferentie, zal Skype, door de aard van het video medium, de oproep niet combineren in één stroom op één locatie en vervolgens de stroom herverdelen naar alle deelnemers. In plaats hiervan, wordt elke gebruikers video doorgestuurd naar een router cluster, die op zijn beurt naar elke deelnemer de N – 1 stromen van de N – 1 andere deelnemers verbind.
+Maar waarom zend elke deelnemer een kopie naar de server in plaats direct een kopie naar elke N – 1 deelnemers te sturen? De reden is, omdat upstream link bandbreedtes aanzienlijk lager zijn dan dowstream link bandbreedtes in de meeste toegang linken, de upstream link zou de N – 1 stromen niet kunnen ondersteunen met de P2P benadering.
+
+VoIP systemen introduceren nieuwe privacy zorgen. Specifiek wanneer Alice en Bob over VoIP communiceren, kan Alice Bob zijn IP adres sniffen en vervolgens geo-locatie diensten gebruiken om Bob zijn huidige locatie  en ISP te bepalen. In feite is het met Skype mogelijk voor Alice om een transmissie van bepaalde pakketten tijdens het opzetten van de oproep te blokeren zodat ze Bob zijn huidige IP adres krijgt, zonder dat Bob weet dat hij getraceerd wordt, en zonder op Bob zijn contacten lijst tee zijn. Bovendien, kunnen de IP adressen die ontdekt zijn van Skype gecoroleerd worden met IP adressen die gevonden zijn in BitTorrent, zo dat Alice de bestanden die Bob aan downloaden is kan bepalen. Meer zelfs, het is mogelijk om een Skype oproep gedeeltelijk te decrypteren door trafiek analyse van de pakket groottes in een stroom te doen.

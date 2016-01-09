@@ -1,0 +1,78 @@
+\subsection{Het web en HTTP}
+
+\subsubsection{Overzicht van HTTP}
+
+Het HyperText Transfer protocol (HTTP), de web applicatie laag protocol, is het centrum van het web. HTTP is geïmplementeerd in twee programma’s: een client en server programma. De client en server praten met elkaar door het uitwisselen van berichten.
+Een web pagina bestaat uit objecten. Een object is gewoon een bestand die adresseerbaar is door een URL. Meeste web pagina’s bestaan uit een basis HTML bestand en andere gerefereerde objecten. Elke URL heeft twee componenten: de hostnaam van de server en het object zijn pad naam.
+HTTP definieert hoe web clients web pagina’s opvragen van web servers en hoe servers de web pagina naar de client moet brengen.
+HTTP gebruikt TCP als onderliggende transport protocol. De client initialiseert eerst een TCP connectie met de server. Eenmaal dat connectie gezet is, kunnen de browser en server processen de TCP bereiken door hun socket interfaces.
+Het is belangrijk om op te merken dat de server gevraagde bestanden naar de client stuurt zonder enige informatie van de client op te slaan. Dus als een client weer hetzelfde object opvraagt zal de server deze opnieuw sturen. Dus HTTP is een stateless protocol.
+
+\subsubsection{Niet aanhoudende en aanhoudende connecties}
+
+In veel internet applicaties, communiceren de client en server over een uitgebreid tijds periode. Afhankelijk van da applicatie en hoe de applicatie gebruikt wordt, gaan de series van request gemaakt worden op back-to-back, periodiek op regelmatige intervallen of met tussenpozen. Wanneer de interactie over TCP plaats vindt, moet de ontwikkelaar een belangrijke beslissing nemen, moet elke request/response paar over een afzonderlijke TCP connectie gebeuren, of over dezelfde TCP connectie?
+
+\clearpage
+
+\subsubsubsection{HTTP met niet aanhoudende connecties}
+
+Wanneer de browser de webpagina ontvangt, weergeeft het de pagina aan de gebruiken. Twee verschillende browsers kunnen een pagina licht verschillend interpreteren. Bij een niet aanhoudende connectie wordt de TCP connectie afgesloten na elk verstuurd object.
+Laten we eerst nog een berekening doe van de veronderstelde tijd die voorbij gaat wanneer een client de basis HTML bestand opvraagt totdat het volledige bestand is toegekomen. We definiëren de round-trip time (RTT), dit is de tijd dat nodig is voor een pakket die van de client naar de server en terug naar de client gaat. Het RTT bevat pakket verspreiding vertragingen, pakket wachtrij vertraging in tussen routers en switches, en pakket verwerking vertragingen.
+Een klik op een link zorgt voor het opstarten van een TCP connectie tussen de browser en server. Dit bevat een three way handshake. De client stuurt een klein TCP segment naar de server, de server erkent het en antwoord met een klein TCP segment en uiteindelijk erkent de client terug naar de server. De eerste twee stappen van de handshake nemen één RTT in beslag. Na de eerste twee delen, zend de client een HTTP request gecombineerd met het derde deel van de handshake. Eenmaal dat de request bericht aankomt, zend de server de HTML bestand door de TCP connectie. Deze HTTP request/response neemt nog een RTT in beslag. Dus de totale response tijd is twee RTTs plus de transitie tijd bij de server van de HTML bestand.
+
+\subsubsubsection{HTTP met aanhoudende connectie}
+
+De server laat de TCP connectie open na het zenden van een response. Opeenvolgende requests en responses tussen dezelfde client en server kunnen over dezelfde connectie verzonden worden. Meer zelfs, meerdere web pagina’s die afkomstig zijn van één dezelfde server kunnen over die connectie gestuurd worden. Deze requests voor objecten kan back-to-back gemaakt worden, zonder te moeten wachten voor antwoorden op hangende requests. De HTTP server sluit een connectie wanneer het voor een bepaalde tijd niet meer gebruikt is.
+
+\clearpage
+
+\subsubsection{HTTP bericht formaat}
+
+\subsubsubsection{HTTP request bericht}
+
+Het bericht wordt in ASCII text geschreven zodat we het bericht kunnen lezen. We zien ook dat het bericht bestaat uit een aantal lijnen die elk gevolgd worden door een carriage return en een line feed.
+De eerste lijn wordt de request line genoemd. De volgende lijnen worden de header lines genoemd. De request line heeft drie velden; de methode veld, de URL veld en de HTTP versie veld. De methode veld kan verschillende waardes aannemen zoals GET, POST, HEAD, PUT en DELETE. Door Connection: toe te voegen, verteld de browser tegen de server of de connectie open of gesloten moet blijven. De User-Agent: is handig omdat de server verschillende versies van het zelfde object kan sturen naar verschillende types van user agents.
+
+\subsubsubsection{HTTP response bericht}
+
+Het heeft drie secties: een initiële status line, header lines en dan de entity body. De entity body bevat het gevraagde object. De status lijn heeft drie velden: het protocol versie veld, een status code, en een bijhorende status bericht.
+De status code en bijhorende text duiden het resultaat van het request aan. Hier zijn een paar voorbeelden:
+\begin{itemize}
+   
+
+ \item 200 OK: request is succesvol en de informatie is teruggezonden in de response.
+ \item 301 Moved Permanently: de nieuwe URL wordt gespecificeerd in de Location: header van de response bericht. De client zal automatisch de nieuwe URL ophalen.
+ \item 400 Bad Request: de request kon niet begrepen worden door de server.
+ \item 404 Not Found: de gevraagde document bestaat niet op dit server.
+ \item 505 HTTP Version Not Supported: de gevraagde HTTP protocol versie is niet ondersteund op de server.
+\end{itemize}
+
+\clearpage
+
+\subsubsection{Gebruiker-server interactie: Cookies}
+
+Een HTTP server is stateless. De vergemakkelijkt het server ontwerp en laat engineers to om hoge prestatie web servers te ontwikkelen die vele duizende gelijktijdige TCP connecties kunnen behandelen. Hoewel, het is meestal wel wenselijk voor een website om gebruikers te identificeren. Voor deze doeleinde gebruikt HTTP cookies. Cookies laten sites toe om hun gebruikers te volgen.
+Cookie technologie heeft vier componenten. Een cookie header line in het HTTP response bericht, een cookie header line in de HTTP request bericht, een cookie bestand die op de gebruikers systeem wordt gehouden en onderhouden door de browser, en een achtergrond databank bij de website.
+Cookies kunnen gebruikt worden om een gebruiker te idenftificeren. De eerste keer dat een gebruiker een site bezoekt, kan de gebruiker een gebruiker identificatie voorzien. Doorheen de volgende sessies, geeft de browser een cookie header naar de server, om zo de gebruiker te identificeren voor de server.
+
+Cookies kunnen dus gebruikt worden om een gebruikers sessie laag te maken bovenop de stateless HTTP. Cookies kunnen ook als controversieel opgevat worden omdat ze ook beschouwd worden als een inbreuk op de privacy. Zo kan een website veel leren van een gebruiker, en potentieel deze informatie verkopen.
+
+\clearpage
+
+\subsubsection{Web caching}
+
+Een web cache ook wel proxy server genoemd, is een netwerk entiteit ide HTTP requests voldoet uit naam van een komende web server. De web cache heeft zijn eigen schijf opslag en houdt kopiën bij van recent opgevraagde objecten. Een gebruiker zijn browser kan zo geconfigureerd zijn dat alle HTTP requests eerst naar de Web cache gaan. Als dit zo is, dan gebeurt het volgende:
+\begin{enumerate}
+    \item De browser zet een TCP connectie op met de Web cache en zend een HTTP request voor het object naar de web cache.
+\item De web cache kijkt of er een kopie van dat object lokaal opgeslagen is. Als dit zo is, stuurt de cache het object terug binnen een HTTP response bericht naar de client.
+\item Als de cache het object niet heeft, opent de cahce een TCP connectie naar de oorsprong server. De web cache zend een HTTP request voor het object. De oorsprong server zend het object binnen een HTTP response naar de web cache.
+\item Wanneer de web cache het object krijgt, slaagt het een kopie op, en zend het een kopie door binnen een HTTP response bericht naar de client.
+\end{enumerate}
+Web caching heeft inzet gezien in het internet voor twee redenen. Een web cache kan de response tijd voor een client request sterk verminderen, zeker als de bandbreedte tussen de client en oorsprong server veel minder is als de bandbreedte tussen de client en de cache. Als er een hoge snelheid connectie is tussen de client en de cache, als de cache het gevraagde object heeft, dan zal de cache het object sneller kunnen leveren.
+Ten tweede kunnen web caches het verkeer op een institutie toegangs link tot het internet sterk verminderen. Door het verkeer te verminderen, moet er geen upgrade van de bandbreedte gedaan worden, en worden er kosten gespaard. Verdermeer, web caches verminderen sterk het verkeer op het internet als geheel, wat de prestatie van alle applicaties verbeterd.
+
+Door het gebruik van Content Distribution Networks (CDNs), spelen web caches steeds een grotere rol. Een CDN bedrijf installeert veel geografisch verdeelde caches over het internet, om zo veel van het verkeer te localiseren.
+
+\subsubsection{De conditionele GET}
+
+Hoewel caching de gebruikers waargenomen response tijd kan verminderen, introduceert het een nieuw probleem. Het kopie van een object kan in de tussen tijd al aangepast zijn sinds dat het gecached is. Gelukkig heeft HTTP een mechanisme die een cache toelaat om na te gaan of zijn objecten up to date zijn. Dit mechanisme noemen we de conditional GET. Een HTTP request bericht is een zo genoemde conditional GET als het request bericht de GET methode gebruikt en het request bericht bevat een If- Modified-Since header bevat.

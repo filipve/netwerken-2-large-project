@@ -1,0 +1,83 @@
+\subsection{DNS – het internet zijn directory dienst}
+
+Internet hosts kunnen ook op vele manieren geïdentificeerd worden. Een identificator voor een host is zijn hostname. Hoewel hostnames heel weinig informatie bieden over de locatie binnen het internet. Hostnames kunnen bestaan uit variabele alfanumerieke karakter lengte, deze zouden moeilijk zijn om door routers te verwerken, daarom kunnen hosts ook door een IP adres geïdentificeerd worden.
+
+\subsubsection{Diensten voorzien door DNS}
+
+Mensen hebben liever de ezelsbruggetje hostname identificator, terwijl routers liever vast lengte, hiërarchisch gesorteerde IP adressen hebben. Om deze voorkeuren te verzoenen, hebben we een directory service nodig die hostnames vertaalt naar IP adressen. Dit is de hoofdtaak van het intenet Domain Name System (DNS). De DNS is een gedeelde databank die in de hierarchie van DNS servers geïmplementeerd is en een applicatie laag protocol die hosts toestaat om te zoeken in de gedeelde databank. Het DNS protocol gebruikt UDP.
+
+We zien dat DNS een extra vertraging toevoegt aan de internet applicatie die het gebruiken. Gelukkig is de gewenste IP adres vaak gecached in een dichtbijzijnde DNS server, wat helpt om DNS netwerk verkeer en gemiddelde DNS vertraging te verminderen. DNS voorziet een paar belangrijke diensten naast het vertalen van hostnames naar IP adressen:
+
+\begin{itemize}
+  \item Host aliasing. Een gecompliceerde host naam kan meerdere aliassen hebben. Een DNS kan opgeroepen worden door een applicatie om het canonical hostname te halen voor een gegeven alias.
+\item Mail server aliasing. Het is zeer wenselijk dat email adressen mnemonisch zijn. Het MX record laat toe dat een bedrijf zijn mail en web server dezelfde alias hebben.
+\item Load distribution. Wordt ook gebruikt om de load distribution over gerepliceerde server te doen. Voor een gerepicleerde web server, is er een verzameling van IP adressen die geassocieerd zijn met één canonical hostname. Wanneer een client een DNS aanvraag doet voor zo’n web server, wisselt de DNS server telkens de volgorde van de IP adressen.
+\end{itemize}
+
+\clearpage
+
+\subsubsection{Overzicht hoe DNS werkt}
+
+Een applicatie roept de DNS op, met een hostname die vertaald moet worden. De DNS in de gebruiker zijn host neemt dan over, zend een query bericht in het netwerk. Alle DNS query en antwoord berichten zijn verzonden met UDP datagrammen. Na een vertraging, krijgt de DNS in gebruikers host een DNS antwoord die de gewenste mapping voorziet. Deze mapping wordt dan verder doorgegeven naar de applicatie.
+Vanuit het standpunt van de applicatie, is DNS een zwarte doos die een simpele eenvoudige vertaal dienst levert. Maar dit is in feite zeer complex. Het bestaat uit meerdere DNS servers die verspreid zijn over de wereld.
+Een simpel ontwerp voor DNS zou één DNS server zijn die alle mappings bevat. In dit gecentraliseerd ontwerp, bevelen de clienten hun queries naar deze enkele DNS server, en de DNS server antwoord onmiddellijk terug. Hoewel de gemakkelijkheid van dit ontwerp aantrekkelijk lijkt, is het niet gepast voor deze grote en groeiende aantal hosts. De problemen hierbij zijn:
+
+\begin{itemize}
+    \item Single point of failure. Als de DNS crashed, dan ook het internet
+\item Traffic volume. De enkele DNS zal alle DNS queries moeten behandelen.
+\item Distant centralized database. Een enkele DNS server kan niet dicht bij alle querying clienten liggen. Mensen van de andere kant van de wereld kunnen over trage verbinden gaan, dus dit zal dan leiden tot grote vertragingen.
+\item Maintenance. Een enkele DNS server zal alle internet hosts moeten bijhouden. Dit zal niet enkel een grote database opleveren, maar het moet ook regelmatig ge-update moeten worden voor elke nieuwe host.
+\end{itemize}
+
+\clearpage
+
+\subsubsubsection{Een verdeelde hiërarchische databank}
+
+Om om te gaan met het probleem van de schaal, gebruikt DNS een groot aantal servers die in een hiërarchische manier georganiseerd en verdeeld zijn over de wereld. Geen enkele DNS server heeft alle mappings van alle hosts. In plaats daarvan zijn ze verdeeld over alle DNS servers. Er zijn drie klassen van DNS server (Root, top-level domain en authorative).
+
+\begin{itemize}
+    \item Root DNS servers. Er zijn 13 root DNS servers. Elke server is eigenlijk een netwerk van gerepliceerde servers, voor zowel beveiligings als vertrouwelijke doeleinden.
+\item Top-Level domain (TLD) servers. Deze servers zijn verantwoordelijk voor top level domeinen zoals com, org, net en alle landelijke domeinen.
+\item Authorative DNS servers. Elke organisatie met publieke toegankelijke hosts op het internet moeten publiek toegankelijke DNS records voorzien die de namen van deze hosts naar IP adressen mapped. Een organisatie zijn authorative DNS server bewaart deze DNS records. Een organisatie kan kiezen om zijn eigen authorative DNS server te implementeren om deze records bij te houden. Een alternatief is dat de organisatie kan betalen om deze records op te laten slaan in zo’n server van een service provider.
+\end{itemize}
+
+Er is nog een belangrijk type van DNS server die de local DNS server wordt genoemd. Een locale DNS behoort niet strict tot de hierarchie van servers, maar is niet te min centraal aan het DNS architectuur. 
+
+\subsubsubsection{DNS caching}
+
+DNS caching is een zeer belangrijke kenmerk van het DNS systeem. DNS gebruikt dit zeer hard om de vertaging prestatie te verbeteren en de aantal DNS berichten die rond gaan te verminderen. In een query ketting, wanneer een DNS server een DNS antwoord ontvangt, kan het deze mapping in zijn locaal geheugen cachen. Als een hostname/IP adres paar gemapped zijn en er een andere query komt voor dezelfde hostname, kan de DNS server de gewenste IP adres voorzien, zelf als niet authoritative is voor de hostname. Omdat hosts en mappings tussen hostnames en IP adressen geenszins permanent zijn. Daarom doen DNS servers hun gecached om de zoveel tijd weg.
+
+\clearpage
+
+\subsubsection{DNS records en berichten}
+
+De DNS servers die samen de DNS gedeelde databank implementeren bewaren resource records (RRs). Elke DNS reply bericht draagt één of meerdere RR mee. Een RR bevat de volgende velden:
+(Name, Value, Type, TTL)
+
+De betekenis van Name en Value hangen af van Type:
+\begin{itemize}
+   \item Type = A dan is Name de hostname en Value het IP adres voor de hostname.
+ \item Type = NS dan is Name het domein en Value is de hostname van een authoritative DNS server die weet hoe het IP adres voor host in het domain op te halen.
+ \item Type = CNAME dan is Value een canonical hostname voor de alias hostname Name.
+ \item Type = MX dan is de Value het canonical name van de mail server die een alias hostname Name.
+\end{itemize}
+
+
+\subsubsubsection{DNS Berichten}
+
+DNS heeft enkel twee mogelijk berichten (Query en reply). Beide berichten hebben dezelfde opmaak. De verschillende velden in een DNS bericht zijn als volgt:
+\begin{itemize}
+   \item De eerste 12 bytes is de header sectie. Heet eerste veld identificeerd de query. Deze identificator wordt gekopieerd naar het reply bericht. Er zijn een aantal vlaggen in het vlag veld. Deze duiden aan of het een Query of reply bericht is, of de DNS server een authoritatieve server is. En een recursie vlag wanneer de client verlangt dat de DNS een recursieve zoek actie onderneemt als het de record niet heeft.
+\item De vraag sectie bevat informatie over de query die gemaakt wordt. Deze sectie bevat een naam veld, een type veld.
+\item In een antwoord van een DNS server, bevat het antwoord sectie de RR voor de naam die origineel gequeried werd.
+\item De authority sectie bevat records van andere authoritative servers.
+\item De extra sectie bevat andere nuttige records. Bv het antwoord veld van een antwoord van een MX query bevat een RR die de caconical hostname van een mail server bevat.
+\end{itemize}
+
+
+\clearpage
+
+\subsubsubsection{Records toevoegen aan de DNS database}
+
+Een registrar is een commerciële entiteit die de uniekheid van de domein naam nakijkt, en voegt de domein naam toe aan de DNS databank en krijgt een kleine vergoeding voor zijn diensten. Wanneer je je domein registreert bij een registrar, moet je de namen en IP adressen van je eerste en tweede authoritatieve DNS servers opgeven. Voor elk van de twee authoritative DNS servers, gaat de registrar ervoor zorgen dat een Type NS en een Type A record in de TLD com servers geplaatst is. Je moet er ook nog voor zorgen dat jou Type A resource record voor je web server en het Type MX resource record voor je mail server in je authoritative DNS servers zitten.
+Wanneer dit gebeurt is, kunnen mensen naar je web site surfen, en e-mail sturen.

@@ -1,0 +1,18 @@
+\subsection{File Transfer: FTP}
+
+In een typische FTP sessie, wilt de gebruiker van een host bestanden verplaatsen naar of van een remote host. De gebruiker intrageert met FTP door een FTP user agent. De gebruiker voorziet eerst de hostname van de remote host en vervolgens de gebruikers identificatie en wachtwoord. Eenmaal dat de server de gebruiker geauthentificeerd heeft, kan de gebruiker één of meer bestanden die opgeslagen zijn in het locale bestand systeem kopiëren naar het remote bestand systeem en vice versa.
+HTTP en FTP zijn beiden bestand transfer protocols en hebben veel gelijke kenmerken. Ze lopen allebei boven TCP. Hoewel, de twee applicaties hebben sommige belangrijke verschillen. De meest opvallende verschil is dat FTP twee parallelle TCP connecties gebruikt. Een controle connectie en een data connectie. De controle connectie wordt gebruikt voor het zenden van controle informatie tussen de twee hosts (informatie zoals gebruikersnaam, wachtwoord, commando’s om de directory te veranderen, ...). De data connectie wordt gebruikt om een bestand te sturen. Omdat FTP een aparte controle connectie gebruikt, wordt er gezegd dat TCP zijn controle informatie out-of-band stuurt. HTTP verstuurt requests en responses over dezelfde TCP connectie. Voor deze reden, wordt er gezegd dat HTTP zijn controle informatie in-band stuurt.
+Bij FTP opent de client een connectie op server poort 21. Hierover komt alle controle informatie. Deze connectie blijft open. Als de client verschillende bestanden wilt verplaatsen, gaat er voor bestand een nieuwe TCP connectie opgezet worden en gesloten wanneer de overdracht volledig is.
+Doorheen een sessie, moet de FTP server de status van de gebruiker onderhouden. De server moet de controle connectie met een specifieke gebruikers account kunnen linken, en de server moet bijhouden van de huidige directory waar de gebruiker inzit. Om deze informatie bij te houden voor elke sessie, beperkt het aantal sessies dat een FTP tegelijk kan onderhouden.
+
+\subsubsection{FTP commando’s en antwoorden}
+
+De commando’s van de client naar server, en antwoorden van server naar client zijn verzonden door de controle connectie in een 7 bit ASCII formaat. Dus dit is ook leesbaar voor mensen. Elk commando bestaat uit vier hoofdletter ASCII tekens, sommige met extra argumenten. Sommige van de meest gebruikte commando’s:
+\begin{itemize}
+   \item USER username: gebruikt om de gebruikers identificatie naar de server te sturen
+\item PASS password: gebruikt om het wachtwoord naar de server te sturen
+\item LIST: een lijst van alle files terug te sturen van de huidige remote directory.
+\item RETR filename: gebruikt om een bestand van de huidige directory van de remote host op te halen.
+\item STOR filename: gebruikt om een bestand in de huidige directory van de remote host te stoppen.
+\end{itemize}
+

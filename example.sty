@@ -1,0 +1,153 @@
+\ProvidesPackage{example}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage[dutch, english]{babel}
+\usepackage{graphicx} %package to use images in the document
+\usepackage{blindtext}
+\usepackage{upgreek}
+\usepackage{textcomp}
+\usepackage{pgfplots}
+\usepackage{lastpage} %package voor paginanummering
+%\usepackage[colorlinks]{hyperref} % by simply importing the hyperref package all cross-referenced elements become hyperlinked.
+
+%colorlinks maakt de links in een color zichtbaar
+
+\usepackage[hidelinks]{hyperref} % by simply importing the hyperref package all cross-referenced elements become hyperlinked.
+
+%\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage[a4paper, total={7in, 9.5in}]{geometry}
+
+
+\newcounter{saveenumerate}
+\makeatletter
+\newcommand{\enumeratext}[1]{%
+\setcounter{saveenumerate}{\value{enum\romannumeral\the\@enumdepth}}
+\end{enumerate}
+#1
+\begin{enumerate}
+\setcounter{enum\romannumeral\the\@enumdepth}{\value{saveenumerate}}%
+}
+\makeatother
+
+
+
+\usepackage{titlesec}
+
+\titleclass{\subsubsubsection}{straight}[\subsection]
+
+\newcounter{subsubsubsection}[subsubsection]
+\renewcommand\thesubsubsubsection{\thesubsubsection.\arabic{subsubsubsection}}
+\renewcommand\theparagraph{\thesubsubsubsection.\arabic{paragraph}} % optional; useful if paragraphs are to be numbered
+
+\titleformat{\subsubsubsection}
+  {\normalfont\normalsize\bfseries}{\thesubsubsubsection}{1em}{}
+\titlespacing*{\subsubsubsection}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\makeatletter
+\renewcommand\paragraph{\@startsection{paragraph}{5}{\z@}%
+  {3.25ex \@plus1ex \@minus.2ex}%
+  {-1em}%
+  {\normalfont\normalsize\bfseries}}
+\renewcommand\subparagraph{\@startsection{subparagraph}{6}{\parindent}%
+  {3.25ex \@plus1ex \@minus .2ex}%
+  {-1em}%
+  {\normalfont\normalsize\bfseries}}
+\def\toclevel@subsubsubsection{4}
+\def\toclevel@paragraph{5}
+\def\toclevel@paragraph{6}
+\def\l@subsubsubsection{\@dottedtocline{4}{7em}{4em}}
+\def\l@paragraph{\@dottedtocline{5}{10em}{5em}}
+\def\l@subparagraph{\@dottedtocline{6}{14em}{6em}}
+\makeatother
+
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+\newcommand{\sectionbreak}{\clearpage}
+\newcommand{\subsectionbreak}{\clearpage}
+
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=*}
+
+\usepackage[acronym, toc]{glossaries}%maak definitielijst
+% Load the package
+% glossary
+%\usepackage{glossaries}
+\import{./}{glossary.tex}
+%\import{glossary}
+\makeglossaries
+
+\pgfplotsset{width=10cm,compat=1.9}
+
+\def\labelitemi{--}
+
+
+%Header styles
+\usepackage{fancyhdr}
+\setlength{\headheight}{15pt}
+\pagestyle{fancy}
+\renewcommand{\sectionmark}[1]{\markright{#1}{}}
+%The command \fancyhf{} clears the header and footer, otherwise the elements of the default "plain" page style will appear.
+\fancyhf{}
+%Prints the text included inside the braces on the right side of the header.
+%\fancyhead[RE]{\textbf{\textit{\nouppercase{\leftmark}}}}
+\fancyhead[RH]{Filip Vanden Eynde}
+
+\fancyhead[LO]{\textbf{\textit{\nouppercase{\rightmark}}}}
+\fancyfoot[RF]{Page \thepage \hspace{1pt} of \pageref{LastPage}}
+\renewcommand{\footrulewidth}{1pt}
+
+\fancypagestyle{plain}{ %
+\fancyhf{} % remove everything
+\renewcommand{\headrulewidth}{0pt}} % remove lines as well
+%\renewcommand{\footrulewidth}{1pt}}
+
+%makes available the commands \proof, \qedsymbol and \theoremstyle
+\usepackage{amsthm}
+
+%Ruler
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+%Lemma definition and lemma counter
+\newtheorem{lemma}{Lemma}[section]
+
+%Definition counter
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+%Corolary counter
+\newtheorem{corolary}{Corolary}[section]
+
+%Commands for naturals, integers, topology, hull, Ball, Disc, Dimension, boundary and a few more
+\newcommand{\E}{{\mathcal{E}}}
+\newcommand{\F}{{\mathcal{F}}}
+\newcommand{\T}{{\mathcal{T}}}
+\newcommand{\Bs}{{\mathcal{B}}}
+\newcommand{\R}{{\mathbb{R}}}
+\newcommand{\Q}{{\mathbb{Q}}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\Nt}{{\mathbb{N}}}
+\newcommand{\B}{{\mathbf{B}}}
+\renewcommand{\S}{{\mathbf{S}}}
+\newcommand{\K}{{\mathfrak{C}}}
+\newcommand{\N}{{\mathfrak{N}}}
+\newcommand{\I}{{\mathbf{I}}}
+\newcommand{\dime}{{\rm dim}\,}
+\newcommand{\est}{{\rm Est}\,}
+\newcommand{\inte}{{\rm int}\,}
+\newcommand{\conv}{{\rm conv}\,}
+\renewcommand{\max}{{\rm sup\,}}
+\newcommand{\diam}{{\rm di\acute{a}m\,}}
+\newcommand{\leyenda}[1]{\caption{{\small \textsf{#1}}}}
+\renewcommand{\inf}{{\rm \acute{i}nf}\,}
+
+%Example cenvironment
+\theoremstyle{remark}
+\newtheorem{examle}{Example}
+
+%Example counter
+\newcommand{\reiniciar}{\setcounter{example}{0}}

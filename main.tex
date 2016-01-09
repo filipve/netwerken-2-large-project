@@ -1,0 +1,77 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{import}
+\usepackage{example}
+
+\usepackage{makeidx}
+
+\usepackage{showidx} %It prints out all index entries in the left margin of the text.
+\usepackage{palatino} 
+ %\usepackage{fontspec}
+ %\setmainfont{palatino}
+ 
+\makeindex
+
+\begin{document}
+
+\import{./}{title.tex}
+
+\clearpage
+\thispagestyle{empty}
+
+\tableofcontents
+
+\clearpage
+
+
+
+%hoofdstuk 2
+\setcounter{section}{1}
+\section{Applicatie laag}
+\import{hoofdstuk2sections/}{deel2-1.tex}
+\import{hoofdstuk2sections/}{deel2-2.tex}
+\import{hoofdstuk2sections/}{deel2-3.tex}
+\import{hoofdstuk2sections/}{deel2-4.tex}
+\import{hoofdstuk2sections/}{deel2-5.tex}
+\import{hoofdstuk2sections/}{deel2-examenvragen.tex}
+
+%hoofdstuk 7
+\setcounter{section}{6}
+\section{Multimedia netwerken}
+\import{hoofdstuk7sections/}{deel7-1.tex}
+\import{hoofdstuk7sections/}{deel7-2.tex}
+\import{hoofdstuk7sections/}{deel7-3.tex}
+\import{hoofdstuk7sections/}{deel7-4.tex}
+\import{hoofdstuk7sections/}{deel7-5.tex}
+\import{hoofdstuk7sections/}{deel7-examenvragen.tex}
+
+%hoofdstuk 8
+\setcounter{section}{7}
+\section{Beveiliging in computernetwerken}
+\import{hoofdstuk8sections/}{deel8-1.tex}
+\import{hoofdstuk8sections/}{deel8-2.tex}
+\import{hoofdstuk8sections/}{deel8-3.tex}
+\import{hoofdstuk8sections/}{deel8-4.tex}
+\import{hoofdstuk8sections/}{deel8-5.tex}
+\import{hoofdstuk8sections/}{deel8-6.tex}
+\import{hoofdstuk8sections/}{deel8-7.tex}
+\import{hoofdstuk8sections/}{deel8-8.tex}
+\import{hoofdstuk8sections/}{deel8-examenvragen.tex}
+
+\clearpage
+
+%The \texttt{glossaries} package automatically generates a list of glossary entries. It's great for keeping track of your \gls{domain-knowledge} and \glspl{tla}. In this example we've put the glossary definitions in a separate \texttt{glossary.tex} file, which you can edit via the project menu.
+
+%The \Gls{latex} typesetting markup language is specially suitable 
+for documents that include \gls{maths}. \Glspl{formula} are 
+rendered properly an easily once one gets used to the commands.
+ 
+%Given a set of numbers, there are elementary methods to compute 
+its \acrlong{gcd}, which is abbreviated \acrshort{gcd}. This 
+process is similar to that used for the \acrfull{lcm}.
+
+\printglossaries
+
+\clearpage
+%\import{./}{bibliography.tex}
+
+\end{document}

@@ -1,0 +1,68 @@
+\subsection{Multimedia netwerk applicaties}
+
+\subsubsection{Eigenschappen van video}
+
+Het meest opvallende kenmerk van video is zijn hoge bit ratio. Video die verdeeld worden bedragen tussen 100 kbs en 3 Mbs. Dus als we netwerk voor video applicaties willen ontwikkelen, moeten we de hoge bit ratio eis in gedachte houden. Een ander belangrijk kenmerk van video is dat het gecompresseerd kan worden, dus een compromis tussen kwaliteit en snelheid. Een video is een opeenvolging van beelden die op een constante snelheid afgespeeld worden. Een ongecomprimeerde digitaal gecodeerde afbeelding bestaat uit arrays van pixels die gecodeerd zijn in een aantal bits om helderheid en kleur te vertegenwoordigen. Er zijn twee types van overtolligheid in video die beide benut kunnen worden door video compressie.
+
+Spatial redundancy is de overtolligheid binnen een gegeven beeld. Een afbeelding die vooral bestaat uit wit ruimte heeft een hoge graad van overtolligheid en kan makkelijk gecompreseerd worden zonder al te veel kwaliteit op te geven.
+
+Temporal redundancy weerspiegelt herhaling van een beeld op het volgende beeld. Wanneer opeenvolgende beelden hetzelfde zijn, is er geen reden om het volgende beeld de coderen. Het is efficiënter om tijdens de codering aan te geven dat het beeld hetzelfde is.
+Vandaag de dag hebben we compressie algoritmes die een video naar een gewenste bit ratio kan omzetten. Hoe hoger de bit ratio, hoe beter de kwaliteit.
+
+We kunnen compressie ook gebruiken om verschillende versies van dezelfde video te maken, elk op een ander kwaliteit niveau. Zo kan de gebruiker kiezen welke versie ze willen in functie van hun huidige beschikbare bandbreedte.
+
+\clearpage
+
+\subsubsection{Eigenschappen van geluid}
+
+Digitaal geluid heeft een aanzienlijk lagere bandbreedte eisen dan video. Maar ook digitaal geluid heeft zijn kenmerken, maar eerst gaan we kijken hoe analoog geluid naar digitaal geluid converteren.
+\begin{itemize}
+\item Het analoog geluids signaal wordt gesampled op een vast grootte, bv 8000 samples per seconde. De waarde van elk sample is een willekeurig reëel getal.
+\item Elk van de smaples is vervolgens afgerond naar één van een eindig aantal waarden. Deze handeling wordt quantization (kwantisatie) genoemd. Het getal van zo’n eindige waarde is typisch een macht van twee. Bv 256 kwantisatie waarden.
+\item Elk van de kwantisatie waarden wordt voorgesteld door een vast aantal bits. Als er 256 waarden zijn, dan is elke waarde gepresentateerd door een byte. De bit representaties van alle samples worden dan samengevoeg om de digitale representatatie te vormen van het signaal.
+\end{itemize}
+Bv. Een analoog geluids signaal die gesampled is op 8 000 samples per seconde en elke sample wordt gekwantiseerd  en gerepresentateerd door 8 bits, dan zal het digitaal resultaat een ratio van 64 000 bits per seconde hebben.
+Om dit af te spelen, moet het signaal terug geconverteerd worden naar een analoog signaal. Het gedecodeerde analoog signaal is enkel een benadering van het originele signaal, en de kwaliteit van het geluid kan merkbaar verslechterd zijn. Door de sampling ratio te verhogen kan men een betere benadering van het origineel analoog geluid verkrijgen.
+Dus ook is hier net zoals bij video een compromis tussen qualiteit en de opslag eisen van het digitaal signaal.
+
+De basis coderings techniek die hierboven beschreven is wordt de pulse code modulation (PCM) genoemd. Spraakcodering gebruikt vaak PCM met een sample ratio van 8 000 samples per seconde en 8 bits per sample, wat dus resulteert in 64 kbps. De geluid CD gebruikt ook PCM met een sampling ratio van 44 100 samples per seconde en 16 bits per sample, resulteert in 705.6 kbps voor mono en 1.411 Mbps voor stereo.
+PCM gecodeerde spraak en geluid wordt nauwelijks gebruikt in het internet. In plaats daarvan worden compressie technieken gebruikt om de bit ratios van de stream te verminderen. Een populaire compressie techniek voor bijna CD sterio muziek kwaliteit is MPEG 1 layer 3, beter bekend als MP3. MP3 codeerders kunnen naar verschillende ratio’s compreseren. 128 kbps is de meest algemene coderings ratio en produceert heel weinig geluid degradatie. Een gerelateerde standaard is Advanced Audio Coding (AAC), welke gepopulariseerd is door Apple. Hoewel audio bit ratios algemeen veel minder zijn dan die van video, zijn gebruikers meer gevoeliger aan geluidsstoringen dan aan video storingen.
+
+\clearpage
+
+\subsubsection{Types van multimedia netwerk applicaties}
+
+\subsubsubsection{Opgeslagen geluid en video streamen}
+
+De vooropgenomen videos zijn op servers geplaatst, en gebruikers zenden verzoeken naar de servers om de video’s op aanvraag te kijken. Opgeslagen video streamen heeft drie belangrijke onderscheidende kenmerken:
+\begin{itemize}
+\item Streaming: In een opgeslagen video applicatie, begint de client met het afspelen van de video na een paar seconden na dat het de video van de server krijgt. Dit betekent dat de client van een bepaalde locatie van de video gaat afspelen en op het zelfde moment latere delen van de video van de server krijgt. Deze techniek is beter bekend als streaming. Dit vermijdt om de hele video bestand te downloaden voordat het afspelen begint.
+\item Interactiviteit: Omdat de media opgenomen is, kan de gebruiker pauseren, vooruit of achteruit spoelen doorheen de inhoud van de video. De tijd van wanneer de gebruiker zo’n verzoek maakt tot dat de actie tot uiting komt moet binnen een paar seconden zijn voor acceptabele responsiviteit.
+\item Continue afspeling: Eenmaal dat de video begint te spelen, zou het moeten doorgeen overeenkomstig met de timing van de originele opname. Hierdoor moet de data die verkregen wordt van de server op tijd aankomen om afgespeeld te worden bij de client. Anders gaan gebruikers video frame freezing of skipping ervaren.
+\end{itemize}
+De belangrijkste prestatiemaatstaf voor het streamen van video is de gemiddelde doorvoersnelheid. Om continue afspeling te voorzien, moet het netwerk een gemiddelde doorvoersnelheid voor de streaming applicatie voorzien die minstens even groot is als de bit ratio van de video zelf.
+Voor veel video streaming applicatie zijn opgenomen video’s opgeslagen en gestreamed van een CDN (Content Delivery Network) in plaats van een enkele data center. Er zijn ook veel P2P video streaming applicaties waarbij de video opgeslagen is op de gebruikers hosts (peers), met verschillende stukken van video’s die aankomen van verschillende peers die de wereld kunnen verspreiden.
+
+\clearpage
+
+\subsubsubsection{Voice- en Video-over-IP conversatie}
+
+Live spraak conversaties over het internet worden vaak internet telephony genoemd, omdat vanuit het standpunt van de gebruiker, is het gelijkend op de traditionele telefoon dienst. Het wordt ook Voice over-IP genoemd. 
+
+Video conversaties zijn gelijk, enkel wordt er de video van de deelnemers en hun stem toegevoegd. Twee assen (timing overwegen en tolerantie van dataverlies) zijn zeer belangrijk omdat audio en geluids conversatie applicaties een hoge vertragingsgevoeligheid hebben. 
+
+Bij een conversatie is het toegelaten een stem vertraging te hebben van minder dan 400 miliseconden. 
+
+Als dit meer is kan dit leiden tot frustratie of compleet onverstaanbare conversaties. Aan de andere kant zijn conversatie applicatie loss-tolerant. 
+
+Een occasioneel verlies veroorzaakt enkel een storing in audio/video en deze verliezen kunnen meestal gedeeltelijk of helemaal verborgen worden.
+
+Elastische data applicaties is een vertraging minder erg omdat dit geen kwaad doet. De volledigheid en integriteit van de verstuurde data zijn van allergroots belang.
+
+\subsubsubsection{Live streamen van audio en video}
+
+Deze applicaties laten een gebruiker toe om een live radio of televisie transmissie te ontvangen. 
+
+Live applications hebben meestal veel gebruikers die dezelfe audio/video programma krijgen op het zelfde moment. 
+
+Alhoewel de distributie van live audio/video naar veel ontvangers effeciënt bereikt kan worden door gebruik te maken van IP multicasting, wordt multicast distributie vaker bereikt via de applicatie laag multicast ( gebruik makend van P2P netwerken of CDNs) of via meerdere afgescheide unicast streams.

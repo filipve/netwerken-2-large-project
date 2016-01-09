@@ -1,0 +1,76 @@
+\subsection{Bericht integriteit en digitale handtekening}
+\subsubsection{Cryptografische hash functies}
+
+Een hashfunctie neemt een invoer, m, en berekent een vaste string grootte H(m). Een cryptografische hash functie is noodzakelijk om de volgende functionaliteit te hebben:
+\begin{itemize}
+\item Het is rekenkundig onmogelijk om twee verschillende berichten x en y te vinden zodat H(x) = H(y).
+\end{itemize}
+Dit betekent dat het rekenkundig onmogelijk is voor een indringer om een bericht te vervangen met een ander bericht die beschermd is door de hash functie. Dat is als (m, H(m)) het bericht en hash zijn van het bericht die gecreerd is door de zender. Dan kan de indringer de inhoud van een ander bericht y niet vervalsen, dat dezelfde hash waarde heeft als het originele bericht.
+Een simple checksum zoals de Internet checksum, zou een zwakke cryptografische hash functie zijn. Het is hier mogelijk om dezelfde checksum te bekomen met een verschillend bericht. Dit komt onze voorwaarde niet na. We gaan een andere krachtigere functie nodig hebben.
+\\\\
+De MD5 hash algoritme berekent een 128 bit hash in een vier-stappen proces bestaande uit een aanvullende-stap (aanvullen van nullen zodat de lengte van het bericht aan bepaalde condities voldoet), een toevoegings-stap (toevoeging van een 64 bit representatie van de lengte van het bericht), een initialisatie van een accumulator, en een laatste lus-stap waarin het bericht van 16-woorden blokken verwerkt zijn in vier rondes.
+\\\\
+Een tweede grootte hash algoritme is de Secure Hash Algoritme SHA-1. Dit algoritme is gebaseerd op de gelijkende principes die gebruikt werden bij MD4. Dit algoritme genereert een 160 bit bericht-samenvatting.
+
+\clearpage
+
+\subsubsection{Bericht authenticatie code}
+
+Laten we een eerste gooi doen naar hoe we bericht integriteit kunnen uitvoeren:
+\begin{enumerate}
+    \item De zender maakt een bericht m en berekent de hash H(m).
+     \item De zender maakt H(m) vast aan het bericht door een uitgebreid bericht te maken (m, H(m)), en verzend deze naar de ontvanger.
+ \item De ontvanger krijgt het uitgebreide bericht (m, h) en berekent H(m). Als H(m) = h, kan de ontvanger concluderen dat alles inorde is.
+\end{enumerate}
+Deze benadering is uiteraard gebrekkig. Een indringer kan een vals bericht m´ maken waarin deze zegt dat hij de zender is, H(m´) berekent en naar de ontvanger stuurt. Wanneer de ontvanger het bericht krijgt, gaat alles in orde zijn en zal de ontvanger niets vermoeden.
+\\\\
+Om bericht integriteit uit te voeren, naast het gebruik van cryptografische hash functies, hebben de zender en ontvanger een gedeelde geheime s nodig. Dit gedeeld geheim, is niets meer dan een string van bits die de authenticatie sleutel wordt genoemd. Het gebruik van dit gedeelde geheim, kan bericht integriteit uitgevoerd worden als volgt:
+\begin{enumerate}
+    \item De verzender maakt een bericht m en voegt s met m om m + s te maken, en berekent de hash H(m + s). Dit wordt de Message Authentication Code (MAC) genoemd.
+    \item De verzender voegt de MAC toe aan het bericht m door een uitgebreid bericht te maken (m, H(m + s)), en verzend deze naar de ontvanger.
+    \item De ontvanger krijgt het uitgebreide bericht (m, h) and al wetend van s, berekent hij de MAC H(m + s). Als H(m + s) = h kan de ontvanger concluderen dat alles in orde is.
+\end{enumerate}
+Een leuk kenmerk van een MAC is dat er geen nood is aan encryptie algoritme. Door gebruik te maken van MAC, kunnen de entiteiten de berichten authenticeren die ze naar elkaar sturen zonder het integreren van een complexe encryptie algoritme.
+Er blijft nochtans een belangrijke gebrekking. Hoe kunnen we de gedeelde authenticatie sleutel verdelen naar de communicerende entiteiten?
+
+\clearpage
+
+\subsubsection{Digitale handtekening}
+
+\includegraphics[width=7in]{./img/imghfdst8/hfdst8puntje7.png}\\[1cm]
+
+Net zoals handgeschreven handtekening, zouden digitale handtekeningen op manier gedaan worden dat controleerbaar en niet vervalsbaar is. Het moet mogelijk zijn om te bewijzen dat een document getekend door een individu ook degelijk getekend is door die individu en dat enkel die individu dat documenten heeft kunnen tekenen.
+Wanneer de verzender een bericht tekend, dan moet de verzender iets plaatsen op het bericht dat uniek is voor hem alleen. 
+
+De verzender kan overwegen om een MAC toe te voegen als ondertekening, waar de MAC is gemaakt door het toevoegen van zijn sleutel (die uniek is voor hem) aan het bericht, en dan de hash te nemen. Maar voordat de ontvanger de ondertekening kan verifïeren, heeft ze ook een kopie nodig van de sleutel. In dit geval zou de sleutel niet meer uniek zijn voor enkel de verzender. MAC’s zijn dus geen oplossing.
+
+Dit kan opgelost worden met de publieke en prive sleutels van de zender. Want deze zijn uniek voor hem. Bob wilt een een document m digitaal handtekenen. Bob maakt gebruik van zijn prive sleutel $K^-$
+om $K^-$(m) te bereken.
+Voldoet de digitale handtekening $K^-$(m) aan de vereisten van verifieerbaar en niet vervalsbaar te zijn? Wanneer we de publieke sleutel van Bob erbij pakken en toevoegen bij de digitale handtekening $K^-$(m), geassocieerd met het document m. Als $K^+$($K^-$(m)) berekent komt men m uit. Volgende argumenten wijzen dat enkel Bob het document heeft kunnen tekenen:
+
+\begin{itemize}
+\item Wie ook het bericht heeft ondertekend, had de prive sleutel $K^-$ om zo de handtekening K—(m) te berekenen, zodat $K^+$($K^-$(m)) = m.
+\item De enige persoon die de privé sleutel kende is Bob.
+\end{itemize}
+Het is ook belangrijk op te merken dat het originele document m, nooit is aangepast naar een andere vorm m´. De handtekening die Bob heeft gemaakt voor m, gaat niet geldig zijn voor m´. We zien dus dat digitale handtekening ook zorgen voor bericht integriteit.
+Een zorg bij het tekenen van data door encryptie is dat encryptie en decryptie zijn computationeel duur. Een efficiëntere benadering is om hash functies te introduceren in de digitale handtekening. Bob tekent de hash van een bericht, in plaats van het bericht zelf, dat is $K^{-}(H(m))$. Sinds H(m) algemeen veel kleiner is, wordt de computationele inspanning om een digitale handtekening te maken aanzienlijk gereduceerd.
+
+Bob verstuurt een bericht naar Alice. Bob zet zijn bericht in een hash functie en handtekend deze hash daarna digitaal met zijn privé sleutel. Het originele bericht samen met de digitale gehandtekend bericht wordt verzonden naar Alice. Alice voegt de publieke sleutel toe aan het bericht om zo het hash resultaat de krijgen. Alice voert de hash functie uit op de cleartext om een tweede hash resultaat te bekomen. Als deze twee gelijk zijn, kan Alice zeker zijn van de integriteit en auteur van het bericht.
+
+Een digitale handtekening is dus een “zwaardere” techniek, omdat het een onderliggende Public Key Infrastructure (PKI) met certificaten autoriteiten (CA) nodig heeft.
+
+\subsubsubsection{Publieke sleutel certificatie}
+
+Een belangrijke toepassing bij digitale handtekeningen is de Publieke Sleutel Certificatie. Zij certificeren dat een publieke sleutel bij een specifieke entiteit hoort.
+
+Om te zorgen dat publieke sleutel cryptografie nutig te laten zijn, dat je de mogelijkheid moeten hebben om te controleren dat je wel degelijk de publieke sleutel hebt van de entiteit waarmee je wilt communiceren. Het binden van een publieke sleutel aan een zekere entiteit wordt typisch gedaan door een Certificatie Autoriteit (CA), wiens job is om de identiteit te vallideren en afgifte van de certificaten te doen. Een CA heeft volgende functies:
+\begin{itemize}
+\item Een CA verifieert dat een entiteit is wie hij zegt dat hij is. Als het gaat om een CA, moet men erop vertrouwen dat de CA een voldoende strenge identiteitscontrole hebben uitgevoerd. Je kan enkel de identiteit geassocieerd met de publieke sleutel vertrouwen voorzover je de CA kan vertrouwen in zijn identiteit validatie technieken. (Web of trust)
+\item Eenmaal dat de CA de identiteit van een entiteit verifiëerd, maakt de CA een certificaat die gebonden wordt de publieke sleutel van de entiteit aan de identiteit. Het certificaat bevat de publieke sleutel en globaal unieke identificerende eigenschappen over de eigenaar (zoals menselijk naam, IP adres, ...). Het certificaat is digitaal getekend door de CA.
+\end{itemize}
+
+\includegraphics[width=7in]{./img/imghfdst8/hfdst8puntje11.png}\\[1cm]
+
+
+
+\includegraphics[width=7in]{./img/imghfdst8/hfdst8puntje12.png}\\[1cm]
