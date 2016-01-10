@@ -31,6 +31,8 @@
 \itf Betrouwbaarheid (ESP)
 \ee
 
+\newpage
+
 \noindent Van IPv4-datagram naar IPsec-datagram:
 
 \be
@@ -62,9 +64,11 @@
 
 \noindent De IPsec header dient om de IPsec te verwerken. De payload van de IPsec datagram is geëncrypteerd. Wanneer de IPsec datagram op zijn bestemming arriveert, gaat het OS de payload decrypteren en geeft de ongecrypteerde payload naar een hogere laag protocol.
 
+\newpage
+
 \subsubsection{De AH en ESP protocollen}
 
-In de IPsec protocol suite zijn er twee hoofd protocollen: de \textbf{\acrfull{ah} protocol} en de \textbf{\acrfull{esp}} protocol. Wanneer een bron IPsec entiteit (meestal een host of router) beveiligde datagrammen stuurt naar bestemmings-entiteit (ook een host of router), doet hij dit met ofwel de AH protocol of ESP protocol.
+\noindent In de IPsec protocol suite zijn er twee hoofd protocollen: de \textbf{\acrfull{ah} protocol} en de \textbf{\acrfull{esp}} protocol. Wanneer een bron IPsec entiteit (meestal een host of router) beveiligde datagrammen stuurt naar bestemmings-entiteit (ook een host of router), doet hij dit met ofwel de AH protocol of ESP protocol.
 
 \noindent De \textbf{AH protocol} voorziet bron authenticatie en data integriteit maar geen confidentialiteit.
 
@@ -95,11 +99,11 @@ In de IPsec protocol suite zijn er twee hoofd protocollen: de \textbf{\acrfull{a
 \noindent Wanneer bijvoorbeeld een router een IPsec datagram moet maken om de SA door te sturen, gaat het kijken in de staat informatie om te bepalen hoe hij de datagram zou moeten authenticeren en encrypteren.
 Een IPsec entiteit bewaart de staat informatie over al zijn SA’s in zijn \acrfull{sad}, wat een data structuur is in de OS kernel entiteit.
 
-
+\newpage
 
 \subsubsection{De IPsec Datagram}
 
-De IPsec heeft twee verschillende pakket vormen, één voor de zo genoemde tunnel mode en de andere voor de zo genoemde \textbf{transport mode (host mode)}. De \textbf{tunnel mode} is meer toepasselijk voor VPNs en wordt meer gebruikt dan de transport mode.
+\noindent De IPsec heeft twee verschillende pakket vormen, één voor de zo genoemde tunnel mode en de andere voor de zo genoemde \textbf{transport mode (host mode)}. De \textbf{tunnel mode} is meer toepasselijk voor VPNs en wordt meer gebruikt dan de transport mode.
 
 \noindent Een router krijgt een gewoon IPv4 datagram en gaat het volgende doen om dit IPv4 datagram om te vormen naar een IPsec datagram:
 \begin{itemize}
@@ -128,7 +132,7 @@ De IPsec heeft twee verschillende pakket vormen, één voor de zo genoemde tunne
 \item Berekent hierna de MAC van de enchilada en controleert dat deze MAC consistent is met de waarde in de ESP MAC veld
 \item Controleert de sequentie nummer veld om na te gaan of de datagram wel vers is
 \item Decrypteert de eenheid met het decryptie algoritme en sleutel die geassocieerd zijn met de SA
-\item Verwijderd alle padding en haalt het originele IP diagram eruit
+\item Verwijdert alle padding en haalt het originele IP diagram eruit
 \item Stuurt het originele datagram door naar zijn ultieme bestemming
 \end{enumerate}
 
@@ -159,11 +163,11 @@ Een indringer zit tussen router 1 en router 2. De indringer kent de authenticati
 
 \noindent IPsec gaat dus nog verder dan SSL.
 
-
+\newpage
 
 \subsubsection{IKE: Sleutel beheer in IPsec}
 
-\textbf{\acrfull{ike}:} geautomatiseerd mechanisme voor het maken van beveiligingsassociaties.
+\noindent \textbf{\acrfull{ike}:} geautomatiseerd mechanisme voor het maken van beveiligingsassociaties.
 
 \noindent Om bij alle routers en hosts de SA informatie toe te voegen, is er een geautomatiseerde mechanisme nodig om de SA’s te creëren. IPsec doet dit met de Internet Key Exchange (IKE) protocol. IKE heeft gelijkenissen met de handshake in SSL. Elke IPsec entiteit heeft een certificaat, die de publieke sleutel van de entiteit bevat. Zoals met SSL, heeft het IKE protocol twee uitwissel entiteiten certificaten, onderhandelen van authenticatie en encryptie algoritmes, en veilig uitwisselen van sleutel materiaal voor het creëren van sessie sleutels in de IPsec SA’s.
 IKE heeft twee fasen om deze taken uit te voeren. De eerste fase bestaat uit twee uitwisselingen van berichten paren tussen R1 en R2:

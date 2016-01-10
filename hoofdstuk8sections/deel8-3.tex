@@ -10,6 +10,8 @@ Een hashfunctie neemt een invoer, m, en berekent een vaste string grootte H(m). 
 
 \noindent Een \textcolor{red}{\textbf{simple checksum}} zoals de Internet checksum, zou een \textbf{zwakke} cryptografische hash functie zijn. Het is hier mogelijk om \textbf{dezelfde} checksum te bekomen met een verschillend bericht. Dit komt onze voorwaarde niet na. We gaan een andere krachtigere functie nodig hebben.
 
+\newpage
+
 \subsubsubsection{Hashfunctie algoritmes}
 
 \bi
@@ -34,11 +36,11 @@ De MD5 hash algoritme berekent een 128 bit hash in een vier-stappen proces besta
     \label{fig:internet checksum }
 \end{figure}
 
-
+\newpage
 
 \subsubsection{Bericht authenticatie code}
 
-Laten we een eerste gooi doen naar hoe we bericht integriteit kunnen uitvoeren:
+\noindent Laten we een eerste gooi doen naar hoe we bericht integriteit kunnen uitvoeren:
 \begin{enumerate}
     \item De zender maakt een bericht m en berekent de hash H(m).
      \item De zender maakt H(m) vast aan het bericht door een uitgebreid bericht te maken (m, H(m)), en verzend deze naar de ontvanger.
@@ -55,11 +57,11 @@ Deze benadering is uiteraard gebrekkig. Een indringer kan een vals bericht m´ m
 Een leuk kenmerk van een MAC is dat er \textbf{geen nood} is aan encryptie algoritme. Door gebruik te maken van MAC, kunnen de entiteiten de berichten authenticeren die ze naar elkaar sturen zonder het integreren van een complexe encryptie algoritme.
 Er blijft nochtans een belangrijke gebrekking. Hoe kunnen we de gedeelde authenticatie sleutel verdelen naar de communicerende entiteiten?
 
-
+\newpage
 
 \subsubsection{Digitale handtekening}
 
-Dit is een cryptografische techniek vergelijkend met een handtekening zetten.
+\noindent Dit is een cryptografische techniek vergelijkend met een handtekening zetten.
 \bi
 \itf De afzender (Bob) signeert het document digital, waarmee hij aantoont dat hij de eigenaarn en maker van het document is. 
 \itf \textcolor{red}{\textbf{Verifieerbaar en niet hermaakbaar:}} de ontvanger (Alice) moet kunnen aantonen aan anderen dat Bob en niemand anders (inclusief Alice) het document gesigneerd heeft.
@@ -95,6 +97,8 @@ Dit is een cryptografische techniek vergelijkend met een handtekening zetten.
 
 \noindent Dit kan opgelost worden met de publieke en privé sleutels van de zender. Want deze zijn uniek voor hem. Bob wilt een een document m digitaal handtekenen. Bob maakt gebruik van zijn privé sleutel $K^-$ om $K^-$(m) te berekenen.
 
+\newpage
+
 \noindent Voldoet de digitale handtekening $K^-$(m) aan de vereisten van verifieerbaar en niet vervalsbaar te zijn? Wanneer we de publieke sleutel van Bob erbij pakken en toevoegen bij de digitale handtekening $K^-$(m), geassocieerd met het document m. Als $K^+$($K^-$(m)) berekent komt men m uit. 
 
 \noindent Volgende argumenten wijzen dat enkel Bob het document heeft kunnen tekenen:
@@ -125,6 +129,8 @@ Een zorg bij het tekenen van data door encryptie is dat encryptie en decryptie z
     \itf het certificaat bevat de openbare sleutel en unieke informatieve over de eigenaar van de openbare sleutel (vb de werkelijke naam of een IP-adres). Dit certificaat wordt digitaal ondertekend door de CA. 
     \ei
 \ei
+
+\newpage
 
 \subsubsubsection{Publieke sleutel certificatie}
 

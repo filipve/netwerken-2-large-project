@@ -58,9 +58,7 @@
 
 \subsubsection{Transport Layer Security = TLS}
 
-\textcolor{red}{\textbf{\acrfull{tls}:}} Een iets gewijzigde versie van SSL
-
-
+\noindent \textcolor{red}{\textbf{\acrfull{tls}:}} Een iets gewijzigde versie van SSL
 
 \subsubsection{Het grote plaatje}
 
@@ -85,7 +83,7 @@
 
 \noindent Wanneer de TCP connectie opgezet is, zend Bob naar Alice een hallo bericht. Alice reageert met haar certificaat, die haar publieke sleutel bevat. Bob genereert vervolgens een Master Secret (MS) die enkel gebruikt gaat worden voor deze SSL sessie, encrypteert de MS met de publieke sleutel van Alice om zo de \textbf{Encrypted Master Secret (EMS)} te maken, en zendt deze dan door naar Alice. Alice decrypteert het EMS met haar prive sleutel. Na deze fase kennen enkel Bob en Alice de MS voor deze SSL sessie.
 
-
+\newpage
 
 \subsubsubsection{Key derivation = het verkrijgen van een sleutel}
 
@@ -108,7 +106,7 @@
 
 De gegevensstream wordt opgesplitst in \textbf{records}. SSL voegt een \textbf{berichtauthenticatiecode} (\textbf{\acrshort{mac}}) toe aan elke record.
 
-$\Rightarrow$ Connection closure: Speciale berichten om de connectie veilig te sluiten.
+\noindent $\Rightarrow$ Connection closure: Speciale berichten om de connectie veilig te sluiten.
 
 \noindent Sinds TCP een byte stream protocol is, zou een natuurlijke benadering voor SSL zijn om de applicatie data on the fly te encrypteren en vervolgens de geëncrypteerde data on the fly door te geven aan TCP. Maar als we dit doen, waar zouden we MAC zetten voor de integriteit check?
 SSL breekt de data stroom in verschillende records, voegt een MAC toe aan elk record voor integriteit controle en encrypteerd vervolgens de record+MAC. Om de MAC te maken voegt Bob de record data met de sleutel MB toe in een hash functie. Om het pakket te encrypteren gebruikt Bob zijn sessie sleutel $E_B$. Dit geëncrypteerde pakket wordt dan doorgestuurd naar TCP voor transport over het internet.
@@ -119,7 +117,7 @@ De gedecrypteerde byte stream gaat niet in de juiste volgerde staan, en zal dus 
 Alice volgt Bob zijn sequentie nummers, wat haar toe laat om de data integriteit met de passende sequentie nummer van een record te controleren.
 Een indringer kan nog altijd heel de communicatie opnieuw afspelen. Oplossing hiervoor is om een \textbf{nonce} te gebruiken.
 
-
+\newpage
 
 \subsubsubsection{SSL record}
 
@@ -135,7 +133,7 @@ De SSL record bestaat uit de volgende velden:
 
 \noindent De eerste 3 velden zijn niet geëncrypteerd. Deze velden tonen aan of de record een handshshake bericht is of een bericht dat applicatie data bevat. Het wordt ook gebruikt om de SSL connectie te sluiten. De lengte is om de SSL records uit de TCP byte stream te krijgen.
 
-
+\newpage
 
 \subsubsection{Een iets completer beeld}
 
@@ -145,7 +143,7 @@ De SSL record bestaat uit de volgende velden:
 
 \noindent Hiernaast zenden Alice en Bob nonces naar elkaar toe, die gebruikt zullen worden voor het aanmaken van de sessiesleutels ($E_B$ , $M_B$ , $E_A$ en $M_A$ ).
 
-Dan de stappen van de echte SSL handshakeprocedure zijn:
+\noindent Dan de stappen van de echte SSL handshakeprocedure zijn:
 
 \begin{enumerate}
 

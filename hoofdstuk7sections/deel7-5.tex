@@ -1,6 +1,7 @@
+\newpage
 \subsection{Netwerk ondersteuning voor multimedia}
 
-Er zijn drie brede benaderingen naar het voorzien van netwerk-niveau ondersteuning voor multimedia applicaties:
+\noindent Er zijn drie brede benaderingen naar het voorzien van netwerk-niveau ondersteuning voor multimedia applicaties:
 \begin{itemize}
     
 \item	Het beste maken van best-effort service. De applicatie niveau mechanismen en infrastructuur can succesvol gebruikt worden in een goed gedimensioneerde netwerk waar pakket verlies en buitensporig end-to-en vertraging nauwelijks voorkomen. Wanneer vragen verhogingen voorspeld zijn, implementeren ISPs extra bandbreedte en wissel capaciteit om door te gaan met het verzekeren van voldoende vertraging en pakket verlies prestaties.
@@ -13,13 +14,17 @@ Er zijn drie brede benaderingen naar het voorzien van netwerk-niveau ondersteuni
 \subsubsection{Dimensioning best-effort netwerken}
 
 \noindent De moeilijkheid in het ondersteunen van multimedia applicaties komt van hun strenge prestatie vereisten en het feit dat pakket vertraging, jitter vertraging en verliezen voorkomen wanneer het netwerk overvol wordt. Een eerste benadering is om de kwaliteit van multimedia applicaties te verbeteren is om simpelweg geld naar het probleem te gooien en dus simpel resource strijd vermijden. In dit geval betekent dit om voldoende link capaciteit te voorzien doorheen het netwerk zodat netwerk opstopping nooit kan voorkomen. Met voldoende link capaciteit, kunnen pakketten ritsen doorheen internet zonder vertraging of verlies.
-De vraag van hoeveel capaciteit te voorzien op netwerk linken in een gegeven topologie om een bepaald niveau of prestatie te bereiken is beter bekend als bandbreedte voorziening. De meer gecompliceerde probleem van hoe een netwerk topologie te ontwerpen om een bepaalde niveau van end-to-end prestatie te bereiken is een netwerk ontwerp probleem die gerefereerd wordt als netwerk dimensionering. Volgende problemen moeten worden aangepakt om een applicatie niveau prestatie te voorspellen tussen twee netwerk eind punten, en dus voldoende capaciteit te voorzien om aan de applicaties prestatie vereisten te komen.
+
+\noindent De vraag van hoeveel capaciteit te voorzien op netwerk linken in een gegeven topologie om een bepaald niveau of prestatie te bereiken is beter bekend als bandbreedte voorziening. De meer gecompliceerde probleem van hoe een netwerk topologie te ontwerpen om een bepaalde niveau van end-to-end prestatie te bereiken is een netwerk ontwerp probleem die gerefereerd wordt als netwerk dimensionering. Volgende problemen moeten worden aangepakt om een applicatie niveau prestatie te voorspellen tussen twee netwerk eind punten, en dus voldoende capaciteit te voorzien om aan de applicaties prestatie vereisten te komen.
 \begin{itemize}
 
 \item	\textit{Modellen van trafiek vraag tussen netwerk eind punten.} Modellen zijn nodig om gespecificeerd te zijn aan zowel de oproep niveau als op het pakket niveau.  De werklast kan veranderen over tijd.
 \item	\textit{Goed gedefinieerde prestatie vereisten.}
 \item	Modellen om end-to-end prestatie voor een gegeven werklast model te voorspellen, en technieken om een minimale kost van bandbreedte toewijzing te vinden dat zal resulteren in het bereiken van alle gebruikers vereisten.
 \end{itemize}
+
+\newpage
+
 \subsubsubsection{Voorzien van meerdere dienst klassen}
 
 \noindent In de IPv4 header is er een Type-of-Service (ToS) veld. Deze voorziet een indicatie van de abstracte paramters van de gewenste service kwaliteit. Deze parameters worden gebruikt om de selectie van de eigenlijke dienst parameters te begeleiden wanneer een datagram verzonden wordt door een bepaald netwerk. Verschillende netwerken bieden dienst voorrang aan, die op een bepaalde manier hoge voorrangsverkeer als belangrijker behandeld dan ander verkeer.
@@ -37,18 +42,16 @@ Hoe kunnen we dit oplossen? Gegeven is dat de HTTP applicatie geen tijd beperkin
 
 \noindent Veronderstel dat de router geconfigureerd is om prioriteit te geven aan paketten die behoren tot de 1 Mbps audio applicatie. Dan is er nog 0.5 Mbps over om HTTP pakketten te sturen met een lagere prioriteit. Maar wat als de audio applicatie pakketten begint te sturen aan ratio die hoger is dan 1.5 Mbps. In dit geval zullen de HTTP uithongeren. Gelijkaardige problemen zullen voorkomen als meerdere applicaties met allemaal dezelfde klasse de link zijn bandbreedte delen. Ze kunnen gezamelijk de FTP sessie uithongeren. Idealeriteit willen we een graad van isolatie tussen verkeers klasses zo dat een klasse beschermd kan worden van een ander. Deze bescherming kan op verschillende plaatsen binnen het netwerk geïmplementeerd worden.
 
-
-
-\noindent \noindent\textbf{Inzicht 2:} Het is wenselijk om een graad van verkeer isolatie te voorzien tussen klasses, zodat een klasse niet nadelig beïnvloed wordt door een andere klasse die zich misdraagt.
+\noindent\textbf{Inzicht 2:} Het is wenselijk om een \textbf{graad van verkeer isolatie} te voorzien tussen klasses, zodat een klasse niet nadelig beïnvloed wordt door een andere klasse die zich misdraagt.
 
 \noindent Het is mogelijk om traffic policing te doen. Als een verkeer klasse of stroom een bepaalde criteria bereikt, dan kan een policing mechanisme kan in plaats gebracht worden om er voor te zorgen dat deze criteria daad werkelijk opgevolgd worden. Als een gepoliceerde applicatie zich misdraagt, zal het mechanisme een actie ondernemen zodat het verkeer die het netwerk binnen gaan voldoen aan de criteria. 
 \noindent De leaky bucket mechanisme is misschien de meest gebruikte policing mechanisme.
 
+\newpage
+
 \noindent Een complementaire benadering is voor de link niveau pakket scheduling mechanisme om expliciet een vaste hoeveelheid bandbreedte aan elke klasse toe te wijzen. Met de strikte handhaving van de link-niveau toewijzing van bandbreedte, kan een klasse enkel de hoeveel bandbreedte die het gekregen heeft gebruiken. Het kan geen bandbreedte gebruiken die op dit moment niet door anderen gebruikt wordt. Sinds dat bandbreedte een “gebruik het of verlies het” resource is, is er geen reden om HTTP verkeer te limiteren als er geen audio verkeer is.
 
 \noindent \textbf{Inzicht 3:} Terwijl het voorzien van isolatie tussen klasses of stromen, is het wenselijk om resources zo efficiënt mogelijk te gebruiken.
-
-
 
 \subsubsubsection{Scheduling mechanismen}
 
@@ -59,15 +62,15 @@ Hoe kunnen we dit oplossen? Gegeven is dat de HTTP applicatie geen tijd beperkin
 \noindent Pakketten komen aan in de link uitvoer wachtrij en wachten voor verzending als de link op dat moment bezet is. Als er niet voldoende buffer ruimte is, zal de wachtrij packet-discarding policy bepalen of het pakket gedropped zal worden of er andere pakketten uit de wachtrij verwijderd zal worden.
 De FIFO discipline selecteert pakketten voor verzending in dezelfde volgorde als deze in de wachtrij zijn gekomen.
 
-\textbf{Priority Queuing}
+\noindent \textbf{Priority Queuing}
 
-Pakketten die aankomen in de link zijn geclassificeerd in prioriteit klasses in de output wachtrij. Elke klasse heeft zijn eigen wachtrij. Wanneer een pakket gekozen wordt om te verzenden, zal de pakket met de hoogste prioriteit verzonden worden.
+\noindent Pakketten die aankomen in de link zijn geclassificeerd in prioriteit klasses in de output wachtrij. Elke klasse heeft zijn eigen wachtrij. Wanneer een pakket gekozen wordt om te verzenden, zal de pakket met de hoogste prioriteit verzonden worden.
 
-\textbf{Round Robin}
+\noindent \textbf{Round Robin}
 
-Pakketten worden gesorteerd in klasses zoals bij priority queuing. Maar in plaats van een strikte prioriteit dienst te zijn, zal de round robin diensten afwisselen tussen de klasses. De zogenoemde work-conserving queuing discipline zal nooit toe staan dat de link niet gebruikt wordt wanneer er pakketten staan te wachten voor verzending. Een work-conserving round robin discipline die zoekt naar een pakket voor een bepaalde klasse maar er geen vind zal automatisch de volgende klasse bekijken.
+\noindent Pakketten worden gesorteerd in klasses zoals bij priority queuing. Maar in plaats van een strikte prioriteit dienst te zijn, zal de round robin diensten afwisselen tussen de klasses. De zogenoemde work-conserving queuing discipline zal nooit toe staan dat de link niet gebruikt wordt wanneer er pakketten staan te wachten voor verzending. Een work-conserving round robin discipline die zoekt naar een pakket voor een bepaalde klasse maar er geen vind zal automatisch de volgende klasse bekijken.
 
-\textbf{Weighted fair queuing (WFQ)}
+\noindent \textbf{Weighted fair queuing (WFQ)}
 
 \noindent Dit is een abstractie van Round Robin. Aankomende pakketten worden geclassificeerd en geplaatst in de juiste wachtrij. Wat WFQ anders maakt van Round Robin is dat elke klasse een verschillend aantal van service krijgt in elke tijds interval. Elke klasse , i, krijgt een gewicht $w_i$. Gedurende elke tijdsinterval waar klasse i pakketten mag zenden, zal klasse i gegarandeerd worden om een fractie van dienst te krijgen die gelijk is aan $\frac{w*i}{\Sigma W_j}$, waar de som van de noemer genomen is van alle klasses die nog pakketten hebben die wachten om verzonden te worden. Als alle klasses wachten, zal klasse i verzekerd worden om een fractie van $\frac{w*i}{\Sigma W_j}$ van de bandbreedte te krijgen.
 
@@ -87,12 +90,11 @@ Een van de eerdere inzichten was de regulatie van de snelheid waarbij een klasse
 Veronderstel voordat een pakket over het netwerk wordt verzonden, moet het eerst een token wegnemen van de token emmer. Als de emmer leeg is, moet het pakket wachten.
 Omdat er maximaal b aantal tokens in de emmer kan zijn, is de maximale burst size b pakketten. Verder, omdat de token generatie aan een snelheid r is, zal de maximum aantal pakketten die verzonden kunnen worden bij elk tijdsinterval van lengte t, r*t + b zijn. Dus de token generatie dient om de gemiddelde lange termijn ratio te beperken.
 
-\textbf{Leaky bucket + WFQ}
+\noindent \textbf{Leaky bucket + WFQ}
 
-\noindent Veronderstel een routers output link die meerdere n stromen heeft, die elk policed wordt door een leaky bucket met parameters bi en ri, i = 1, . . . ., n gebruik makend van WFQ scheduling. Veronderstel dat stroom 1 zijn token bucket vol is. Een burst van b1 pakketten komt aan, dit verwijderd alle tokens uit 1. Sinds dat deze b1 pakketten worden gemaakt aan een snelheid van minstens $R * \frac{w*i}{\Sigma W_j}$. pakketten per seconden, dan zal de laatste van deze pakketten een maximum vertraging hebben van dmax totdat de verzending gedaan is, waar $d_max = \frac{b1}{R * w_i / (\Sigma W_j)}$
+\noindent Veronderstel een routers output link die meerdere n stromen heeft, die elk policed wordt door een leaky bucket met parameters bi en ri, i = 1, . . . ., n gebruik makend van WFQ scheduling. Veronderstel dat stroom 1 zijn token bucket vol is. Een burst van b1 pakketten komt aan, dit verwijderd alle tokens uit 1. Sinds dat deze b1 pakketten worden gemaakt aan een snelheid van minstens $R * \frac{w*i}{\Sigma W_j}$. pakketten per seconden, dan zal de laatste van deze pakketten een maximum vertraging hebben van dmax totdat de verzending gedaan is, waar $d_{max} = \frac{b1}{R * w_i / (\Sigma W_j)}$
 
-
-
+\newpage
 
 \subsubsubsection{Diffserv}
 
@@ -128,14 +130,14 @@ De Diffserv architectuur ondervangt de nood voor het bijhouden van router staat 
 
 \noindent Één van de applicatie stromen moet geblokkeerd worden, terwijl de ander toegestaan is om door te gaan. Het telefoon netwerk is een voorbeeld van een netwerk die zo’n blokkering oproept. Er is geen voordeel in het toelaten van een stroom in het netwerk als het niet voldoende QoS krijgt die verondersteld bruikbaar te zijn. Door expliciet het toewijzen of blokkeren van stromen gebaseerd op hun resource voorwaarden, en de bron voorwaarden van al toegewezen flows, kan het netwerk garanderen dat de toegelaten stromen hun gevraagde QoS gaan krijgen. Om een gegarandeerde QoS stroom te garanderen, is het nodig voor de stroom om zijn QoS vereisten te declareren. Dit proces wordt ook wel het call admission proces genoemd.
 
-\noindent Inzicht 4: Als er niet voldoende resources beschikbaar gaan zijn, en QoS moet gegarandeerd worden, dan is er een call admission proces nodig waarin stromen hun eigen QoS vereisten declareren en worden dan ofwel toegelaten of geblokkeerd van het netwerk.
+\noindent \textbf{Inzicht 4:} Als er niet voldoende resources beschikbaar gaan zijn, en QoS moet gegarandeerd worden, dan is er een call admission proces nodig waarin stromen hun eigen QoS vereisten declareren en worden dan ofwel toegelaten of geblokkeerd van het netwerk.
 
 \noindent We hebben een aantal nieuwe netwerk mechanismen en protocollen nodig als een oproep gegarandeerd moet zijn van een bepaalde QoS wanneer het begint:
 
 \begin{itemize}
-\item Resource reservatie. De enige manier dat een oproep zijn resoucres zal hebben die nodig zijn om een gewenste QoS te garanderen, is expliciet deze resources toegewezen aan de oproep. Eenmaal dat resources gereserveerd zijn, de oproep heeft een on-demand toegang tot deze resources gedurende de looptijd, achteloos de noden van alle andere oproepen.
-\item Call admission. Sinds dat resources niet oneindig zijn, zal een oproep die de call admission request maakt toegang geweigerd worden (geblokkeerd), als de gevraagde resources niet beschikbaar zijn. Als de circuits (TDMA slots) die nodig zijn om een oproep te vervolledigen beschikbaar zijn, dan worden de circuits toegewezen aan die oproep. Zo niet wordt de oproep geblokkeerd. Een geblokkeerde oproep kan opnieuw proberen om toegang tot het netwerk te krijgen, maar mag niks sturen tot dat het met succes de oproep vervolledigd heeft.
-\item Call setup signaling. Elke router moet de locale resources die nodig zijn voor de sessie bepalen, het aantal overwegen van hoeveel resources er al toegewezen zijn, en bepalen of er nog voldoende resources zijn om de per hop QoS vereisten te bevredigen zonder het schenden van locale QoS garanties van andere processen. Een signalerings protocol is nodig om deze verschillende activiteiten te coördineren. Dit is de job van het call setup protocol. Het RSVP protocol was voorgesteld voor deze doeleinde voor het voorzien van QoS garanties.
+\item \textbf{Resource reservati}e. De enige manier dat een oproep zijn resoucres zal hebben die nodig zijn om een gewenste QoS te garanderen, is expliciet deze resources toegewezen aan de oproep. Eenmaal dat resources gereserveerd zijn, de oproep heeft een on-demand toegang tot deze resources gedurende de looptijd, achteloos de noden van alle andere oproepen.
+\item \textbf{Call admission}. Sinds dat resources niet oneindig zijn, zal een oproep die de call admission request maakt toegang geweigerd worden (geblokkeerd), als de gevraagde resources niet beschikbaar zijn. Als de circuits (TDMA slots) die nodig zijn om een oproep te vervolledigen beschikbaar zijn, dan worden de circuits toegewezen aan die oproep. Zo niet wordt de oproep geblokkeerd. Een geblokkeerde oproep kan opnieuw proberen om toegang tot het netwerk te krijgen, maar mag niks sturen tot dat het met succes de oproep vervolledigd heeft.
+\item \textbf{ Call setup signaling}. Elke router moet de locale resources die nodig zijn voor de sessie bepalen, het aantal overwegen van hoeveel resources er al toegewezen zijn, en bepalen of er nog voldoende resources zijn om de per hop QoS vereisten te bevredigen zonder het schenden van locale QoS garanties van andere processen. Een signalerings protocol is nodig om deze verschillende activiteiten te coördineren. Dit is de job van het call setup protocol. Het RSVP protocol was voorgesteld voor deze doeleinde voor het voorzien van QoS garanties.
 \end{itemize}
 
 \noindent Ondanks een enorme hoeveelheid onderzoek en ontwikkeling, en zelfs producten die per connectie QoS garanties voorziet, is er bijna geen uitgebreide ontwikkeling voor zo’n diensten. Er zijn veel mogelijke redenen. Het kan het geval zijn dat het simpele applicatie niveau mechanisme, gecombineerd met netwerk dimensionering, een “good-enough” best effort network dienst voor multimedia applicaties voorziet. In toevoeging, de toegevoegde moeilijkheid en kost voor het opzetten en onderhouden van een netwerk die per connectie QoS garandeert voorziet kan worden beoordeeld door ISPs als te hoog voor de voorspelde inkomsten voor die dienst. 

@@ -1,6 +1,7 @@
+\newpage
 \subsection{Beveiligen van e-mail}
 
-Het is mogelijk om beveiliging te voorzien op eender welke van de top vier lagen. Wanneer beveiliging wordt voorzien voor een specifieke applicatie -, transport -, netwerk laag protocol of op een koppeling basis, zullen de applicaties die gebruik maken van die protocol kunnen genieten van één of meerdere beveiligings diensten.
+\noindent Het is mogelijk om beveiliging te voorzien op eender welke van de top vier lagen. Wanneer beveiliging wordt voorzien voor een specifieke applicatie -, transport -, netwerk laag protocol of op een koppeling basis, zullen de applicaties die gebruik maken van die protocol kunnen genieten van één of meerdere beveiligings diensten.
 Waarom worden beveiligings functionaliteiten voorzien op meerdere lagen? Is het niet voldoende dat ze gedaan worden op de netwerk laag?
 \begin{enumerate}
     \item	Hoewel beveiliging op de netwerk laag een “blanket coverage” kan aanbieden door alle data in de datagrammen te encrypteren en door alle bron IP adressen te authenticeren, kan het geen beveiliging voorzien op gebruikersniveau.
@@ -33,6 +34,8 @@ Waarom worden beveiligings functionaliteiten voorzien op meerdere lagen? Is het 
 \itf uses KS to decrypt KS(m) to recover m
 \ei
 
+\newpage
+
 \subsubsection{Alice wants to provide sender authentication and message integrity}
 
 \begin{figure}[h]
@@ -63,13 +66,12 @@ Waarom worden beveiligings functionaliteiten voorzien op meerdere lagen? Is het 
 \itf Bob’s public key,
 \itf newly created symmetric key.
 \ee
-	
 
-
+\newpage
 
 \subsubsection{Beveiligde e-mail}
 
-Welke beveiligingskenmerken zouden het meest wenselijk zijn?
+\noindent Welke beveiligingskenmerken zouden het meest wenselijk zijn?
 
 \begin{itemize}
 \item \textbf{Confidentialiteit}: je wilt niet dat iemand anders het bericht leest.
@@ -93,6 +95,8 @@ Welke beveiligingskenmerken zouden het meest wenselijk zijn?
 \noindent Om een e-mail systeem te ontwerpen dat confidentialiteit, authenticatie en bericht integriteit voorziet kan gedaan worden om de twee bovenstaande stappen te combineren. De zender creëert eerst een voorlopig pakket dat bestaat uit het originele bericht samen met de digitaal gehandtekende hash van het bericht. Vervolgens wordt dit voorlopig pakket beschouwd als een bericht en encrypt deze met een zelfgekozen symmetrische sleutel.
 
 \noindent Er is nog één belangrijk probleem dat nog moet worden aangepakt. Namelijk dat de zender en ontvanger de publieke sleutel van elkaar moeten opvragen. De verdeling van deze sleutels is een onbeduidend probleem. Zo kan men niet zeker zijn dat het de juiste publieke sleutel is. Dit kan opgelost worden door gebruik te maken van een CA.
+
+\newpage
 
 \subsubsection{PGP (Pretty Good Privacy)}
 

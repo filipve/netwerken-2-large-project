@@ -1,16 +1,18 @@
 \subsection{Elektronische mail op het internet}
 
-3 componenten: \textbf{user agents} (Outlook, Thunderbird, ...), \textbf{mailservers} en \textbf{SMTP}.
+\noindent 3 componenten: \textbf{user agents} (Outlook, Thunderbird, ...), \textbf{mailservers} en \textbf{SMTP}.
 
 \subsubsection{Mail Servers}
 
-\textbf{Mailbox}: contains incoming messages for user
+\noindent \textbf{\Gls{mailbox}}: contains incoming messages for user
 \textbf{message queue} of outgoing (to be sent) mail messages
 \textbf{\acrshort{smtp} protocol} between mail servers to send email messages
 \begin{itemize}
     \item client: sending mail server
     \item “server”: receiving mail server
 \end{itemize}
+
+\newpage
 
 \subsubsection{SMTP}
 
@@ -45,6 +47,8 @@
 \itf SMTP server uses CRLF.CRLF to determine end of message
 \ei
 
+\newpage
+
 \noindent Veronderstel dat Alice een simpele ASCII bericht naar Bob wilt sturen:
 
 \begin{enumerate}
@@ -76,7 +80,7 @@ Normaal gezien gebruikt SMTP geen tussenliggende mail server voor het zenden van
 \itf SMTP werkt alleen wanneer elk bericht bestaat uit 7 bit-ASCII-tekst
 \ei
 
-
+\newpage
 
 \subsubsection{Mail bericht formaten}
 

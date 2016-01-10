@@ -13,8 +13,6 @@ Vandaag de dag hebben we compressie algoritmes die een video naar een gewenste b
 
 \noindent We kunnen compressie ook gebruiken om verschillende versies van dezelfde video te maken, elk op een ander kwaliteit niveau. Zo kan de gebruiker kiezen welke versie ze willen in functie van hun huidige beschikbare bandbreedte.
 
-
-
 \subsubsection{Eigenschappen van geluid}
 
 \noindent Digitaal geluid heeft een aanzienlijk lagere bandbreedte eisen dan video. Maar ook digitaal geluid heeft zijn kenmerken, maar eerst gaan we kijken hoe analoog geluid naar digitaal geluid converteren.
@@ -24,6 +22,8 @@ Vandaag de dag hebben we compressie algoritmes die een video naar een gewenste b
 \item Elk van de smaples is vervolgens afgerond naar één van een eindig aantal waarden. Deze handeling wordt quantization (kwantisatie) genoemd. Het getal van zo’n eindige waarde is typisch een macht van twee. Bv 256 kwantisatie waarden.
 \item Elk van de kwantisatie waarden wordt voorgesteld door een vast aantal bits. Als er 256 waarden zijn, dan is elke waarde gepresentateerd door een byte. De bit representaties van alle samples worden dan samengevoeg om de digitale representatatie te vormen van het signaal.
 \end{itemize}
+
+\newpage
 
 \noindent Bv. Een analoog geluids signaal die gesampled is op 8 000 samples per seconde en elke sample wordt gekwantiseerd  en gerepresentateerd door 8 bits, dan zal het digitaal resultaat een ratio van 64 000 bits per seconde hebben.
 Om dit af te spelen, moet het signaal terug geconverteerd worden naar een analoog signaal. Het gedecodeerde analoog signaal is enkel een benadering van het originele signaal, en de kwaliteit van het geluid kan merkbaar verslechterd zijn. Door de sampling ratio te verhogen kan men een betere benadering van het origineel analoog geluid verkrijgen.

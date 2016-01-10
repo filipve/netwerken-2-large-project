@@ -21,8 +21,6 @@ Het gebruik van HTTP over TCP laat ook de video toe om gemakkelijker door firewa
 
 \noindent Client buffering wordt gebruikt om de effecten van end-to-end vertragingen en verschillende beschikbare bandbreedtes te verzachten. Om bewaarde video te streamen, kan de client proberen om de video aan een hogere snelheid te downloaden dan de verbruikssnelheid, daardoor prefetching (op voorhand afhalen) van video frames zodat deze in de toekomst geconsumeerd kunnen worden. Deze prefetched video is natuurlijk bewaart in de applicatie buffer van de client. Zo’n prefetching komt voor bij TCP streaming, sinds TCP’s congestie vermijdings mechanisme zal proberen om alle beschikbare bandbreedte tussen server en client te gebruiken.
 
-
-
 \subsubsubsection{Client applicatie buffer en TCP buffers}
 
 \noindent Aan de server kant worden de bytes in de TCP send buffer gestopt. Als de TCP send buffer vol is, kan de server op dat moment geen bytes van de video file sturen.
@@ -59,7 +57,7 @@ Langs één kant laat DASH clienten met verschillende internet toegangs ratio’
 
 \noindent Door het dynamisch monitoren van de beschikbare bandbreedte en client buffer niveau en het doorstuur snelheid aan te passen met de versie wisseling, kan DASH vaak zorgen voor continue afspeling aan de best mogelijke kwaliteit zonder dat het beeld bevriest of overslaat. Bovendien, sinds dat de client de informatie onderhoud om te bepalen welk stuk er vervolgens gestuurd moet worden, verbeterd dit de schaalbaarheid van de server-side. Een ander voordeel van deze benadering is dat de client de HTTP byte-range request kan gebruiken om precies de hoeveelheid van opgehaalde video die in de locale buffer zit te controleren.
 
-
+\newpage
 
 \subsubsection{Content Distribution Networks}
 
@@ -69,7 +67,7 @@ Langs één kant laat DASH clienten met verschillende internet toegangs ratio’
 
 \noindent Een \textbf{tweede} nadeel is dat een populaire video waarschijnlijk vaak over dezelfde communicatie linken gestuurd zal worden. Dit verspilt niet enkel bandbreedte, maar de video bedrijf zelf zal zijn ISP provider moeten betalen voor het zenden van telkens dezelfde bytes.
 
-Een \textbf{derde} probleem is dat een enkele data center een enkel punt van falen representeert, als de data center of zijn linken naar het internet plat gaan, kan het geen enkele video meer verdelen.
+\noindent Een \textbf{derde} probleem is dat een enkele data center een enkel punt van falen representeert, als de data center of zijn linken naar het internet plat gaan, kan het geen enkele video meer verdelen.
 
 \noindent Met het oog op de uitdaging om grote hoeveelheden video data te distribueren naar gebruikers die verspreidt zijn over de wereld, maken alle belangrijke video-streaming bedrijven gebruik van \textbf{\acrfull{cdn}}. 
 
@@ -84,6 +82,8 @@ Een \textbf{derde} probleem is dat een enkele data center een enkel punt van fal
 
 \noindent Bring home vergelijkend met Enter deep is dat de bring home resulteert in een lagere onderhoud en beheer overhead, wat eventueel ten koste gaat aan hogere vertraging en een lagere doorvoer naar eind gebruikers.
 
+\newpage
+
 \noindent Eenmaal dat de clusters op zijn plaats staan, gaat de CDN zijn inhoud kopiëren over zijn clusters. De CDN wilt niet een kopie van elke video in elke cluster plaatsen, sinds sommige video’s amper bekeken worden en anderen enkel populair zijn sommige landen. In feite, veel CDNs pushen hun video’s niet naar hun clusters, maar gaan in de plaats een simpele pull strategie. Als een client een video vraagt aan een cluster die de video niet bewaart, dan gaat de cluster die video ophalen en bewaart een kopie en streamed terwijl de video naar de client. Gelijklopend met internet caches, wanneer de opslag ruimte vol geraakt, zal het de video’s verwijderen die het minst gevraagd worden.
 
 \subsubsubsection{CDN Operation}
@@ -91,11 +91,9 @@ Een \textbf{derde} probleem is dat een enkele data center een enkel punt van fal
 Wanneer  een browser in een gebruikers host wordt opgedragen om een specifieke video op te halen, moet de CDN het verzoek onderscheppen zodat een geschikte CDN server cluster voor die client kan bepalen op dat moment, en leidt de clients aanvraag om naar een server in die cluster.
 Meeste CDNs nemen voordeel uit de DNS om aanvragen te onderscheppen en omleiden.
 
-
-
 \subsubsubsection{Cluster selectie strategieën}
 
-In de kern van elke CDN implementatie is een cluster selection strategy, dat is een mechanisme om clienten dynamisch te leiden naar een server cluster of een data center binnenin de CDN. De CDN kan op basis van het IP adres van de client een gepaste cluster selecteren.
+\noindent In de kern van elke CDN implementatie is een cluster selection strategy, dat is een mechanisme om clienten dynamisch te leiden naar een server cluster of een data center binnenin de CDN. De CDN kan op basis van het IP adres van de client een gepaste cluster selecteren.
 Hierop volgend een overzicht van benaderingen, elk met zijn eigen voor en nadelen.
 
 \noindent Een simpele strategie om een client aan een cluster toe te wijzen die geografisch het dichtstbijzijnd is. Door gebruik te maken van commerciële geo-locatie databanken, wordt elk LDNS IP adres gemapped bij een geografische locatie. Wanneer een DNS vraag ontvangen is van een bepaalde LDNS, kiest de CDN de cluster die het dichtstbij is. Dus de cluster die het minste aantal kilometers verwijderd is van de LDNS in vogelvlucht.
@@ -106,10 +104,10 @@ Voor sommige clienten kan dit een probleem vormen, omdat de dichts bijzijnde geo
 \noindent Een alternatief voor het zenden van vreemd verkeer voor het meten van pad kenmerken is om de kenmerken van recent verkeer tussen clienten en CDN servers te gebruiken. De vertraging tussen een client en een cluster kan geschat worden door het verschil te onderzoeken tussen een server-to-client SYNACK en een client-to-server ACK tijdens de TCP three-way handshake. Zo’n oplossing vereist om clienten om te leiden naar sub-optimale clusters van tijd tot tijd om zo de kenmerken van de paden naar deze clusters te berekenen. Ook al zijn er maar een klein aantal requests nodig die als probe dienen, de geselecteerde clienten kunnen leiden van een significante prestatie vermindering.
 Een ander alternatief voor cluster-to-client pad probing is om DNS query verkeer te gebruiken om de vertraging tussen clienten en clusters te berekenen.
 
+\newpage
+
 \noindent Een heel andere benadering om clienten te matchen met CDN servers is om IP anycast te gebruiken. Het idee achter IP anycast is om de routers in de internet route pakketten van de client naar de “dichtstbijzijnde” cluster te hebben, als bepaald door de \textbf{\acrfull{bgp}}. Doorheen de IP-anycast configuratie fase, wijst de CDN bedrijf hetzelfde IP adres toe aan elk van zijn clusters en gebruikt de standaard BGP om dit IP adres te adverteren van elk van de verschillende cluster locaties. Wanneer een BGP router meerdere route advertenties krijgt voor ditzelfde IP adres, behandeld het deze advertenties als het voorzien van verschillende paden naar dezelfde fysieke locatie. Na deze initiële configuratie fase, kan de CDN zijn werk van inhoud te verspreiden doen. Wanneer een client een video wilt zien, geeft de CDN’s DNS de anycast adres terug, ongeacht de locatie van de client. Als de client een pakket naar dat IP adres stuurt, wordt het pakket gerouted naar de “dichtstbijzijnde” cluster als bepaald door de voorgedefinieerde doorstuur tabellen.
 Deze benadering heeft het voordeel van clusters te vinden die het dichts bij de client is in plaats van de cluster die het dichts bij de client LDNS is. Maar de IP anycast houd geen rekening met het dynamische internet.
-
-
 
 \subsubsection{Case studie: Youtube en Kankan}
 

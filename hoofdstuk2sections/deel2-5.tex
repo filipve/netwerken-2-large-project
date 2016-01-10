@@ -14,6 +14,8 @@
 \item \textbf{Loadbalancing / Load distribution}. Wordt ook gebruikt om de load distribution over gerepliceerde server te doen. Voor een gerepicleerde web server, is er een verzameling van IP adressen die geassocieerd zijn met één canonical hostname. Wanneer een client een DNS aanvraag doet voor zo’n web server, wisselt de DNS server telkens de volgorde van de IP adressen.
 \end{itemize}
 
+\newpage
+
 \noindent \textit{\textbf{Gang van zaken:}}
 
 \noindent Het IP-adres opzoeken achter een webadres (bv. www.google.com)
@@ -73,6 +75,8 @@ Om om te gaan met het probleem van de schaal, gebruikt DNS een groot aantal serv
 
 \noindent DNS caching is een zeer belangrijke kenmerk van het DNS systeem. DNS gebruikt dit zeer hard om de vertaging prestatie te verbeteren en de aantal DNS berichten die rond gaan te verminderen. In een query ketting, wanneer een DNS server een DNS antwoord ontvangt, kan het deze mapping in zijn locaal geheugen cachen. Als een hostname/IP adres paar gemapped zijn en er een andere query komt voor dezelfde hostname, kan de DNS server de gewenste IP adres voorzien, zelf als niet authoritative is voor de hostname. Omdat hosts en mappings tussen hostnames en IP adressen geenszins permanent zijn. Daarom doen DNS servers hun gecached om de zoveel tijd weg.
 
+\newpage
+
 \subsubsection{DNS records en berichten}
 
 \noindent \textbf{Bronrecords}: records waarin de hostnaam met bijbehorend IP staat opgeslagen (samen met TTL en Type)
@@ -82,7 +86,7 @@ Om om te gaan met het probleem van de schaal, gebruikt DNS een groot aantal serv
 \noindent De DNS servers die samen de DNS gedeelde databank implementeren bewaren resource records (RRs). Elke DNS reply bericht draagt één of meerdere RR mee. Een RR bevat de volgende velden:
 (Name, Value, Type, TTL)
 
-De betekenis van Name en Value hangen af van Type:
+\noindent De betekenis van Name en Value hangen af van Type:
 \begin{itemize}
    \item Type = A : dan is Name de hostname en Value het IP adres voor de hostname.
  \item Type = NS : dan is Name het domein en Value is de hostname van een authoritative DNS server die weet hoe het IP adres voor host in het domain op te halen.
@@ -99,7 +103,7 @@ DNS heeft enkel twee mogelijk berichten (Query en reply). Beide berichten hebben
 \item Het \textbf{vragenveld} bevat info over het verzonden verzoek. Deze sectie bevat een naam veld, een type veld.
 \item Het \textbf{antwoordenveld} bevat de bronrecords voor de DNS waarvoor het oorspronkelijke verzoek werd verzonden
 \item Het autorisatieveld bevat gegevens van andere autoritaire DNS’s
-\item DHet aanvullingsveld bevat de aanvullende bronrecords
+\item Het aanvullingsveld bevat de aanvullende bronrecords
 \end{itemize}
 
 
@@ -107,7 +111,7 @@ DNS heeft enkel twee mogelijk berichten (Query en reply). Beide berichten hebben
 
 \textbf{Registrar}: commerciële entiteit die controleert of een domeinnaam uniek is, de domeinnaam in de DNS plaatst en daar geld voor vraagt.
 
-
+\newpage
 
 \subsubsection{DNS aanvallen}
 
@@ -158,4 +162,4 @@ DNS heeft enkel twee mogelijk berichten (Query en reply). Beide berichten hebben
 
 \subsubsection{Gedistribueerde hashtabellen}
 
-\textbf{Overlaynetwerk}: virtueel netwerk dat gemaakt wordt bovenop het bestaande netwerk tussen de peers.
+\noindent \textbf{Overlaynetwerk}: virtueel netwerk dat gemaakt wordt bovenop het bestaande netwerk tussen de peers.

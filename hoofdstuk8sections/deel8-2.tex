@@ -1,5 +1,5 @@
 \subsection{Principes van cryptografie}
-Cryptografische technieken staan een zender toe om data te vermommen zodat een indringer geen informatie kan inwinnen van de onderschepte data. De ontvanger moet natuurlijk in staat zijn om het originele bericht te herstellen.
+\noindent Cryptografische technieken staan een zender toe om data te vermommen zodat een indringer geen informatie kan inwinnen van de onderschepte data. De ontvanger moet natuurlijk in staat zijn om het originele bericht te herstellen.
 
 \noindent Cryptografie wordt gebruikt om boodschappen \textcolor{red}{(\textbf{plain text})} te versleutelen \textcolor{red}{(\textbf{ciphertext})} met een \textcolor{red}{\textbf{crypteringsalgoritme}} zodat ze onleesbaar zijn voor derden.
 
@@ -18,8 +18,10 @@ Cryptografische technieken staan een zender toe om data te vermommen zodat een i
 Op dezelfde manier zal de ontvanger een sleutel $K_B$ voorzien, naar het decryptie algoritme dat de \textbf{ciphertext} en de sleutel van de ontvanger gebruikt als invoer, en creëert de originele tekst als uitvoer.
 Dat is,als de ontvanger het geëncrypteerde bericht $K_A (m) $ ontvangt en decrypteert door het berekenen van \textcolor{red}{$K_B$($K_A$(m)) = m}.
 
-In symmetrische sleutel systemen, zijn de sleutels van de zender en ontvanger gelijk en geheim.
+\noindent In symmetrische sleutel systemen, zijn de sleutels van de zender en ontvanger gelijk en geheim.
 In publieke sleutel systemen, wordt een sleutel paar gebruikt. Een van de sleutels is gekend door iedereen. De andere is enkel gekend door één persoon.
+
+\newpage
 
 \subsubsection{Symmetrische sleutel cryptografie}
 
@@ -30,8 +32,7 @@ In publieke sleutel systemen, wordt een sleutel paar gebruikt. Een van de sleute
     \label{fig:Symmetrische sleutel cryptografie }
 \end{figure}
 
-
-Hierbij is het belangrijk dat de verzender en ontvanger dezelfde geheime sleutel kennen.
+\noindent Hierbij is het belangrijk dat de verzender en ontvanger dezelfde geheime sleutel kennen.
 Alle cryptografische algoritmes betrekken het vervangen van een ding naar iets anders.
 Voorbeelden van algoritmes:
 \begin{itemize}
@@ -58,7 +59,10 @@ Voorbeelden van algoritmes:
 \item \textit{Een aanval met een bekende onversleutelde tekst}: De indringer weet een beetje waarover de tekst gaat. (Er komt sowieso ‘Alice’ en ‘Bob’ in voor.)
 \item \textit{Een aanval met een specifieke onversleutelde tekst}: Hierbij kan de indringer zelf het onversleutelde bericht (=ciphertext) kiezen en daarvan de geëncrypteerde tekst (=chosen plaintext) krijgen.
 \end{enumerate}
-In gedachte nemend hoe gemakkelijk het kan zijn om een encryptie schema te ontcijferen, kan men drie verschillende scenario’s onderscheiden, afhankelijk van welke info de indringer heeft:
+
+\newpage
+
+\noindent In gedachte nemend hoe gemakkelijk het kan zijn om een encryptie schema te ontcijferen, kan men drie verschillende scenario’s onderscheiden, afhankelijk van welke info de indringer heeft:
 \begin{itemize}
     \item \textbf{Cyphertext-only attack}: de indringer heeft enkel toegang tot de ciphertext en geen zekere informatie over de mogelijke inhoud. Hier kan statistische analyse helpen.
     \item \textbf{Know-plaintext attack}: de indringer heeft weet van bepaalde inhoud, en heeft hierdoor al bepaalde sleutelparen gevonden.
@@ -96,6 +100,8 @@ Wordt gebruikt in veel beveiligde internet protocollen zoals:
 
 \noindent Hoewel een volledige lijst van block ciphers, met gematigde waardes van x een robuust symmetrische sleutel encryptie schema kan produceren, zijn ze ontzettend moeilijk om te implementeren. Voor x = 64 moeten de zender en ontvanger een lijst onderhouden met $2^{64}$ invoer waardes, wat een onhaalbare taak is. Bovendien, als de zender en ontvanger van sleutel zou veranderen, moeten ze elk een tabel genereren. Daarom zal men deze manier niet gebruiken.
 In plaats daarvan, gaan block ciphers typisch meestal gebruiken maken van functies die willekeurig gepermuteerde tabellen simuleren.
+
+\newpage
 
 \noindent (Voorbeeld van zo’n functie met k = 64 bits.) De functie deelt eerst een 64 block in 8 delen die 8 bits bevatten. Elke deeltje wordt verwerkt door een 8 bit op 8 bit tabel, die beheerbaar is in grote. Vervolgens worden de 8 deeltjes weer in elkaar gezet in een 64 bit blok. De posities van de 64 bits in het blok worden dan door elkaar gegooid om een 64 bit uitvoer te verkrijgen die dan weer dient voor de input van een 64 bit blok zodat de cyclus opnieuw uitgevoerd kan worden. Na n-aantal keren, geeft de functie een 64-bit block van ciphertext. De bedoeling van de rondes is om elke invoer bit een andere output te hebben.
 
@@ -168,7 +174,7 @@ $\rightarrow$ Een techniek die gebruikt wordt om encryptie toe te passen bij ber
 
 \subsubsubsection{RSA}
 
-Maakt uitgebreid gebruik van rekenkundige bewerkingen gebruiken van modulo-n.
+Maakt uitgebreid gebruik van rekenkundige bewerkingen gebruiken van $modulo \ - \ n$.
 
 \noindent X mod n wilt gewoonweg zeggen de rest van x wanneer het gedeeld wordt door n. In modulaire rekenkunde gebruikt men nog de gebruikelijke operaties van toevoeging, vermenigvuldiging en exponentieel. Echter, het resultaat van elke operatie wordt vervangen door de numerieke rest van wat er overschiet wanneer het resultaat gedeeld is door n.
 Volgende handeling zijn er:
@@ -192,7 +198,7 @@ Een bericht is niet anders dan een bit patroon die uniek gerepresenteerd kan wor
 Om een publieke en prive RSA sleutel te genereren, worden volgende stappen gevolgd:
 
 \begin{enumerate}
-\item Er worden eerst 2 grote \textbf{priemgetallen} gekozen, \textbf{p} en \textbf{q}. Hoe groter de waardes hoe moeilijker het is om de RSA te kraken, maar hoe langer het duurt om te coderen en decoderen. p*q < 1024 bits
+\item Er worden eerst 2 grote \textbf{priemgetallen} gekozen, \textbf{p} en \textbf{q}. Hoe groter de waardes hoe moeilijker het is om de RSA te kraken, maar hoe langer het duurt om te coderen en decoderen. $p*q < 1024$ bits
 \item Bereken $n = p*q$ en $z = (p - 1)*(q - 1)$
 \item Er wordt een getal \textbf{e} (van encryption) gekozen (<n) dat \textbf{geen factoren gemeenschappelijk} heeft met z.
 \item Er wordt een getal \textbf{d} (van decryption) gekozen zodanig dat \textbf{ed – 1} exact deelbaar is door z. $\rightarrow$ \textbf{ed mod z = 1}
@@ -235,7 +241,7 @@ RSA wordt vaak gebruikt in combinatie met symmetrische sleutel cryptografie.
 
 \noindent De ontvanger krijgt de RSA geëncrypteerde sessie sleutel, c en decrypt het om de sessie sleutel de krijgen.
 
-
+\newpage
 
 \subsubsubsection{Waarom werkt RSA?}
 

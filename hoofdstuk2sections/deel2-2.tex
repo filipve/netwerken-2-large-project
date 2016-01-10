@@ -12,6 +12,8 @@ Het \textbf{\acrfull{http}}, de web applicatie laag protocol, is het centrum van
 
 \noindent Omdat een HTTP-server geen info over de clients bijhoudt m.b.t. eerder verzonden berichten, wordt HTTP een \textbf{toestandsloos} of \textbf{stateless protocol} genoemd.
 
+\newpage
+
 \subsubsection{Niet aanhoudende en aanhoudende connecties}
 
 \subsubsubsection{HTTP met niet aanhoudende connecties}
@@ -35,6 +37,8 @@ Wanneer verzoeken en responsen via (verschillende) dezelfde TCP verbinding(en) l
 \noindent Het RTT bevat pakket verspreiding vertragingen, pakket wachtrij vertraging in tussen routers en switches, en pakket verwerking vertragingen.
 
 \noindent Een klik op een link zorgt voor het opstarten van een TCP connectie tussen de browser en server. Dit bevat een \textbf{three way handshake}. De client stuurt een klein TCP segment naar de server, de server erkent het en antwoord met een klein TCP segment en uiteindelijk erkent de client terug naar de server. De eerste twee stappen van de handshake nemen één RTT in beslag. Na de eerste twee delen, zend de client een HTTP request gecombineerd met het derde deel van de handshake. Eenmaal dat de request bericht aankomt, zend de server de HTML bestand door de TCP connectie. Deze HTTP request/response neemt nog een RTT in beslag. Dus de totale response tijd is twee RTTs plus de transitie tijd bij de server van de HTML bestand.
+
+\newpage
 
 \subsubsubsection{HTTP met aanhoudende connectie}
 
@@ -61,8 +65,6 @@ De server laat de TCP connectie open na het zenden van een response. Opeenvolgen
 
 \noindent De User-Agent: is handig omdat de server verschillende versies van het zelfde object kan sturen naar verschillende types van user agents.
 
-
-
 \subsubsubsection{HTTP request message: general format}
 
 \begin{figure}[h]
@@ -72,7 +74,7 @@ De server laat de TCP connectie open na het zenden van een response. Opeenvolgen
     \label{fig:http request message format}
 \end{figure}
 
-
+\newpage
 
 \subsubsubsection{HTTP response bericht}
 
@@ -94,11 +96,11 @@ De status code en bijhorende text duiden het resultaat van het request aan. Hier
  \item 505 HTTP Version Not Supported: de gevraagde HTTP protocol versie is niet ondersteund op de server.
 \end{itemize}
 
-
+\newpage
 
 \subsubsection{Gebruiker-server interactie: Cookies}
 
-\textbf{Cookie}: bestand dat wordt bijgehouden door de server waarin bepaalde gegevens staan opgeslagen i.v.m. met de gast op zijn webpagina.
+\noindent \textbf{Cookie}: bestand dat wordt bijgehouden door de server waarin bepaalde gegevens staan opgeslagen i.v.m. met de gast op zijn webpagina.
 
 \noindent \textbf{Nadeel}? Schending van privacy. Keuzes die gemaakt worden op websites worden opgeslagen in deze cookies en kunnen worden doorverkocht aan derden met doelgerichte reclame als gevolg.
 
@@ -106,7 +108,8 @@ De status code en bijhorende text duiden het resultaat van het request aan. Hier
 \be
 \itf Een cookie header line in de HTTP response message
 \itf Een cookie header line in de HTTP request message
-\itf Een cookie-bestand opgeslagen op het systeem van de eindgebruiker en beheerd door de webbrowser
+\itf Een cookie-bestand opgeslagen op het systeem van de
+eindgebruiker en beheerd door de webbrowser
 \itf Een back-end database op de website
 \ee
 
@@ -126,8 +129,11 @@ De status code en bijhorende text duiden het resultaat van het request aan. Hier
     \label{fig:cookie}
 \end{figure}
 
-Cookies kunnen dus gebruikt worden om een gebruikers sessie laag te maken bovenop de stateless HTTP. Cookies kunnen ook als controversieel opgevat worden omdat ze ook beschouwd worden als een inbreuk op de privacy. Zo kan een website veel leren van een gebruiker, en potentieel deze informatie verkopen.
+\newpage
 
+\noindent Cookies kunnen dus gebruikt worden om een gebruikers sessie laag te maken bovenop de stateless HTTP. Cookies kunnen ook als controversieel opgevat worden omdat ze ook beschouwd worden als een inbreuk op de privacy. Zo kan een website veel leren van een gebruiker, en potentieel deze informatie verkopen.
+
+\begin{multicols}{2}
 \noindent \textit{\textbf{what cookies can be used for:}}
 
 \bi
@@ -140,17 +146,19 @@ Cookies kunnen dus gebruikt worden om een gebruikers sessie laag te maken boveno
 \noindent How to keep "state"?
 
 \bi
-\itf protocol endpoints: maintain state at sender/receiver over multiple transactions
+\itf protocol endpoints:
+
+maintain state at sender/receiver
+
+over multiple transactions
 \itf cookies: http messages carry state
 \ei
-
+\end{multicols}
 
 
 \subsubsection{Web caching}
 
-\gls{webcache} 
-
-\noindent \textbf{Webcache (proxyserver):} Een netwerkentiteit die HTTP-verzoeken afhandelt namens de oorspronkelijke webserver waar het verzoek oorspronkelijk naartoe is gestuurd.
+\noindent \textbf{\gls{webcache}:} Een netwerkentiteit die HTTP-verzoeken afhandelt namens de oorspronkelijke webserver waar het verzoek oorspronkelijk naartoe is gestuurd.
 
 \noindent Definition english: goal: satisfy client request without involving origin server
 
@@ -169,6 +177,8 @@ Cookies kunnen dus gebruikt worden om een gebruikers sessie laag te maken boveno
 \label{fig:webcache}
 \end{figure}
 
+\newpage
+
 \noindent Redenen:
 \bi
 \itf Kan responstijd van verzoeken aanzienlijk verkorten (omdat het is opgeslagen in de cache van de proxy)
@@ -179,11 +189,11 @@ Cookies kunnen dus gebruikt worden om een gebruikers sessie laag te maken boveno
 
 \subsubsection{De conditionele GET}
 
-\textbf{Conditional GET}: Een GET-bericht dat de proxy naar de server stuurt om te achterhalen of het bestand dat in zijn cache staat al een oud bestand is of niet, dus of het cache een up-to-date versie heeft of niet.
+\noindent \textbf{\Gls{conditionalget}}: Een GET-bericht dat de proxy naar de server stuurt om te achterhalen of het bestand dat in zijn cache staat al een oud bestand is of niet, dus of het cache een up-to-date versie heeft of niet.
 
-\noindent \textbf{cache}: specify date of cached copy in HTTP request
+\noindent \textbf{\gls{cache}}: specify date of cached copy in HTTP request
 
-\noindent $\Rightarrow$ If-modified-since: <date>
+\noindent $\Rightarrow$ If-modified-since: $<date>$
 
 \noindent \textbf{server}: response contains no object if cached copy is up-to-date:
 

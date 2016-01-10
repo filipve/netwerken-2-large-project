@@ -2,7 +2,7 @@
 
 \subsubsection{RTP}
 
-\noindent RTP kan gebruikt worden voor het transporteren van gangbare formaten zoals PCM, ACC en MP3 voor geluid en MPEG, H.236 voor video. Het kan ook gebruikt worden om gepatenteerd geluid en video formaten te transporteren. Vandaag geniet TRP wereldwijde implementatie in veel producten en onderzoek prototypes. Het is ook complementair met een andere live interactie protocollen zoals SIP.
+\noindent RTP kan gebruikt worden voor het transporteren van gangbare formaten zoals PCM, AAC en MP3 voor geluid en MPEG, H.245 voor video. Het kan ook gebruikt worden om gepatenteerd geluid en video formaten te transporteren. Vandaag geniet RTP wereldwijde implementatie in veel producten en onderzoek prototypes. Het is ook complementair met een andere live interactie protocollen zoals SIP.
 
 \subsubsection{RTP basis}
 
@@ -42,6 +42,8 @@ Het sequentie nummer veld wordt met één verhoogd voor elk RTP pakket die verzo
 \noindent Een SIP sessie begint wanneer Alice naar Bob een INVITE bericht stuurt, wat lijkt op een HTTP request bericht. Dit INVITE bericht wordt gezonden over UDP naar welgekende poort 5060 voor SIP. Het bericht bevat een indentificator voor Bob, een indicator van Alice haar huidige IP adres, een indicatie dat Alice audio wenst te ontvangen die in een bepaald formaat gecodeerd moet zijn en geëncapsuleerd in een RTP, en een indicatie dat ze de RTP pakketten wilt krijgen op poort 38060. 
 
 \noindent Na het zenden van dit bericht, verzend Bob een SIP response bericht, wat lijkt op een HTTP response bericht. Dit response SIP bericht wordt oop naar de SIP poort 5060 gestuurd. Bob zijn response bevat een 200 OK en ook een indicatie van zijn IP ares, zijn gewenste codering en pakketisatie voor ontvangst, en zijn poort nummer waarnaar de audio pakketten naartoe gezonden moeten worden.
+
+\newpage
 
 \noindent Na het krijgen van Bob zijn response, Alice zend Bob een SIP erkennings bericht. Na deze SIP transactie, kunnen Bob en Alice praten.
 

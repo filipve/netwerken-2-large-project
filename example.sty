@@ -47,9 +47,15 @@
 
 \usepackage{verbatim} 
 
-
-
 \usepackage{titlesec}
+
+\titlespacing\section{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+\titlespacing\subsection{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+\titlespacing\subsubsection{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+
+
+
+
 
 \titleclass{\subsubsubsection}{straight}[\subsection]
 
@@ -59,8 +65,10 @@
 
 \titleformat{\subsubsubsection}
   {\normalfont\normalsize\bfseries}{\thesubsubsubsection}{1em}{}
-\titlespacing*{\subsubsubsection}
-{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+  %{\normalfont\normalsize\bfseries}{\thesubsubsubsection}{1em}{}
+  
+%\titlespacing*{\subsubsubsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+\titlespacing*{\subsubsubsection}{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
 
 \makeatletter
 \renewcommand\paragraph{\@startsection{paragraph}{5}{\z@}%
@@ -82,8 +90,9 @@
 \setcounter{secnumdepth}{4}
 \setcounter{tocdepth}{4}
 
-\newcommand{\sectionbreak}{\clearpage}
-\newcommand{\subsectionbreak}{\clearpage}
+%zorgt ervoor dat elke sectie en subsectie automatisch op een nieuwe pagina begint
+%\newcommand{\sectionbreak}{\clearpage}
+%\newcommand{\subsectionbreak}{\clearpage}
 
 \usepackage{enumitem}
 \setlist[itemize,1]{leftmargin=*,topsep=0pt}
