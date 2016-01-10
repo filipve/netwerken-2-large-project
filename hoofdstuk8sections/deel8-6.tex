@@ -1,29 +1,48 @@
-\subsection{TCP connecties beveiligen: SSL}
+\subsection{TCP connecties beveiligen: SSL en TLS}
 
-Op de transport laag kijken hoe cryptografie TCP kan versterken met beveiligingsdiensten. Deze verbeterde versie van TCP is beter bekend als Secure Socket Layer (SSL). Een enigszins gewijzigde versie van SSL versie 3, wordt de Transport Layer Security (TLS) genoemd.
-Het SSL protocol is ontworpen door Netscape. SSL wordt veel geïmplementeerd en wordt door alle populaire web browsers en servers ondersteund. Elk jaar worden er biljoenen uitgegeven aan SSL.
+\subsubsection{SSL = Secure Sockets Layer}
 
-\includegraphics[width=4in]{./img/imghfdst8/hfdst8puntje27.png}\\[1cm]
- 
+\noindent Op de transport laag kijken hoe cryptografie TCP kan versterken met beveiligingsdiensten. Deze verbeterde versie van TCP is beter bekend als \textbf{Secure Socket Layer (SSL)}. Een enigszins gewijzigde versie van SSL versie 3, wordt de \textbf{Transport Layer Security (TLS}) genoemd.
 
-SSL verbeterd TCP door te zorgen dat er confidentialiteit, data integriteit, server en client authenticatie is. Omdat SSL TCP beveiligd, kan het worden gebruikt door eender welke applicatie die TCP gebruikt. SSL voorziet een API met sockets, die analoog is met de API van TCP. Wanneer een applicatie SSL wil gebruiken zal de applicatie SSL klassen/bibliotheken toe voegen.
+\noindent Het SSL protocol is ontworpen door Netscape. SSL wordt veel geïmplementeerd en wordt door alle populaire web browsers en servers ondersteund. Elk jaar worden er biljoenen uitgegeven aan SSL.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=4in]{./img/imghfdst8/hfdst8puntje27.png}
+    \caption{ }      
+    \label{fig: }
+\end{figure}
+
+\noindent SSL verbetert TCP door te zorgen dat er confidentialiteit, data integriteit, server en client authenticatie is. Omdat SSL TCP beveiligd, kan het worden gebruikt door eender welke applicatie die TCP gebruikt. SSL voorziet een API met sockets, die analoog is met de API van TCP. Wanneer een applicatie SSL wil gebruiken zal de applicatie SSL klassen/bibliotheken toe voegen.
+
+\subsubsection{TLS = Transport Layer Security}
+
+\clearpage
 
 \subsubsection{Het grote plaatje}
 
-Eerst een eenvoudige versie van SSL beschrijven. Dit gaan we de Almost-SSL noemen. Almost-SSL en SSL hebben vier fasen: de handshake, key derivation, data transfer en connectie sluiten.
+\noindent Eerst een eenvoudige versie van SSL beschrijven. Dit gaan we de Almost-SSL noemen. Almost-SSL en SSL hebben vier fasen: de handshake, key derivation, data transfer en connectie sluiten.
 
 \subsubsubsection{Handshake}
 
-\includegraphics[width=4in]{./img/imghfdst8/hfdst8puntje28.png}\\[1cm]
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=4in]{./img/imghfdst8/hfdst8puntje28.png}
+    \caption{ }      
+    \label{fig: }
+\end{figure}
 
-Gedurende de handshake fase, heeft Bob behoefte aan een TCP connectie op te zetten met Alice, bevestigen dat Alice echt Alice is, en vervolgens Alice de master secret key te sturen die gebruikt zal worden om bij Alice en Bob de symmetrische sleutels te genereren die ze nodig hebben voor de SSL sessie.
-Wanneer de TCP connectie opgezet is, zend Bob naar Alice een hallo bericht. Alice reageert met haar certificaat, die haar publieke sleutel bevat. Bob genereert vervolgens een Master Secret (MS) die enkel gebruikt gaat worden voor deze SSL sessie, ecrypteerd de MS met de publieke sleutel van Alice om zo de \textbf{Encrypted Master Secret (EMS)} te maken, en zendt deze dan door naar Alice. Alice decrypteerd het EMS met haar prive sleutel. Na deze fase kennen enkel Bob en Alice de MS voor deze SSL sessie.
+\noindent Gedurende de handshake fase, heeft Bob behoefte aan een TCP connectie op te zetten met Alice, bevestigen dat Alice echt Alice is, en vervolgens Alice de master secret key te sturen die gebruikt zal worden om bij Alice en Bob de symmetrische sleutels te genereren die ze nodig hebben voor de SSL sessie.
+
+\noindent Wanneer de TCP connectie opgezet is, zend Bob naar Alice een hallo bericht. Alice reageert met haar certificaat, die haar publieke sleutel bevat. Bob genereert vervolgens een Master Secret (MS) die enkel gebruikt gaat worden voor deze SSL sessie, ecrypteerd de MS met de publieke sleutel van Alice om zo de \textbf{Encrypted Master Secret (EMS)} te maken, en zendt deze dan door naar Alice. Alice decrypteerd het EMS met haar prive sleutel. Na deze fase kennen enkel Bob en Alice de MS voor deze SSL sessie.
 
 \clearpage
 
 \subsubsubsection{Key derivation}
 
-In principe kan de MS gebruikt worden als de symmetrische sessie sleutel voor alle volgende encryptie en data integriteit controle. Hoewel het algemeen overwegend veiliger voor Alice en Bob is om verschillende cryptografische sleutels te gebruiken, en dus ook andere sleutels te gebruiken voor encryptie en integriteit controle. Dus Alice en Bob genereren elk vier sleutel door de MS te gebruiken:
+\noindent In principe kan de MS gebruikt worden als de symmetrische sessie sleutel voor alle volgende encryptie en data integriteit controle. Hoewel het algemeen overwegend veiliger voor Alice en Bob is om verschillende cryptografische sleutels te gebruiken, en dus ook andere sleutels te gebruiken voor encryptie en integriteit controle. 
+
+\noindent Dus Alice en Bob genereren elk vier sleutel door de MS te gebruiken:
 \begin{itemize}
 \item $E_B$ = sessie encryptie sleutel voor data die verzonden wordt van Bob naar Alice
 \item $M_B$ = sessie MAC sleutel voor data die verzonden wordt van Bob naar Alice

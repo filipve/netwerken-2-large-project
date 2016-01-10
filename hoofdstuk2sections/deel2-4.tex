@@ -1,13 +1,51 @@
 \subsection{Elektronische mail op het internet}
 
-Als we op een hoog niveau kijken naar het internet mail systeem, zien we een paar hoofd componenten, namelijk : user agents, mail servers en de Simple Mail Transfer Protocol (SMTP). Elk van de componenten worden beschreven in de context van een zender, Alice, en een ontvanger, Bob. De user agent laat gebruikers toe om te lezen, antwoorden, doorsturen, opslaan en opstellen van berichten. Outlook is een voorbeeld van zo’n agent. Wanneer Alice klaar is met het opstellen van haar bericht, stuurt haar user agent het bericht naar haar mail server. Wanneer Bob een bericht wilt lezen, zal zijn user agent de berichten van zijn mailbox in zijn mail server ophalen.
-Mail servers zijn de kern van het e-mail infrastructuur. Elke ontvanger heeft een mailbox in één van zijn mail servers. Bob zijn mailbox beheert en onderhoud de berichten die naar hem gezonden zijn. Waneer Bob zijn berichten in zijn mailbox wil bekijken, zal de server die de mailbox heeft Bob authentificeren. Alice haar mail server moet ook het falen van Bob zijn mail server behandelen. Als de server van Alice de mail niet kan bezorgen, houd de server het bericht bij in een message queue en probeert om het bericht later te sturen. 
-SMTP is de hoofd applicatie laag protocol voor electronische mail. Het gebruikt de diensten van TCP. SMTP heeft ook twee kanten, een client en server kant. Zowel de client als server kant van SMTP lopen op elke mail server.
+3 componenten: \textbf{user agents} (Outlook, Thunderbird, ...), \textbf{mailservers} en \textbf{SMTP}.
+
+\subsubsection{Mail Servers}
+
+\textbf{Mailbox}: contains incoming messages for user
+\textbf{message queue} of outgoing (to be sent) mail messages
+\textbf{SMTP protocol} between mail servers to send email messages
+\begin{itemize}
+    \item client: sending mail server
+    \item “server”: receiving mail server
+\end{itemize}
 
 \subsubsection{SMTP}
 
-Hoewel SMTP verschillende geweldige kwaliteiten heeft, is het niet te min een nalatenschap technologie die bepaalde verouderde kenmerken bevat. Het beperkt de body (niet enkel de headers) van alle mail naar simpele 7 bit ASCII. Deze beperking is een nefast voor het versturen van grote bestanden. Het vereist dat binaire multimedia data gecodeerd wordt naar ASCII voordat het over SMTP verzonden kan worden, en het vereist om het bericht ook weer te decoderen.
-Veronderstel dat Alice een simpele ASCII bericht naar Bob wilt sturen:
+\begin{figure}[h]
+\centering
+\includegraphics[height=3in]{./img/imghfdst2/hdst2puntje8.png}
+\caption{Voorbeeld van een smtp }
+\label{fig:smtp}
+\end{figure}
+
+
+\bi
+\itf uses TCP to reliably transfer email message from client to server, port 25
+\itf direct transfer: sending server to receiving server
+\itf three phases of transfer
+    \bi
+    \itf handshaking (greeting)
+    \itf transfer of messages
+    \itf closure
+    \ei
+\itf command/response interaction (like HTTP, FTP)
+    \bi
+    \itf commands: ASCII tekst
+    \itf response: status code and phrase
+    \ei
+\itf messages must be in 7-bit ASCI
+\ei
+\noindent Belangrijk:
+\bi
+\itf SMTP uses persistent connections
+\itf SMTP requires message (header \& body) to be in 7-bit ASCII
+\itf SMTP server uses CRLF.CRLF to determine end of message
+\ei
+
+\noindent Veronderstel dat Alice een simpele ASCII bericht naar Bob wilt sturen:
 
 \begin{enumerate}
  \item Alice roept haar user agent op, voorziet Bob zijn email adres, stelt een bericht op en beveelt dan de user agent om het bericht te sturen.
@@ -19,35 +57,82 @@ Veronderstel dat Alice een simpele ASCII bericht naar Bob wilt sturen:
 \end{enumerate}
 Normaal gezien gebruikt SMTP geen tussenliggende mail server voor het zenden van mails.
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=3in]{./img/imghfdst2/hdst2puntje9.png}
+\caption{Voorbeeld van een verbinding }
+\label{fig:verbinding}
+\end{figure}
+
 \subsubsection{Vergelijking met HTTP}
 
-HTTP verzend bestanden van een web server naar een web client. SMTP verzend bestanden van een mail server naar een andere mail server. Tijdens het verturen van bestanden, zowel aanhoudend HTTP en SMTP gebruiken aanhoudende connecties. Ze hebben dus gelijke kenmerken. Maar er zijn belangrijke verschillen. HTTP is vooral een pull protocol. Iemand haalt de informatie van een server wanneer het hen past. Aan de andere kant is SMTP vooral een push protocol. De zendende mail server duwt het bestand naar de ontvangende mail server.
-Een tweede verschil is dat SMTP vereist dat elk bericht  in een 7 bit ASCII formaat is. HTTP legt de beperking niet op.
-Een dergelijk belangrijke verschil is hoe een document die bestaat uit tekst en afbeeldingen behandeld worden. HTTP encapsuleerd het object in zijn eigen HTTP response bericht. Mail plaatst all bericht objecten in één bericht.
 
-\subsubsection{Mail bericht formaten}
-
-Elke header moet een From:, To: en Subject: header line bevatten. Het is belangrijk om op te merken dat deze header line verschillend zijn van de SMTP commando’s. Na de bericht header volgt er een lege lijn, en dan het bericht in ASCII.
-
-\subsubsection{Mail toegang protocollen}
-
-Gegeven dat Bob zijn user agent uitvoert op zijn locale PC, is het natuurlijk ook om te overwegen om een mail server op zijn locale PC te zetten. Met deze benadering zal Alice haar mail server direct communiceren met Bob zijn PC. Maar dit zorgt tot het probleem dat Bob zijn PC altijd aan moet staan en verbonden moet zijn met het internet om e-mails op elk moment te kunnen ontvangen. Dit is onpraktisch. In plaats hiervan voert een gebruiker een user agent uit op zijn locale PC maar benadert zijn mailbox die bewaart is op een gedeelde mail server.
-Alice haar user agent stuurt de e-mail eerst naar haar mail server. Deze mail server probeert dan de mail verder door te sturen naar Bob zijn mail server.
-Maar hoe kan Bob zijn berichten krijgen die in een mail server van zijn ISP zitten? Dit kan niet met SMTP omdat dit een push protocol is. Hiervoor zijn er speciale mail toegang protocollen die de berichten verplaatsen van Bob zijn mail server naar zijn lokale PC. Hier zijn een paar populaire protocollen, onder andere Post Office Protocol – Version 3 (POP3), Internet Mail Access Protocol (IMAP) en HTTP.
+\bi
+\itf HTTP \textbf{kopieert} bestanden/SMTP \textbf{verwisselt} bestanden \textbf{uit}
+\itf \textbf{HTTP} is een \textbf{pullprotocol}: Iemand plaats informatie op een server en gebruikers ‘trekken’ de informatie er van af.
+\itf HTTP stuurt elk object in een \textbf{apart} antwoordbericht
+\itf SMTP stuurt alle objecten in 1 bericht bestaande uit meerdere delen (= \textbf{multipart message})
+\itf SMTP is een \textbf{pushprotocol}: de mails worden ‘doorgeduwd’
+\itf SMTP werkt alleen wanneer elk bericht bestaat uit 7 bit-ASCII-tekst
+\ei
 
 \clearpage
 
-\subsubsubsection{POP3}
+\subsubsection{Mail bericht formaten}
 
-POP3 is zeer simpel, maar zijn functionaliteit is hierdoor eerder gelimiteerd. POP3 begint wanneer de user agent een TCP connectie opent naar de mail server. POP3 gaat dan door de volgende drie fasen: autorisatie, transactie en update. Doorheen de eerste fase, zend de user agent een gebruikersnaam en wachtwoord (in plain text) om de gebruiker te authentificeren. Doorheen de tweede fase, gaat de user agent de berichten ophalen. Hier kan berichten gemarkeerd worden om verwijderd te worden. De derde fase komt voor als de client het quit commando heeft uitgevoerd, wat de POP3 sessie beëindigd.
+\begin{figure}[h]
+\centering
+\includegraphics[width=3in]{./img/imghfdst2/formatmail.PNG}
+\caption{Voorbeeld van een format mail }
+\label{fig:format mail}
+\end{figure}
 
-Een probleem met de download-delete mode is dat de ontvanger toegang wilt hebben tot zijn mail op meerdere plaatsen. Hierdoor zullen de mail verspreid zijn over zijn meerdere computers.
-Dan is het beter om de download-and-keep mode te gebruiken. In dit geval laat de user agent de berichten op de mail server na het downloaden. Zo kan de ontvanger de berichten herlezen op verschillende machines.
-Tijdens een POP3 sessie tussen een user agent en mail server, onderhoud de POP3 server wat status informatie (bijhouden welke gebruikers berichten gemarkeerd zijn om verwijderd te worden). Hoewel de POP3 server draagt de staat niet over de verschillende POP3 sessies.
+\noindent Elke header moet een From:, To: en Subject: header line bevatten. Het is belangrijk om op te merken dat deze header line verschillend zijn van de SMTP commando’s. Na de bericht header volgt er een lege lijn, en dan het bericht in ASCII.
 
-\subsubsubsection{IMAP}
+\subsubsection{Mail toegang protocollen}
 
-Een IMAP server zal elk bericht associëren met een folder. Het IMAP protocol voorziet commando’s die toe laten dat de gebruikers folders aanmaken en berichten van één folder naar de andere verplaatsen. IMAP voorziet ook commando’s die gebruikers toe laat om folders te zoeken voor een bericht die aan specifieke criteria voldoet. Een IMAP server onderhoudt gebruikers status informatie over alle IMAP sessies. Een andere kenmerk is dat het commando’s heeft die toestaan dat een user agent componenten van berichten kan verkrijgen. Bv: enkel de bericht header ophalen, of een deel van een meerdelige MIME bericht. Deze kenmerk is handig voor een lage bandbreedte connectie.
+\begin{figure}[h]
+\centering
+\includegraphics[width=3in]{./img/imghfdst2/access.PNG}
+\caption{Voorbeeld van een pullprotocol }
+\label{fig:pullprotocol}
+\end{figure}
+
+\noindent Aangezien SMTP een \textbf{pushprotocol} is, kan men via SMTP \textbf{geen} mails halen van de mailserver, hiervoor zijn er andere protocollen, namelijk: \textbf{POP3, IMAP en HTTP.}\\
+
+\noindent Deze protocollen zijn dus \textbf{pullprotocollen} die worden gebruikt om mails van de mailserver te halen.
+
+%\clearpage
+
+\subsubsubsection{POP3 = Post Office Protocol}
+
+3 fasen:
+\be
+\itf \textbf{Autorisatiefase}: User Agent verzendt de gebruikersnaam en wachtwoord naar de mailserver
+\itf \textbf{Transactiefase}: De berichten worden opgehaald uit de mailserver. Tijdens deze fase is het mogelijk om andere berichten te markeren.
+\itf \textbf{Updatefase}: Begint wanneer de cliënt de opdracht ‘QUIT’ heeft gegeven. Op dat moment verwijdert de mailserver alle berichten die gemarkeerd zijn met ‘verwijderen’.
+\ee
+
+\noindent Bij POP3 wordt er steeds gewerkt met een opdracht/antwoord-gang van zaken. Er zijn 2 mogelijke antwoorden die de mailserver kan sturen:
+\bi
+\itf +OK: De opdracht werd correct uitgevoerd
+\itf -ERR: Er is een fout opgetreden.
+\ei
+
+\noindent Er wordt geen statusinformatie bijgehouden over de POP3-sessies = stukken eenvoudiger.
+
+\subsubsubsection{IMAP = Internet Mail Access Protocol}
+
+IMAP biedt de mogelijkheid om op de server mappen te maken en de mails te categoriseren + houdt sessie-informatie bij.
+
+\bi
+\itf keeps all messages in one place: at server
+\itf allows user to organize messages in folders
+\itf keeps user state across sessions:
+\bi
+\itf names of folders and mappings between message IDs and folder name
+\ei
+\ei
 
 \subsubsubsection{Web gebaseerde E-mail}
 

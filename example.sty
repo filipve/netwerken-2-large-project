@@ -15,10 +15,23 @@
 
 %colorlinks maakt de links in een color zichtbaar
 
-\usepackage[hidelinks]{hyperref} % by simply importing the hyperref package all cross-referenced elements become hyperlinked.
+
+\usepackage[hidelinks,
+            pdftex,
+            pdfauthor={Filip Vanden Eynde},
+            pdftitle={Netwerken 2 samenvatting, leren voor het examen},
+            pdfsubject={Netwerken 2},
+            pdfkeywords={Netwerken, samenvatting, examen,ucll},
+            pdfproducer={Filip Vanden Eynde},
+            pdfcreator={pdflatex, or other tool}
+            ]{hyperref}
+            
+%\usepackage[hidelinks]{hyperref} % by simply importing the hyperref package all cross-referenced elements become hyperlinked.
 
 %\usepackage[a4paper, total={6in, 8in}]{geometry}
 \usepackage[a4paper, total={7in, 9.5in}]{geometry}
+
+\usepackage{multicol}
 
 
 \newcounter{saveenumerate}
@@ -71,7 +84,9 @@
 \newcommand{\subsectionbreak}{\clearpage}
 
 \usepackage{enumitem}
-\setlist[itemize]{leftmargin=*}
+\setlist[itemize,1]{leftmargin=*,topsep=0pt}
+\setlist[enumerate,1]{leftmargin=*,topsep=0pt}
+%\setlist[itemize]{topsep=0pt}
 
 \usepackage[acronym, toc]{glossaries}%maak definitielijst
 % Load the package
@@ -83,7 +98,11 @@
 
 \pgfplotsset{width=10cm,compat=1.9}
 
+%change layout of some items
 \def\labelitemi{--}
+\renewcommand{\labelitemii}{$\circ$}
+\newcommand{\fra}{\noindent \ensuremath\Rightarrow}
+
 
 
 %Header styles
@@ -151,3 +170,18 @@
 
 %Example counter
 \newcommand{\reiniciar}{\setcounter{example}{0}}
+
+\newcommand{\be}{\begin{enumerate}}
+\newcommand{\ee}{\end{enumerate}}
+
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\itf}{\item }
+
+\usepackage{float}
+
+\usepackage{color}
+
+\usepackage[lofdepth,lotdepth]{subfig}
+
+\setlength{\parskip}{1em}
