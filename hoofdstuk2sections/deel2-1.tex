@@ -21,17 +21,17 @@
 
 \noindent \textbf{Cliënt-serverstructuur:} In deze structuur is er een host die altijd aan is (de server). Deze host behandelt de verzoeken van zijn clients. De server heeft een vast IP-adres en is dus steeds bereikbaar. Probleem? Als er slechts 1 server is, kan deze overbelast geraken. Oplossing? Het gebruik van datacenters (verschillende servers die samen 1 server vormen).
 
-\textbf{P2P-structuur (peer-to-peer)}: Hosts maken gebruik van rechtstreekse communicatie met elkaar. Pluspunt: \textbf{zelfschaalbaarheid}, elke peer die wordt toegevoegd zorgt voor meer capaciteit. P2P is kosten efficiënt, omdat ze geen significante server infrastructuur en bandbreedte nodig hebben.
+\noindent \textbf{\acrshort{p2p}-structuur (peer-to-peer)}: Hosts maken gebruik van rechtstreekse communicatie met elkaar. Pluspunt: \textbf{zelfschaalbaarheid}, elke peer die wordt toegevoegd zorgt voor meer capaciteit. P2P is kosten efficiënt, omdat ze geen significante server infrastructuur en bandbreedte nodig hebben.
 
-$\Rightarrow$ Dus geen server die altijd aanstaat.
+\noindent $\Rightarrow$ Dus geen server die altijd aanstaat.
 
-$\Rightarrow$ Peers zijn met wederkerend optreden geconnecteerd en veranderen van IP-adres.
+\noindent $\Rightarrow$ Peers zijn met wederkerend optreden geconnecteerd en veranderen van IP-adres.
 
 \textbf{Peers} = periodiek met elkaar verbonden hosts waarbij rechtstreekse communicatie toegepast wordt.
 
-- Dit zijn gewone gebruikers van desktops en laptops.
+\noindent - Dit zijn gewone gebruikers van desktops en laptops.
 
-Toekomstige P2P-applicaties moeten rekening houden met 3 punten:
+\noindent Toekomstige P2P-applicaties moeten rekening houden met 3 punten:
 \begin{enumerate}
 \item \textbf{ISP-vriendelijkheid}: De meeste ISP’s die thuistoegang tot het internet verlenen gaan ervan uit dat het internet asymmetrisch gebruikt zal worden (meer downloaden dan uploaden). Aangezien er bij P2P veel moet geüpload worden, moet de applicatie hier rekening bij houden.
 \item \textbf{Beveiliging}: Aangezien de P2P-applicaties zo toegankelijk zijn, moeten ze goed beveiligd zijn.
