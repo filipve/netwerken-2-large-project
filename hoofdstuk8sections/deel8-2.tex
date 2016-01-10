@@ -6,18 +6,18 @@ Cryptografische technieken staan een zender toe om data te vermommen zodat een i
 \begin{figure}[h]
     \centering
     \includegraphics[width=7in]{./img/imghfdst8/hfdst8puntje2.png}\\[1cm]
-    \caption{ }      
-    \label{fig: }
+    \caption{Principes van cryptografie }      
+    \label{fig:Principes van cryptografie }
 \end{figure}
 
 \noindent \textcolor{red}{\textbf{Leesbare tekst (cleartext)}} is een bericht in zijn originele vorm. De verzender encrypteerd zijn leesbare tekst door gebruik te maken van een encryptie algoritme zodat het geëncrypteerde bericht \textcolor{red}{(\textbf{ciphertext})} onverstaanbaar lijkt voor elke indringer. 
-\\\\
+
 De zender voorziet een \textcolor{red}{\textbf{sleutel (key) $K_A$}}, een string van getallen of tekens, als invoer voor het encryptie algoritme. Het algoritme neemt de sleutel en de leesbare tekst als invoer, en creëert \textcolor{red}{\textbf{ciphertext}} als uitvoer.
-\\\\
+
 De notatie \textcolor{red}{$K_A (m)$} refereert naar de ciphertext vorm van de leesbare tekst. Het eigenlijke encryptie algoritme dat de sleutel \textcolor{red}{$K_A $} gebruikt, blijkt uit de context.
 Op dezelfde manier zal de ontvanger een sleutel $K_B$ voorzien, naar het decryptie algoritme dat de \textbf{ciphertext} en de sleutel van de ontvanger gebruikt als invoer, en creëert de originele tekst als uitvoer.
-Dat is,als de ontvanger het geëncrypteerde bericht $K_A (m) $ ontvangt en decrypteerd door het berekenen van \textcolor{red}{$K_B$($K_A$(m)) = m}.
-\\\\
+Dat is,als de ontvanger het geëncrypteerde bericht $K_A (m) $ ontvangt en decrypteert door het berekenen van \textcolor{red}{$K_B$($K_A$(m)) = m}.
+
 In symmetrische sleutel systemen, zijn de sleutels van de zender en ontvanger gelijk en geheim.
 In publieke sleutel systemen, wordt een sleutel paar gebruikt. Een van de sleutels is gekend door iedereen. De andere is enkel gekend door één persoon.
 
@@ -26,8 +26,8 @@ In publieke sleutel systemen, wordt een sleutel paar gebruikt. Een van de sleute
 \begin{figure}[h]
     \centering
     \includegraphics[width=7in]{./img/imghfdst8/hfdst8puntje3.png}\\[1cm]
-    \caption{ }      
-    \label{fig: }
+    \caption{Symmetrische sleutel cryptografie }      
+    \label{fig:Symmetrische sleutel cryptografie }
 \end{figure}
 
 
@@ -93,12 +93,13 @@ Wordt gebruikt in veel beveiligde internet protocollen zoals:
 
 	
 \noindent In een \textbf{block cipher}, wordt het bericht dat geëncrypteerd moet worden verwerkt in blokken van x-aantal bits en elk blok wordt onafhankelijk van elkaar geëncrypteerd. Om een blok te coderen, maakt de cipher gebruik van een één op één mapping om de x-bit blok van cleartext naar een x-bit blok van ciphertext in kaart te brengen. Er zijn dus $2^X$ invoer mogelijkheden. Deze $2^X$ invoer kan gepermuteerd worden in $2^X$! verschillende mapping mogelijkheden. We kunnen elk van deze mappings zien als sleutel.
-Hoewel een volledige lijst van block ciphers, met gematigde waardes van x een robuust symmetrische sleutel encryptie schema kan produceren, zijn ze ontzettend moeilijk om te implementeren. Voor x = 64 moeten de zender en ontvanger een lijst onderhouden met $2^64$ invoer waardes, wat een onhaalbare taak is. Bovendien, als de zender en ontvanger van sleutel zou veranderen, moeten ze elk een tabel genereren. Daarom zal men deze manier niet gebruiken.
+
+\noindent Hoewel een volledige lijst van block ciphers, met gematigde waardes van x een robuust symmetrische sleutel encryptie schema kan produceren, zijn ze ontzettend moeilijk om te implementeren. Voor x = 64 moeten de zender en ontvanger een lijst onderhouden met $2^64$ invoer waardes, wat een onhaalbare taak is. Bovendien, als de zender en ontvanger van sleutel zou veranderen, moeten ze elk een tabel genereren. Daarom zal men deze manier niet gebruiken.
 In plaats daarvan, gaan block ciphers typisch meestal gebruiken maken van functies die willekeurig gepermuteerde tabellen simuleren.
 
-(Voorbeeld van zo’n functie met k = 64 bits.) De functie deelt eerst een 64 block in 8 delen die 8 bits bevatten. Elke deeltje wordt verwerkt door een 8 bit op 8 bit tabel, die beheerbaar is in grote. Vervolgens worden de 8 deeltjes weer in elkaar gezet in een 64 bit blok. De posities van de 64 bits in het blok worden dan door elkaar gegooid om een 64 bit uitvoer te verkrijgen die dan weer dient voor de input van een 64 bit blok zodat de cyclus opnieuw uitgevoerd kan worden. Na n-aantal keren, geeft de functie een 64-bit block van ciphertext. De bedoeling van de rondes is om elke invoer bit een andere output te hebben.
+\noindent (Voorbeeld van zo’n functie met k = 64 bits.) De functie deelt eerst een 64 block in 8 delen die 8 bits bevatten. Elke deeltje wordt verwerkt door een 8 bit op 8 bit tabel, die beheerbaar is in grote. Vervolgens worden de 8 deeltjes weer in elkaar gezet in een 64 bit blok. De posities van de 64 bits in het blok worden dan door elkaar gegooid om een 64 bit uitvoer te verkrijgen die dan weer dient voor de input van een 64 bit blok zodat de cyclus opnieuw uitgevoerd kan worden. Na n-aantal keren, geeft de functie een 64-bit block van ciphertext. De bedoeling van de rondes is om elke invoer bit een andere output te hebben.
 
-Er zijn vandaag verschillende populaire block ciphers zoals DES, 3DES en AES. Gebruiken elk functies in plaats van voorgedefinieerde tabellen.
+\noindent Er zijn vandaag verschillende populaire block ciphers zoals DES, 3DES en AES. Gebruiken elk functies in plaats van voorgedefinieerde tabellen.
 \begin{itemize}
 \item \textbf{DES (Data Encryption Standard)}: maakt gebruik van 64 bit blokken met een 56 bit sleutel. Maar dit is niet zo veilig want dit kan binnen een dag gekraakt worden.
 \item \textbf{3DES}: DES veiliger maken om het 3 keer te encrypteren met 3 verschillende sleutels.
@@ -109,9 +110,10 @@ Er zijn vandaag verschillende populaire block ciphers zoals DES, 3DES en AES. Ge
 
 \subsubsubsection{Cipher-Block koppelen}
 
-$\rightarrow$ Een techniek die gebruikt wordt om encryptie toe te passen bij berichten die verzonden worden. \\
+$\rightarrow$ Een techniek die gebruikt wordt om encryptie toe te passen bij berichten die verzonden worden.
 
 \noindent Als we gebruik maken van een block cipher door gewoon het bericht te splitsen in x-bit blokken en onafhankelijk van elkaar encrypteren, treedt er een subtiel maar belangrijk probleem op. Twee of meerdere clear-text blokken kunnen identiek zijn. Voor deze identieke blokken, zal de block cipher dezelfde ciphertext maken. Een aanvaller kan potentieel naar de cleartext gokken wanneer hij identieke blokken ziet, en zo zelfs het hele bericht ontcijferen.
+
 Om dit probleem op te lossen, kunnen we wat willekeur inbrengen in de ciphertext. Hiervoor wordt een techniek gebruikt die de \textcolor{red}{\textbf{Cipher Block Chaining (CBC)}} genoemd wordt. Het idee is om enkel één willekeurige waarde mee te sturen met het eerste bericht en dat de zender en ontvanger de CBC gebruiken. Dit gaat als volgt te werk:
 
 \begin{itemize}
@@ -139,8 +141,8 @@ Om dit probleem op te lossen, kunnen we wat willekeur inbrengen in de ciphertext
 \begin{figure}[h]
     \centering
     \includegraphics[width=7in]{./img/imghfdst8/hfdst8puntje5.png}\\[1cm]
-    \caption{ }      
-    \label{fig: }
+    \caption{Diffie-Hellman key echange algoritm }      
+    \label{fig:Diffie-Hellman key echange algoritm }
 \end{figure}
 
 \noindent aantal vereisten nodig:
@@ -166,7 +168,8 @@ Maar komen 2 grote zorgen:
 
 \subsubsubsection{RSA}
 
-Maakt uitgebruid gebruik van rekenkundige bewerkingen gebruiken van modulo-n.\\
+Maakt uitgebreid gebruik van rekenkundige bewerkingen gebruiken van modulo-n.
+
 X mod n wilt gewoonweg zeggen de rest van x wanneer het gedeeld wordt door n. In modulaire rekenkunde gebruikt men nog de gebruikelijke operaties van toevoeging, vermenigvuldiging en exponentieel. Echter, het resultaat van elke operatie wordt vervangen door de numerieke rest van wat er overschiet wanneer het resultaat gedeeld is door n.
 Volgende handeling zijn er:
 
@@ -190,7 +193,7 @@ Om een publieke en prive RSA sleutel te genereren, worden volgende stappen gevol
 
 \begin{enumerate}
 \item Er worden eerst 2 grote \textbf{priemgetallen} gekozen, \textbf{p} en \textbf{q}. Hoe groter de waardes hoe moeilijker het is om de RSA te kraken, maar hoe langer het duurt om te coderen en decoderen. p*q < 1024 bits
-\item Bereken $n = p*q$ en $z = (p – 1)*(q – 1)$
+\item Bereken $n = p*q$ en $z = (p - 1)*(q - 1)$
 \item Er wordt een getal \textbf{e} (van encryption) gekozen (<n) dat \textbf{geen factoren gemeenschappelijk} heeft met z.
 \item Er wordt een getal \textbf{d} (van decryption) gekozen zodanig dat \textbf{ed – 1} exact deelbaar is door z. $\rightarrow$ \textbf{ed mod z = 1}
 \item De publieke sleutel $(K^+_B)$ bestaat uit het paar getallen \textbf{(n,e)}. De privé sleutel $(K^-_B)$ bestaat uit het paar getallen (n,d)
@@ -222,10 +225,12 @@ De encryptie wordt op de volgende manier gedaan:
 \itf Machtsverheffingen voor RSA zijn behoorlijk tijdrovende bezigheden
 \itf DES is minimaal 100 keer sneller dan RSA
 \ei
-RSA wordt vaak gebruikt in combinatie met symmetrische sleutel cryptografie.\\
+RSA wordt vaak gebruikt in combinatie met symmetrische sleutel cryptografie.
+
 Bob en Alice gebruiken RSA om een symmetrische sleutel (=sessiesleutel) $K_S$ uit te wisselen. Eenmaal ze beiden de sleutel Ks hebben, gebruiken ze symmetrische sleutel cryptografie.
 
-De zender moet de ontvanger informeren over de sessie sleutel, omdat deze gedeelde symmetrische sleutel gebruikt gaat worden met een symmetrische sleutel cipher. \\
+De zender moet de ontvanger informeren over de sessie sleutel, omdat deze gedeelde symmetrische sleutel gebruikt gaat worden met een symmetrische sleutel cipher.
+
 De zender encrypt de sessie sleutel door middel van de publieke sleutel van de ontvanger. Dit wordt dan $c = (K_S)^e\ mod\ n$.\\ De ontvanger krijgt de RSA geëncrypteerde sessie sleutel, c en decrypt het om de sessie sleutel de krijgen.
 
 \clearpage
@@ -235,12 +240,13 @@ De zender encrypt de sessie sleutel door middel van de publieke sleutel van de o
 RSA encryptie/decryptie lijkt eerder magisch. Waarom is het mogelijk bij het toepassen van het encryptie algoritme en daarna het decryptie algoritme, om het originele bericht te herstellen? 
 Onder RSA encryptie, een bericht m wordt tot de macht e gedaan modulo-n, dat is $c = m^e\ mod\ n$.
 Decryptie wordt uitgevoerd het verhogen van deze waarde tot de macht d en opnieuw modulo n. Het resultaat van een encryptie stap gevolgd door een decryptie stap is dus $(m^e\ mod\ n)^d\ mod\ n$.
-\\\\
+
 Een belangrijke eigenschap van modulo is $(a\ mod\ n)^d\ mod\ n\ = a^d\ mod\ n$ voor elke waarde a, n en d. Dus gebruik makend van de eigenschap $a = m^e$ krijgen we $(m^e\ mod\ n)^d\ mod\ n = m^{ed}\ mod\ n$.
-\\\\
+
 We moeten nog aantonen dat $m^{ed}\ mod\ n = m$. \\\\Om een deel van de magie weg te werken, moeten we een magisch resultaat uit de getal theorie gebruiken. Specifiek, we hebben het resultaat nodig dat zegt dat als p en q priem getallen zijn, $n = pq, $ en $ z = (p – 1)(q – 1)$, dan is $x^y\ mod\ n$ gelijk aan $x^{y}\ mod\ z) \ mod\ n$. Als we dit resultaat toepassen met x = m en y = ed dan krijgen we $m^{ed}\ mod\ n = m^{ed}\ mod\ z) \ mod\ n$.\\\\
-Maar herinner dat we e en d zo hebben gekozen dat $ed\ mod\ z = 1$. \\\\Dit geeft ons $m^{ed}\ mod\ n = m^1\ mod\ n = m$.
-Wat exact het resultaat is dat we zochten. \\\\We kunnen hierdoor ook zeggen dat $(m^d\ mod\ n)^e\ mod\ n = m^{de}\ mod\ n = m^{ed}\ mod\ n = (m^e\ mod\ n)^d\ mod\ n$
-\\\\
+Maar herinner dat we e en d zo hebben gekozen dat $ed\ mod\ z = 1$. \\\\Dit geeft ons $m^{ed}\ mod\ n = m^1\ mod\ n = m$. Wat exact het resultaat is dat we zochten. 
+
+We kunnen hierdoor ook zeggen dat $(m^d\ mod\ n)^e\ mod\ n = m^{de}\ mod\ n = m^{ed}\ mod\ n = (m^e\ mod\ n)^d\ mod\ n$
+
 De veiligheid van RSA vertrouwt op het feit dat er geen gekende algoritmes zijn voor het snel vormen van een nummer, in dit geval de publieke waarde n, in priem getallen p en q. Als iemand p en q kende, dan de publieke waarde e, kan men gemakkelijk de geheime sleutel d berekenen.
 Aan de andere kant, het is niet bekend of er een algoritme bestaat, dus de veiligheid van RSA is niet gegarandeerd.

@@ -19,12 +19,18 @@
   \end{itemize}
 \end{multicols}
 
-\noindent \textbf{Cliënt-serverstructuur:} In deze structuur is er een host die altijd aan is (de server). Deze host behandelt de verzoeken van zijn clients. De server heeft een vast IP-adres en is dus steeds bereikbaar. Probleem? Als er slechts 1 server is, kan deze overbelast geraken. Oplossing? Het gebruik van datacenters (verschillende servers die samen 1 server vormen).\\\\
-\textbf{P2P-structuur (peer-to-peer)}: Hosts maken gebruik van rechtstreekse communicatie met elkaar. Pluspunt: \textbf{zelfschaalbaarheid}, elke peer die wordt toegevoegd zorgt voor meer capaciteit. P2P is kosten efficiënt, omdat ze geen significante server infrastructuur en bandbreedte nodig hebben.\\\\
-$\Rightarrow$ Dus geen server die altijd aanstaat.\\
-$\Rightarrow$ Peers zijn met wederkerend optreden geconnecteerd en veranderen van IP-adres.\\\\
-\textbf{Peers} = periodiek met elkaar verbonden hosts waarbij rechtstreekse communicatie toegepast wordt.\\\\
-- Dit zijn gewone gebruikers van desktops en laptops.\\\\
+\noindent \textbf{Cliënt-serverstructuur:} In deze structuur is er een host die altijd aan is (de server). Deze host behandelt de verzoeken van zijn clients. De server heeft een vast IP-adres en is dus steeds bereikbaar. Probleem? Als er slechts 1 server is, kan deze overbelast geraken. Oplossing? Het gebruik van datacenters (verschillende servers die samen 1 server vormen).
+
+\textbf{P2P-structuur (peer-to-peer)}: Hosts maken gebruik van rechtstreekse communicatie met elkaar. Pluspunt: \textbf{zelfschaalbaarheid}, elke peer die wordt toegevoegd zorgt voor meer capaciteit. P2P is kosten efficiënt, omdat ze geen significante server infrastructuur en bandbreedte nodig hebben.
+
+$\Rightarrow$ Dus geen server die altijd aanstaat.
+
+$\Rightarrow$ Peers zijn met wederkerend optreden geconnecteerd en veranderen van IP-adres.
+
+\textbf{Peers} = periodiek met elkaar verbonden hosts waarbij rechtstreekse communicatie toegepast wordt.
+
+- Dit zijn gewone gebruikers van desktops en laptops.
+
 Toekomstige P2P-applicaties moeten rekening houden met 3 punten:
 \begin{enumerate}
 \item \textbf{ISP-vriendelijkheid}: De meeste ISP’s die thuistoegang tot het internet verlenen gaan ervan uit dat het internet asymmetrisch gebruikt zal worden (meer downloaden dan uploaden). Aangezien er bij P2P veel moet geüpload worden, moet de applicatie hier rekening bij houden.
@@ -46,7 +52,8 @@ Processen in 2 verschillende hosts communiceren met elkaar door \textbf{berichte
 
 \subsubsubsection{Client en server processen}
 
-\textbf{client proces}: het proces dat de communicatie start\\\\
+\textbf{client proces}: het proces dat de communicatie start
+
 \textbf{server proces}: proces dat wacht om gecontacteerd te worden.
 
 \subsubsubsection{De interface tussen het proces en het computer netwerk}
@@ -77,8 +84,10 @@ Voorziet of een dienst volledige zekerheid kan bieden of pakketten zullen aankom
 Een transport protocol kan ook tijd garanties voorzien. Dit kan ook in vele vormen voorkomen. Een garantie kan zijn dat elke bit die de zender stuurt niet later dan 100 msec mag aankomen. Zo’n service is aantrekkelijk voor interactieve real-time applicaties. Voor non-real-time applicaties is lager vertraging altijd de voorkeur op hogere vertraging, maar er zijn geen vaste beperkingen geplaatst op de vertragingen.
 
 \subsubsubsection{Security}
-$\Rightarrow$ encryptie ja/nee?\\
-$\Rightarrow$ data integriteit\\
+$\Rightarrow$ encryptie ja/nee?
+
+$\Rightarrow$ data integriteit
+
 $\Rightarrow$ authenticatie.
 
 \subsubsection{Transport diensten die door het internet voorzien worden}

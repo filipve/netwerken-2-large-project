@@ -7,18 +7,24 @@
 \label{fig:ftp}
 \end{figure}
 
-\noindent \textbf{functie}: bestanden overbrengen naar en van een remote host.\\\\
+\noindent \textbf{functie}: bestanden overbrengen naar en van een remote host.
+
 Client/server model:
 \bi
 \itf Client: de kant dat de overdracht start (eender in welke richting).
 \itf Server: de remote host
 \ei
-ftp: RFC 959\\\\
-ftp server: port 21\\\\
-FTP maakt gebruik van 2 parallelle TCP-verbindingen voor het overbrengen van een bestand. De \textbf{besturingsverbinding} en de \textbf{gegevensverbinding}.\\\\
-\textbf{Besturingsverbinding}: Wordt gebruikt om controle-informatie tussen de twee hosts uit te wisselen (gebruikersnaam, wachtwoord, PUT, GET, ...).\\\\
+
+ftp: RFC 959
+
+ftp server: port 21
+
+FTP maakt gebruik van 2 parallelle TCP-verbindingen voor het overbrengen van een bestand. De \textbf{besturingsverbinding} en de \textbf{gegevensverbinding}.
+
+\textbf{Besturingsverbinding}: Wordt gebruikt om controle-informatie tussen de twee hosts uit te wisselen (gebruikersnaam, wachtwoord, PUT, GET, ...).
+
 \textbf{Gegevensverbinding}: Wordt gebruikt voor het verzenden van het eigenlijke bestand. Het bestand wordt op een andere verbinding verzonden als de controle-informatie en wordt dus out-of-band genoemd.
-Gang van zaken\\\
+Gang van zaken
 
 \be
 \itf Client legt TCP-besturingsverbinding aan met een server.

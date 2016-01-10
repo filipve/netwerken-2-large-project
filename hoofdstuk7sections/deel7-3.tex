@@ -25,7 +25,9 @@ Een crusiaal component van end-to-end delay is de veranderlijke queuing delays d
 
 \subsubsection{Jitter verwijderen bij de ontvanger voor audio}
 
-Bij VoIP applicaties, moet de ontvanger proberen om een periodieke afspeling van stem stukjes te voorzien in aanwezigheid van willekeurige netwerk jitter. Dit kan gedaan worden door de volgende twee mechanismen te combineren:
+\noindent Bij VoIP applicaties, moet de ontvanger proberen om een periodieke afspeling van stem stukjes te voorzien in aanwezigheid van willekeurige netwerk jitter. 
+
+Dit kan gedaan worden door de volgende twee mechanismen te combineren:
 \begin{itemize}
 \item Een timestamp toevoegen aan het begin van elke stukje
 \item Delaying playout van stukjes bij de ontvanger. De playout delay kan oftwel vast zijn doorheen de duratie van de audio sessie of aanpassend variëren gedurende de audio sessie levenstijd.

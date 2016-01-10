@@ -1,12 +1,12 @@
 \subsection{DNS – het internet zijn directory dienst}
 
-Een gedistribueerde database die is geïmplementeerd in een hiërarchie van DNS-servers.\\\\
+Een gedistribueerde database die is geïmplementeerd in een hiërarchie van DNS-servers.
+
 Een applicatielaag-protocol waarmee hosts en DNS’s kunnen communiceren om de domeinnaam achter een IP-adres te vinden.
 
 \subsubsection{Diensten voorzien door DNS}
 
 $\Rightarrow$ Hostname naar IP-adres vertalen.
-
 
 \begin{itemize}
   \item \textbf{Host aliasing}. Een gecompliceerde host naam kan meerdere aliassen hebben. Een DNS kan opgeroepen worden door een applicatie om het canonical hostname te halen voor een gegeven alias.
@@ -14,7 +14,7 @@ $\Rightarrow$ Hostname naar IP-adres vertalen.
 \item \textbf{Loadbalancing / Load distribution}. Wordt ook gebruikt om de load distribution over gerepliceerde server te doen. Voor een gerepicleerde web server, is er een verzameling van IP adressen die geassocieerd zijn met één canonical hostname. Wanneer een client een DNS aanvraag doet voor zo’n web server, wisselt de DNS server telkens de volgorde van de IP adressen.
 \end{itemize}
 
-\noindent \textit{\textbf{Gang van zaken:}}\\
+\noindent \textit{\textbf{Gang van zaken:}}
 
 \noindent Het IP-adres opzoeken achter een webadres (bv. www.google.com)
 
@@ -48,7 +48,6 @@ Een simpel ontwerp voor DNS zou één DNS server zijn die alle mappings bevat. I
 \label{fig:dns hierarchie}
 \end{figure}
 
-
 \clearpage
 
 \subsubsubsection{Een verdeelde hiërarchische databank}
@@ -70,7 +69,7 @@ Er is nog een belangrijk type van DNS server die de local DNS server wordt genoe
 
 \subsubsubsection{DNS caching}
 
-\textbf{DNS-caching}: Een DNS-server kan wanneer deze een DNS-antwoord ontvangt, de verwijzing in het lokale cachegeheugen plaatsen. (Wordt vooral gebruikt bij recursieve verzoeken)\\
+\textbf{DNS-caching}: Een DNS-server kan wanneer deze een DNS-antwoord ontvangt, de verwijzing in het lokale cachegeheugen plaatsen. (Wordt vooral gebruikt bij recursieve verzoeken)
 
 \noindent DNS caching is een zeer belangrijke kenmerk van het DNS systeem. DNS gebruikt dit zeer hard om de vertaging prestatie te verbeteren en de aantal DNS berichten die rond gaan te verminderen. In een query ketting, wanneer een DNS server een DNS antwoord ontvangt, kan het deze mapping in zijn locaal geheugen cachen. Als een hostname/IP adres paar gemapped zijn en er een andere query komt voor dezelfde hostname, kan de DNS server de gewenste IP adres voorzien, zelf als niet authoritative is voor de hostname. Omdat hosts en mappings tussen hostnames en IP adressen geenszins permanent zijn. Daarom doen DNS servers hun gecached om de zoveel tijd weg.
 
@@ -152,8 +151,10 @@ DNS heeft enkel twee mogelijk berichten (Query en reply). Beide berichten hebben
 
 \subsubsection{P2P-bestandsdistributie}
 
-\textbf{Torrent}: de verzameling peers die deelnemen aan de distributie van een bepaald bestand. Wanneer een peer deelneemt aan een torrent, downloadt hij het bestand in zogenaamde \textbf{chunks} dit zijn kleine deeltjes van het bestand. Wanneer een peer alle chunks heeft verzameld, heeft hij het gehele bestand tot zijn beschikking. De peer uploadt ook zijn chunks wanneer hij ze aan het downloaden is.\\\\
-\textbf{Tracker}: Infrastructuurnode van een torrent. Wanneer een peer aan een torrent gaat deelnemen, meldt hij dit aan de tracker. Wanneer een peer zich aanmeldt, selecteert de tracker een willekeurig aantal peers waarmee de peer dan een TCP-verbinding moet leggen om zo onderling chunks te kunnen uitwisselen.\\\\
+\textbf{Torrent}: de verzameling peers die deelnemen aan de distributie van een bepaald bestand. Wanneer een peer deelneemt aan een torrent, downloadt hij het bestand in zogenaamde \textbf{chunks} dit zijn kleine deeltjes van het bestand. Wanneer een peer alle chunks heeft verzameld, heeft hij het gehele bestand tot zijn beschikking. De peer uploadt ook zijn chunks wanneer hij ze aan het downloaden is.
+
+\textbf{Tracker}: Infrastructuurnode van een torrent. Wanneer een peer aan een torrent gaat deelnemen, meldt hij dit aan de tracker. Wanneer een peer zich aanmeldt, selecteert de tracker een willekeurig aantal peers waarmee de peer dan een TCP-verbinding moet leggen om zo onderling chunks te kunnen uitwisselen.
+
 \textbf{Rarest-first}: Het principe dat gebruikt wordt wanneer een peer een chunk moet gaan halen bij andere peers. Het houdt in dat de peer de chunk die het minst voorkomt in de lijst met chunks die beschikbaar zijn bij de peers, eerst gaat downloaden.
 
 \subsubsection{Gedistribueerde hashtabellen}

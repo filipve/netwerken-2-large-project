@@ -43,7 +43,7 @@ Laten we een eerste gooi doen naar hoe we bericht integriteit kunnen uitvoeren:
  \item De ontvanger krijgt het uitgebreide bericht (m, h) en berekent H(m). Als H(m) = h, kan de ontvanger concluderen dat alles inorde is.
 \end{enumerate}
 Deze benadering is uiteraard gebrekkig. Een indringer kan een vals bericht m´ maken waarin deze zegt dat hij de zender is, H(m´) berekent en naar de ontvanger stuurt. Wanneer de ontvanger het bericht krijgt, gaat alles in orde zijn en zal de ontvanger niets vermoeden.
-\\\\
+
 Om bericht integriteit uit te voeren, naast het gebruik van cryptografische hash functies, hebben de zender en ontvanger een gedeelde geheime s nodig. Dit gedeeld geheim, is niets meer dan een string van bits die de authenticatie sleutel wordt genoemd. Het gebruik van dit gedeelde geheim, kan bericht integriteit uitgevoerd worden als volgt:
 \begin{enumerate}
     \item De verzender maakt een bericht m en voegt s met m om m + s te maken, en berekent de hash H(m + s). Dit wordt de \textcolor{red}{\textbf{Message Authentication Code (MAC)}} genoemd.
@@ -63,7 +63,7 @@ Dit is een cryptografische techniek vergelijkend met een handtekening zetten.
 \itf \textcolor{red}{\textbf{Verifieerbaar en niet hermaakbaar:}} de ontvanger (Alice) moet kunnen aantonen aan anderen dat Bob en niemand anders (inclusief Alice) het document gesigneerd heeft.
 \ei
 
-\noindent Een simpele digitale handtekening zetten voor het bericht \textbf{m} :\\
+\noindent Een simpele digitale handtekening zetten voor het bericht \textbf{m}:
 
 \noindent $\Rightarrow$ Bob tekent \textbf{m} door het encrypteren met zijn private sleutel $K^-_B$ waarmee hij het gesigneerde bericht aanmaakt, $K^-_B (m)$
 
@@ -77,7 +77,7 @@ Dit is een cryptografische techniek vergelijkend met een handtekening zetten.
 
 \noindent $\Rightarrow$ suppose Alice receives msg m, with signature: m,  $K^-_B (m)$
 
-\noindent $\Rightarrow$ 	Alice verifies m signed by Bob by applying Bob’s public key  $K^+_B (m)$ to  $K^-_B (m)$ then checks  $K^+_B (K^-_B (m)) = m $.
+\noindent $\Rightarrow$ Alice verifies m signed by Bob by applying Bob’s public key  $K^+_B (m)$ to  $K^-_B (m)$ then checks  $K^+_B (K^-_B (m)) = m $.
 
 \noindent $\Rightarrow$ If $K^+_B (K^-_B (m)) = m $ , whoever signed m must have used Bob’s private key.
 
@@ -137,8 +137,8 @@ Een belangrijke toepassing bij digitale handtekeningen is de \textbf{Publieke Sl
 \begin{figure}[h]
     \centering
     \includegraphics[width=4in]{./img/imghfdst8/hfdst8puntje11.png}
-    \caption{ }      
-    \label{fig: }
+    \caption{Schema aanvraag signing certificaat  }      
+    \label{fig:Schema aanvraag signing certificaat }
 \end{figure}
 
 \noindent Wanneer Alice de publieke sleutel van Bob wilt:
@@ -152,7 +152,6 @@ Een belangrijke toepassing bij digitale handtekeningen is de \textbf{Publieke Sl
 \begin{figure}[h]
     \centering
 \includegraphics[width=4in]{./img/imghfdst8/hfdst8puntje12.png}
-\caption{ }      
-    \label{fig: }
+\caption{CA ondertekent certificaat }      
+    \label{fig:CA ondertekent certificaat }
 \end{figure}
-
