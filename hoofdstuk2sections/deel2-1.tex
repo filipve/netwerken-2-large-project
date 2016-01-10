@@ -40,8 +40,8 @@ De applicatie architectuur, is ontworpen door een applicatie ontwikkelaar en bep
 
 \subsubsection{Processen communiceren}
 
-\textbf{Proces}: Een applicatie die draait op een host. (Communicatie tussen processen op 1 host = \textbf{interprocescommunicatie})
-\\\\
+\noindent \textbf{Proces}: Een applicatie die draait op een host. (Communicatie tussen processen op 1 host = \textbf{interprocescommunicatie})
+
 Processen in 2 verschillende hosts communiceren met elkaar door \textbf{berichten} uit te wisselen over een computernetwerk.
 
 \subsubsubsection{Client en server processen}
@@ -51,8 +51,9 @@ Processen in 2 verschillende hosts communiceren met elkaar door \textbf{berichte
 
 \subsubsubsection{De interface tussen het proces en het computer netwerk}
 
-\textbf{Socket}: een proces verzendt berichten naar en ontvangt berichten van het netwerk via een netwerkinterface.\\\\
-Applicaties communiceren over een netwerk via sockets (= \textbf{Application Programming Interface = API)}\\
+\noindent \textbf{Socket}: een proces verzendt berichten naar en ontvangt berichten van het netwerk via een netwerkinterface.
+
+\noindent Applicaties communiceren over een netwerk via sockets (= \textbf{Application Programming Interface = API)}
 
 \noindent Een socket is de interface tussen de applicatie laag, en de transport laag binnen een host.
 
@@ -65,9 +66,11 @@ Wat zijn de diensten dat een transport laag protocol kan aanbieden aan applicati
 Voorziet of een dienst volledige zekerheid kan bieden of pakketten zullen aankomen of niet. Als men dit aanbiedt voldoet men aan reliable data transfer.(het is mogelijk dat dit niet zo belangrijk is bv. Skype waar er af en toe een pakket op de verbinding mag wegvallen, de gebruiker blijft verstaanbaar)
 
 \subsubsubsection{Throughput = doorvoercapaciteit (ongeveer hetzelfde als bandbreedte)}
-= de snelheid waarin het zendende proces de bits kan leveren aan het ontvangende proces. Omdat andere sessies de bandbreedte delen, zal de beschikbare throughput over tijd schommelen. (r bits/sec)\\\\
-Applicaties die througput vereisten hebben zijn \textbf{bandwidth-sensitive applicaties}. \\\\
-\textbf{Elastic applicaties} kunnen gebruik maken als veel of weinig throughput er op dat moment beschikbaar is. Natuurlijk hoe meer througput, hoe beter.
+
+= de snelheid waarin het zendende proces de bits kan leveren aan het ontvangende proces. Omdat andere sessies de bandbreedte delen, zal de beschikbare throughput over tijd schommelen. (r bits/sec)
+
+\noindent Applicaties die througput vereisten hebben zijn \textbf{bandwidth-sensitive applicaties}. 
+\noindent \textbf{Elastic applicaties} kunnen gebruik maken als veel of weinig throughput er op dat moment beschikbaar is. Natuurlijk hoe meer througput, hoe beter.
 
 \subsubsubsection{Timing}
 
@@ -111,16 +114,20 @@ UDP IS:
 \itf connectie-loos $\Rightarrow$ geen handshake die voorafgaat 
 \ei
 
-\noindent UDP $\Rightarrow$ voorziet een onbetrouwbare data transfer service.\\
-$\Rightarrow$ Het garandeert niet dat het bericht op de juiste manier zal aankomen.\\
+\noindent UDP $\Rightarrow$ voorziet een onbetrouwbare data transfer service.
+
+$\Rightarrow$ Het garandeert niet dat het bericht op de juiste manier zal aankomen.
 
 \subsubsection{Applicatie laag protocollen}
 
-Een applicatie laag protocol definieert hoe een applicatie zijn processen berichten doorgeven aan elkaar. In het bijzonder, een applicatie laag protocol definieert:
+\noindent Een applicatie laag protocol definieert hoe een applicatie zijn processen berichten doorgeven aan elkaar. 
+
+\noindent In het bijzonder, een applicatie laag protocol definieert:
 \begin{itemize}
     \item De types van berichten die uitgewisseld worden (request en response berichten)
     \item De syntax van de verschillende bericht types, zoals de velden in het bericht en hoe de velden afgebakend zijn.
     \item De betekenis van de velden, de betekenis van de informatie in de velden.
     \item Regels voor het bepalen wanneer en hoe een proces berichten stuurt en antwoord op berichten.
 \end{itemize}
-Sommige applicatie laag protocollen zijn gespecificeerd in RFCs (Requests For Comments) en zijn hierdoor in het publieke domein. Het is belangrijk om een onderscheid te maken tussen netwerk applicaties en applicatie laag protocollen. Een applicatie laag protocol is enkel een stukje van een netwerk applicatie.
+
+\noindent Sommige applicatie laag protocollen zijn gespecificeerd in RFCs (Requests For Comments) en zijn hierdoor in het publieke domein. Het is belangrijk om een onderscheid te maken tussen netwerk applicaties en applicatie laag protocollen. Een applicatie laag protocol is enkel een stukje van een netwerk applicatie.

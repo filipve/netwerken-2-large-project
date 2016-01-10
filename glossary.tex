@@ -1,26 +1,535 @@
-\newglossaryentry{maths}
-{
-    name=mathematics,
-    description={Mathematics is what mathematicians do}
-}
- 
-\newglossaryentry{latex}
-{
-    name=latex,
-    description={Is a mark up language specially suited for 
-scientific documents}
-}
- 
- 
-\newglossaryentry{formula}
-{
-    name=formula,
-    description={A mathematical expression}
+
+%glossary
+
+\newglossaryentry{Secure Sockets Layer (SSL)}{
+name={Secure Sockets Layer (SSL)},
+description={Uitgebreide TCP die gebruik maakt van cryptografie}
 }
 
-\newglossaryentry{domain-knowledge}{%
-  name={domain knowledge},%
-  description={valid knowledge used to refer to an area of human endeavour, an autonomous computer activity, or other specialized discipline}}
+
+\newglossaryentry{Transport Layer Security (TLS)}{
+name={Transport Layer Security (TLS)},
+description={ Een iets gewijzigde versie van SSL}
+}
+
+\newglossaryentry{Connection closure}{
+name={Connection closure},
+description={Speciale berichten om de connectie veilig te sluiten}
+}
+
+\newglossaryentry{Internet Key Exchange-protocol (IKE)}{
+name={Internet Key Exchange-protocol (IKE)},
+description={geautomatiseerd mechanisme voor het maken van beveiligingsassociaties}
+}
+
+\newglossaryentry{P2P-structuur (peer-to-peer): }{
+name={P2P-structuur (peer-to-peer): },
+description={Hosts maken gebruik van rechtstreekse communicatie met elkaar}
+}
+
+\newglossaryentry{peers}{
+name={peers },
+description={periodiek met elkaar verbonden hosts waarbij rechtstreekse communicatie toegepast wordt}
+}
+
+\newglossaryentry{Proces}{
+name={Proces},
+description={Een applicatie die draait op een host }
+}
+
+\newglossaryentry{interprocescommunicatie }{
+name={interprocescommunicatie },
+description={Communicatie tussen processen op 1 host}
+}
+
+\newglossaryentry{client process}{
+name={client process },
+description={process that initiates communication }
+}
+
+\newglossaryentry{server process}{
+name={server process},
+description={process that waits to be contacted }
+}
+
+\newglossaryentry{Socket }{
+name={Socket},
+description={een proces  verzendt berichten naar en ontvangt berichten van het netwerk via een netwerkinterface. }
+}
+
+\newglossaryentry{elastische applicaties. }{
+name={elastische applicaties. },
+description={Applicaties die niet veel gebruik maken van doorvoercapaciteit }
+}
+
+\newglossaryentry{bandbreedtegevoelige applicaties}{
+name={bandbreedtegevoelige applicaties },
+description={Applicaties die veel gebruik maken van doorvoercapaciteit }
+}
+
+\newglossaryentry{HTTP}{
+name={HTTP},
+description={ }
+}
+
+\newglossaryentry{stateless/toestandsloos protocol}{
+name={stateless/toestandsloos protocol},
+description={Omdat een HTTP-server geen info over de clients bijhoudt m.b.t. eerder verzonden berichten }
+}
+
+\newglossaryentry{non persistente verbinding }{
+name={non persistente verbinding },
+description={Verzoeken en responsen lopen via verschillende TCP verbinding(en)}
+}
+
+\newglossaryentry{persistente verbinding }{
+name={ },
+description={Wanneer verzoeken en responsen via dezelfde TCP verbinding(en) lopen }
+}
+
+\newglossaryentry{Round Trip Time (RTT)}{
+name={Round Trip Time (RTT)},
+description={De tijd die verstrijkt tussen het moment dat een client een verzoek doet om het bestand te ontvangen en het moment dat het wordt ontvangen}
+}
+
+\newglossaryentry{Cookie}{
+name={Cookie},
+description={bestand dat wordt bijgehouden door de server waarin bepaalde gegevens staan opgeslagen i.v.m. met de gast op zijn webpagina}
+}
+
+\newglossaryentry{Webcache (proxyserver)}{
+name={Webcache (proxyserver) },
+description={Een netwerkentiteit die HTTP-verzoeken afhandelt namens de oorspronkelijke webserver waar het verzoek oorspronkelijk naartoe is gestuurd. }
+}
+
+\newglossaryentry{Conditional GET }{
+name={Conditional GET },
+description={Een GET-bericht dat de proxy naar de server stuurt om te achterhalen of het bestand dat in zijn cache staat al een oud bestand is of niet, dus of het cache een up-to-date versie heeft of niet}
+}
+
+\newglossaryentry{cache}{
+name={cache },
+description={specify date of cached copy in HTTP request }
+}
+
+\newglossaryentry{FTP Besturingsverbinding }{
+name={FTP Besturingsverbinding },
+description={Wordt gebruikt om controle-informatie tussen de twee hosts uit te wisselen (gebruikersnaam, wachtwoord, PUT, GET, ...) }
+}
+
+\newglossaryentry{FTP Gegevensverbinding }{
+name={FTP Gegevensverbinding  },
+description={Wordt gebruikt voor het verzenden van het eigenlijke bestand. Het bestand wordt op een andere verbinding verzonden als de controle-informatie en wordt dus out-of-band genoemd.}
+}
+
+\newglossaryentry{Mailbox }{
+name={Mailbox },
+description={contains incoming messages for user }
+}
+
+\newglossaryentry{SMTP }{
+name={SMTP},
+description={pushprotocol voor mails uit te wisselen}
+}
+
+\newglossaryentry{POP3 = Post Office Protocol }{
+name={POP3 = Post Office Protocol},
+description={pullprotocol voor mails}
+}
+
+\newglossaryentry{IMAP = Internet Mail Access Protocol  }{
+name={IMAP = Internet Mail Access Protocol},
+description={pullprotocol dat dient om mails op de server te categoriseren en in mappen te steken en houdt sessie-informatie bij  }
+}
+
+\newglossaryentry{DNS}{
+name={DNS },
+description={Een gedistribueerde database die is geïmplementeerd in een hiërarchie van DNS-servers}
+}
+
+\newglossaryentry{DNS-caching}{
+name={DNS-caching},
+description={Een DNS-server kan wanneer deze een DNS-antwoord ontvangt, de verwijzing in het lokale cachegeheugen plaatsen. (Wordt vooral gebruikt bij recursieve verzoeken)}
+}
+
+\newglossaryentry{Bronrecords}{
+name={Bronrecords},
+description={records waarin de hostnaam met bijbehorend IP staat opgeslagen (samen met TTL en Type)}
+}
+
+\newglossaryentry{Registrar }{
+name={Registrar},
+description={commerciële entiteit die controleert of een domeinnaam uniek is, de domeinnaam in de DNS plaatst en daar geld voor vraagt. }
+}
+
+\newglossaryentry{Torrent }{
+name={Torrent},
+description={de verzameling peers die deelnemen aan de distributie van een bepaald bestand }
+}
+
+\newglossaryentry{chunks  }{
+name={chunks},
+description={kleine deeltjes van het torrent bestand }
+}
+
+\newglossaryentry{Tracker }{
+name={Tracker },
+description={Infrastructuurnode van een torrent }
+}
+
+\newglossaryentry{Rarest-first}{
+name={Rarest-first},
+description={Het principe dat gebruikt wordt wanneer een peer een chunk moet gaan halen bij andere peers}
+}
+
+\newglossaryentry{Overlaynetwerk}{
+name={Overlaynetwerk},
+description={virtueel netwerk dat gemaakt wordt bovenop het bestaande netwerk tussen de peers}
+}
+
+\newglossaryentry{Prefetchen }{
+name={Prefetchen},
+description={zelfde principe als grijze laadbalk bij YouTube. Je laadt data in op voorhand zodat de video kan afspelen en je niet moet wachten om de video te kijken. sectie: streamen met HTTP }
+}
+
+\newglossaryentry{Peering}{
+name={Peering},
+description={ }
+}
+
+\newglossaryentry{Persistent http}{
+name={Persistent http},
+description={ }
+}
+
+\newglossaryentry{BGP (Border Gateway Protocol)}{
+name={BGP (Border Gateway Protocol)},
+description={ }
+}
+
+\newglossaryentry{RTP (Realtime Transport Protocol)}{
+name={RTP (Realtime Transport Protocol) },
+description={ staat in gedeelte streamen met UDP }
+}
+
+\newglossaryentry{quantisering }{
+name={quantisering },
+description={Alle samples worden afgerond naar het dichtstbijzijnde getal in een reeks }
+}
+
+\newglossaryentry{pulsecodemodulatie (PCM)}{
+name={pulsecodemodulatie (PCM)},
+description={Door de samplesnelheid en quantiseringswaarden te verhogen => betere benadering van het analoge signaal.}
+}
+
+\newglossaryentry{Streamen }{
+name={Streamen },
+description={ Zorgt ervoor dat de gebruiker een stuk van de video inlaadt en vervolgens de volgende stukjes direct erna inlaadt. Dit voorkomt dat de gebruiker het bestand volledig eerst moet inladen vooraleer het te bekijken. }
+}
+
+\newglossaryentry{Interactiviteit }{
+name={Interactiviteit},
+description={Dit biedt de mogelijkheid dat de gebruiker de video kan pauzeren, terugspoelen en verder spoelen. }
+}
+
+\newglossaryentry{Continue weergave }{
+name={Continue weergave },
+description={De frames moeten ingeladen zijn vóór dat ze worden weergegeven anders resulteert dit in haperingen. }
+}
+
+\newglossaryentry{Dynamic Adaptive Streaming over HTTP (DASH) }{
+name={Dynamic Adaptive Streaming over HTTP (DASH)},
+description={De video wordt gecodeerd in verschillende uitvoeringen waarbij elke versie een andere bitsnelheid heeft en dus ook een andere kwaliteit (240p, 360p bij YouTube)}
+}
+
+\newglossaryentry{manifestbestand}{
+name={manifestbestand},
+description={bestand dat URL en bijbehorende bitsnelheid levert voor elke versie van de video }
+}
+
+\newglossaryentry{CDN = Content distribution networks }{
+name={CDN = Content distribution networks},
+description={Een netwerk van servers die zijn verspreid over meerdere locaties waarop kopieën staan van de video’s (bv. YouTube)}
+}
+
+\newglossaryentry{IP-anycast }{
+name={	IP-anycast},
+description={laat internetrouters het beste pad bepalen}
+}
+
+\newglossaryentry{Best-effort}{
+name={Best-effort},
+description={IP doet zijn uiterste best om elk datagram zo snel mogelijk van de bron naar de bestemming te verplaatsen, maar geen rekening houdt met vertragingen of pakketten die verloren gaan.  }
+}
+
+\newglossaryentry{End-to-end-delay}{
+name={End-to-end-delay},
+description={de totale transmissievertraging. Vertraging > 150ms is onhoorbaar door mens. 150 < Vertraging > 400 is acceptabel. Vertraging > 400 kan interactie sterk verhinderen}
+}
+
+\newglossaryentry{Jitter}{
+name={Jitter},
+description={Het fenomeen dat zich voordoet wanneer vertragingen tussen het verzenden en ontvangen van pakketten varieert.  Oplossing: volgnummers, tijdstempels, weergavevertraging.  }
+}
+
+\newglossaryentry{Forward Error Correction (FEC) }{
+name={Forward Error Correction (FEC) },
+description={Toevoegen van redundante informatie aan de oorspronkelijke packetstream}
+}
+
+\newglossaryentry{Interleaving}{
+name={Interleaving},
+description={Het komt er hier op neer dat wanneer men geen redundantie wilt creëeren, men gebruik gaat maken van interleaving. Dit is de originele stream dooreenhalen volgens een vast patroon en deze dan terug in elkaar te boksen na packetverlies. De hierdoor ontstaan er hele kleine onderbrekingen. Nadeel: wachttijd. }
+}
+
+\newglossaryentry{RTP-Header }{
+name={RTP-Header },
+description={Header voor audio-chunks die bestaat uit het type audiocodering, het volgnummer en de tijdstempel. Deze bestaat uit 12 Bytes.  }
+}
+
+\newglossaryentry{RTP-pakket. }{
+name={RTP-pakket. },
+description={Audiochunk + RTP Header  }
+}
+
+\newglossaryentry{SIP = Session Initiation protocol }{
+name={SIP = Session Initiation protocol},
+description={ }
+}
+
+\newglossaryentry{IDs = Intrusion Detection system }{
+name={IDs = Intrusion Detection system },
+description={ }
+}
+
+\newglossaryentry{Denial of service = DoS }{
+name={denial of service},
+description={ Service voorkomen zodat het niet door anderen kan gebruikt worden. (vb. resources overbelasten) }
+}
+
+\newglossaryentry{plain text}{
+name={plain text},
+description={gewone niet versleutelde tekst }
+}
+
+\newglossaryentry{ciphertext}{
+name={ciphertext},
+description={versleutelde tekst }
+}
+
+\newglossaryentry{Block cipher }{
+name={Block cipher},
+description={ }
+}
+
+\newglossaryentry{Cipher-block chaining }{
+name={Cipher-block chaining },
+description={Een techniek die gebruikt wordt om encryptie toe te passen bij berichten die verzonden worden.  }
+}
+
+\newglossaryentry{initialisatievector (IV) }{
+name={initialisatievector (IV) },
+description={Voordat de verzender het bericht encrypteert, genereert hij een willekeurige waarde van x-aantal bits }
+}
+
+\newglossaryentry{AES: Advanced Encryption Standard }{
+name={AES: Advanced Encryption Standard },
+description={ }
+}
+
+\newglossaryentry{Diffie-Hellman key echange algoritm }{
+name={Diffie-Hellman },
+description={ }
+}
+
+\newglossaryentry{Sessiesleutel}{
+name={Sessiesleutel},
+description={De gedeelde sleutel die wordt gebruikt om de gegevens zelf te encrypteren. }
+}
+
+\newglossaryentry{berichtintegriteit}{
+name={berichtintegriteit},
+description={Wanneer een bericht “gehasht” is, mag het niet mogelijk zijn om het door een ander gehasht bericht te vervangen }
+}
+
+\newglossaryentry{Digitale handtekening }{
+name={Digitale handtekening },
+description={Dit is een cryptografische techniek vergelijkend met een handtekening zetten. }
+}
+
+\newglossaryentry{CA = certificatie Authoriteit }{
+name={CA = certificatie Authoriteit },
+description={Deze bindt een publieke sleutel aan een particuliere Entiteit, E. Authenticeert de echtheid van identiteiten en geeft certificaten uit.}
+}
+
+\newglossaryentry{Authenticatieprotocol}{
+name={Authenticatieprotocol},
+description={Een protocol dat wordt uitgevoerd voor de gegevensoverdracht om te zien met wie we aan het communiceren zijn}
+}
+
+\newglossaryentry{playbackaanval}{
+name={playbackaanval},
+description={Sleutel kan onderschept worden en zo kan wachtwoord gekraakt worden}
+}
+
+\newglossaryentry{Nonce }{
+name={Nonce },
+description={nummer (R) dat maar 1 keer in je leven gebruikt wordt. }
+}
+
+\newglossaryentry{PGP (Pretty Good Privacy) }{
+name={pgp},
+description={Dit is een e-mailversleutelingsmethode dat nu een standaard geworden is. }
+}
+
+\newglossaryentry{key derivation }{
+name={key derivation},
+description={verkrijgen van een sleutel}
+}
+
+\newglossaryentry{Message Authentication Code (MAC)  }{
+name={Message Authentication Code (=MAC)  },
+description={berichtauthenticatiecode }
+}
+
+\newglossaryentry{Blanket coverage = beveiligingsdeken }{
+name={Blanket coverage = beveiligingsdeken },
+description={Alle gegevens die van de ene naar de andere entiteit worden verzonden kunnen niet door derden ontsleuteld worden. }
+}
+
+\newglossaryentry{IPsec }{
+name={IPsec },
+description={IP-securityprotocol => zorgt voor beveiliging op de netwerklaag. }
+}
+
+\newglossaryentry{enchilada }{
+name={enchilada },
+description={een versleuteld IPv4 datagram met een ESP-trailerveld en vooraan een ESP-header }
+}
+
+\newglossaryentry{payload}{
+name={payload},
+description={Enchilada met een MAC toegevoegd achteraan}
+}
+
+\newglossaryentry{privenetwerk (VPN)}{
+name={privé netwerk},
+description={een op zichzelf staand netwerk dat alleen gebruikt wordt door een bepaalde instelling, dus volledig gescheiden van het publiekelijk toegankelijk internet}
+}
+
+
+
+\newglossaryentry{http hijacking }{
+name={hijacking},
+description={ }
+}
+
+\newglossaryentry{FTP in passive mode}{
+name={ftppassive },
+description={ }
+}
+
+\newglossaryentry{Ticket (Kerberos) }{
+name={Kerberos},
+description={ }
+}
+
+\newglossaryentry{Internet exchange }{
+name={Internet exchange },
+description={ }
+}
+
+\newglossaryentry{ACL (Access Control List)}{
+name={Access Control List },
+description={ }
+}
+
+\newglossaryentry{DMZ = demilitarized zone }{
+name={IDS},
+description={ }
+}
+
+\newglossaryentry{Signature-based IDS (Intrusion Detection System) }{
+name={IDS},
+description={ }
+}
+
+\newglossaryentry{Tunnel mode IPsec}{
+name={tunnel},
+description={ }
+}
+
+\newglossaryentry{transport mode IPsec}{
+name={transport},
+description={ }
+}
+
+\begin{comment}
+
+\end{comment}
+
+
+
+%hoofdstuk 2
+
+
+%hoofdstuk 7
+
+
+
+%hoofdstuk8
+
+\begin{comment}
+
+
+
+%hoofdstuk 2
+
+
+%hoofdstuk 7
+
+
+
+%hoofdstuk8
+
+Secure Sockets Layer (SSL): Uitgebreide TCP die gebruik maakt van cryptografie
+
+Transport Layer Security (TLS): Een iets gewijzigde versie van SSL
+
+
+Connection closure:Speciale berichten om de connectie veilig te sluiten.
+
+Internet Key Exchange-protocol (IKE): geautomatiseerd mechanisme voor het maken van beveiligingsassociaties.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{comment}
+
+
+
+
+
+
+
+  %%%%%%acronyms
   
   \newacronym{gcd}{GCD}{Greatest Common Divisor}
  

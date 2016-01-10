@@ -2,19 +2,26 @@
 
 \subsubsection{Firewalls}
 
-Een firewall is een combinatie van hardware en software dat het interne netwerk van een organisatie isoleert van het internet en sommige pakketten toe laat om door te gaan en andere blokkeert. Een firewall laat een netwerk administrator toe om toegang te controleren tussen de buiten wereld en de bronnen binnenin de geadministreerde netwerk door de verkeersstroom van en naar deze resources te beheren. Een firewall heeft drie doelen:
+Een firewall is een combinatie van hardware en software dat het interne netwerk van een organisatie isoleert van het internet en sommige pakketten toe laat om door te gaan en andere blokkeert. 
+
+\noindent Een firewall laat een netwerk administrator toe om toegang te controleren tussen de buiten wereld en de bronnen binnenin de geadministreerde netwerk door de verkeersstroom van en naar deze resources te beheren. 
+
+Een firewall heeft \textbf{drie} doelen:
 \begin{enumerate}
 \item Al het verkeer van buiten naar binnen en omgekeerd passeert langs de firewall.
 \item Enkel geautoriseerd verkeer, als gedefinieerd in de local security policy, mag toe gelaten worden.
 \item De firewall is zelf immuum tegen penetratie
 \end{enumerate}
-Firewalls kunnen geclassificeerd worden in drie categorieën: traditional packet filters, stateful filters en application gateways.
+
+\noindent Firewalls kunnen geclassificeerd worden in drie categorieën: traditional packet filters, stateful filters en application gateways.
 
 \clearpage
 
 \subsubsubsection{Traditional packet filters}
 
-Een organisatie heeft typisch een gateway router die zijn interne netwerk verbindt met zijn ISP. Al het verkeer dat binnenkomt en weg gaat, passeert via deze router, en het is dus deze router waar de packet filtering gebeurt. Een pakket filter onderzoekt elke datagram in isolatie, bepalend of de datagram door mag gaan of moet laten vallen gebaseerde op de specifieke administrator regels. Filter beslissingen zijn typisch gebaseerd op:
+Een organisatie heeft typisch een gateway router die zijn interne netwerk verbindt met zijn ISP. Al het verkeer dat binnenkomt en weg gaat, passeert via deze router, en het is dus deze router waar de packet filtering gebeurt. Een pakket filter onderzoekt elke datagram in isolatie, bepalend of de datagram door mag gaan of moet laten vallen gebaseerde op de specifieke administrator regels. 
+
+Filter beslissingen zijn typisch gebaseerd op:
 \begin{itemize}
 \item IP bron of bestemmingsadres
 \item Protocol type in IP datagram veld
@@ -24,34 +31,60 @@ Een organisatie heeft typisch een gateway router die zijn interne netwerk verbin
 \item Andere regels voor datagrammen die het networking binnen komen of verlaten
 \item Andere regels voor de verschillende router interfaces
 \end{itemize}
-Een netwerk administrator configureert de firewall gebaseerd op de policy van de organisatie. De policy kan gebruikers productiviteit en bandbreedte gebruikt in rekening brengen als ook de beveiligingszorgen van een organisatie. Een filter policy kan gebaseerd zijn op een combinatie van adressen en poort nummers. Spijtig genoeg bied de policy die gebaseerd is op externe adressen geen bescherming tegen datagrammen waarbij hun bron adres gespoofed is.
-Filteren kan ook gedaan worden op basis van of de TCP ACK bit ingesteld is of niet. Deze truc kan handig zijn in een organisatie die interne clienten de mogelijkheid wil bieden om te verbinden met externe servers, maar wilt voorkomen dat externe clienten kunnen verbinden met interne servers.
-\\\\
-Firewall regels zijn geïmplementeerd in routers met toegangscontrole lijsten, met elke router interface die zijn eigen lijst heeft.
+
+\noindent Een netwerk administrator configureert de firewall gebaseerd op de policy van de organisatie. De policy kan gebruikers productiviteit en bandbreedte gebruikt in rekening brengen als ook de beveiligingszorgen van een organisatie. 
+
+\noindent Een filter policy kan gebaseerd zijn op een combinatie van adressen en poort nummers. Spijtig genoeg biedt de policy die gebaseerd is op externe adressen geen bescherming tegen datagrammen waarbij hun bron adres gespoofed is.
+
+\noindent Filteren kan ook gedaan worden op basis van of de TCP ACK bit ingesteld is of niet. Deze truc kan handig zijn in een organisatie die interne clienten de mogelijkheid wil bieden om te verbinden met externe servers, maar wilt voorkomen dat externe clienten kunnen verbinden met interne servers.
+
+\noindent Firewall regels zijn geïmplementeerd in routers met toegangscontrole lijsten, met elke router interface die zijn eigen lijst heeft.
 
 \subsubsubsection{Stateful packet filters}
 
-In een traditionele packet filter, zijn filter beslissingen genomen op elk pakket in isolatie. Statefull filters houden eigenlijk de TCP connecties bij en gebruikt deze kennis om filter beslissingen te maken.
-Statefull filters houden alle lopende TCP connecties bij in een connectie tabel. Dit is mogelijk omdat de firewall het begin van een nieuwe connectie kan observeren door de three-way handshake (SYN, SYNACK en ACK) te observeren en het kan het einde van een connectie observeren als het een FIN pakket ziet voor de connectie. De firewall kan ook behoudend veronderstellen dat de connectie gedaan is wanneer er geen activiteit was op die connectie voor x-aantal seconden.
+\noindent In een traditionele packet filter, zijn filter beslissingen genomen op elk pakket in isolatie. 
+
+\noindent Statefull filters houden eigenlijk de TCP connecties bij en gebruikt deze kennis om filter beslissingen te maken.
+
+\noindent Statefull filters houden alle lopende TCP connecties bij in een connectie tabel. 
+
+Dit is mogelijk omdat de firewall het begin van een nieuwe connectie kan observeren door de three-way handshake (SYN, SYNACK en ACK) te observeren en het kan het einde van een connectie observeren als het een FIN pakket ziet voor de connectie. 
+
+De firewall kan ook behoudend veronderstellen dat de connectie gedaan is wanneer er geen activiteit was op die connectie voor x-aantal seconden.
 
 \subsubsubsection{Application gateway}
 
-Om een fijnere level van beveiliging te hebben, moeten firewalls packet filters combineren met applicatie gateways. Applicatie gateways kijken voorbij de IP/TCP/UPD headers and maken policy beslissingen gebaseerd op de applicatie data. Een applicatie gateway is een applicatie specifieke server waardoor alle applicatie data moet passeren. Meerdere applicatie gateways kunnen op dezelde host uitgevoerd worden, maar elke gateway is een aparte server met zijn eigen processen.
+\noindent Om een fijnere level van beveiliging te hebben, moeten firewalls packet filters combineren met applicatie gateways.
 
-Applicatie gateways hebben hun \textbf{nadelen}. Ten eerste is er een andere applicatie gateway nodig voor elke applicatie. Ten tweede is er een prestatie straf, omdat alle data heromgeleid wordt naar de gateway. Dit wordt een zekere zorg wanneer meerdere gebruikers of applicaties dezelfde gateway machine gebruiken. Ten laatste moet de client software weten hoe het de applicatie gateway moet vertellen te connecteren met welke externe server.
+\noindent Applicatie gateways kijken voorbij de IP/TCP/UPD headers and maken policy beslissingen gebaseerd op de applicatie data.
+
+\noindent Een applicatie gateway is een applicatie specifieke server waardoor alle applicatie data moet passeren. 
+
+\noindent Meerdere applicatie gateways kunnen op dezelde host uitgevoerd worden, maar elke gateway is een aparte server met zijn eigen processen.
+
+\noindent Applicatie gateways hebben hun \textbf{nadelen}.
+
+\textbf{Ten eerste} is er een andere applicatie gateway nodig voor elke applicatie. 
+
+\textbf{Ten tweede} is er een prestatie straf, omdat alle data heromgeleid wordt naar de gateway. Dit wordt een zekere zorg wanneer meerdere gebruikers of applicaties dezelfde gateway machine gebruiken. 
+
+\textbf{Ten laatste} moet de client software weten hoe het de applicatie gateway moet vertellen te connecteren met welke externe server.
 
 \subsubsection{Intrusion Detection Systems}
 
-Om vele aanval types te detecteren, moeten we een deep packet inspection uitvoeren, dat is verder kijken dan de header velden en in de eigenlijke applicatie data dat de pakketten dragen.
-Hier voor is er een ander toestel die niet enkel de headers van alle pakketten nakijkt maar ook deep packet inspection. Wanneer zo’n toestel een verdacht pakket, of serie van verdachte pakketten observeert, kan het voorkomen dat deze pakketten doorkomt in de organisatie, of het toestel kan de pakketten doorlaten maar een waarschuwing sturen naar de netwerk administrator, wie dan een kijkje kan nemen naar het verkeer en gepaste acties ondernemen.\\
+\noindent Om vele aanval types te detecteren, moeten we een deep packet inspection uitvoeren, dat is verder kijken dan de header velden en in de eigenlijke applicatie data dat de pakketten dragen.
+
+\noindent Hier voor is er een ander toestel die niet enkel de headers van alle pakketten nakijkt maar ook deep packet inspection. Wanneer zo’n toestel een verdacht pakket, of serie van verdachte pakketten observeert, kan het voorkomen dat deze pakketten doorkomt in de organisatie, of het toestel kan de pakketten doorlaten maar een waarschuwing sturen naar de netwerk administrator, wie dan een kijkje kan nemen naar het verkeer en gepaste acties ondernemen.
 
 \noindent\textcolor{red}{ Het toestel dat waarschuwingen genereert wanneer het potentiële kwaadaardig verkeer opmerkt} noemt men een \textbf{intrusion detection system (IDS)}. Een toestel die verdacht verkeer filtert noemt men een intrusion prevention system (IPS).
-\\\\
-Een IDS kan gebruikt worden om een grote waaier van aanvallen te detecteren, zoals netwerk mapping, port scans, DoS band-width-flooding attacks, worms en virussen, OS vulnerability attacks en application vulnerability attacks.
-\\\\
-Een organisatie kan één of meerdere IDS sensoren in zijn organisatie netwerk implementeren. Wanneer meerdere sensoren geïmplementeerd zijn werken ze meestal in overleg, zenden ze informatie over verdachte verkeers activiteit naar een centrale IDS processor, wie dan de informatie verzamelt en integreert en een waarschuwing stuurt naar de netwerk administrator wanneer het passend wordt geacht. \noindent\textcolor{red}{Een lagere beveiligings zone} wordt ook wel de \textbf{demilitarized zone (DMZ)} genoemd.
-\\\\
-Waarom meerdere IDS sensoren gebruiken? Waarom niet enkel één sensor achter de filter plaatsen (of zelfs met de filter integreren)? Een IDS moet niet enkel aan deep packet inspection doen, maar moet ook elk paserend pakket vergelijken met tienduizenden “handtekeningen”. Dit kan een aanzienelijke hoeveelheid verwerkingstijd met zich meebrengen. Door de IDS verder in de stroom plaatsen, gaat elke sensor maar een deel van het verkeer van de organisatie zien, en is makkelijker om bij te houden.
-\\\\
-IDS systemen zijn geclassificeerd als oftewel signature-based systems of anomaly-based systems. Een signature-based IDS onderhoudt een uitgebreide database met aanval handtekeningen. Elke handtekening is een set van regels met betrekking tot een inbraak activiteit. Dit kan een lijst van kenmerken zijn over een pakket. Een signature-based IDS snift elk pakket dat passeert en vergelijkt elk pakket met de handtekeningen in zijn database. Wanneer er een overeenkomst is, kan er een waarschuwing gestuurd worden door middel van een email, network management system, of gelogged voor verdere inspectie. Signature-based IDS systemen zijn veel gebruikt, maar hebben een paar beperkingen. Ze vereisen kennis van voorafgaande aanvallen om zo een accurate handtekening te genereren. Dit systeem is dus blind voor nieuwe aanvallen die nog niet opgenomen zijn. Een ander nadeel is als er zelfs een gelijkenis is met een handtekening, dit niet altijd een resultaat is van een aanval. Omdat elk pakket vergeleken moet worden met een grote hoeveelheid handtekeningen, wordt de IDS overweldigd met verwerkingen en zal uiteindelijk falen of veel kwaadaardige pakketten te detecteren.
-Een anomaly-based IDS creëert een verkeers profiel als het verkeer in normale toestand observeert. Kijkt vervolgens naar pakket stromen die statistisch ongewoon zijn. Het goede aan anomaly-based IDS systemen is dat ze niet afhankelijk zijn van voorafgaande kennis over bestaande aanvallen, zij kunnen potentieel nieuwe aanvallen detecteren. Aan de andere kant is het een zeer uitdagend probleem om gewoon verkeer van statistisch ongewoon verkeer te onderscheiden.
+
+\noindent Een IDS kan gebruikt worden om een grote waaier van aanvallen te detecteren, zoals netwerk mapping, port scans, DoS band-width-flooding attacks, worms en virussen, OS vulnerability attacks en application vulnerability attacks.
+
+\noindent Een organisatie kan één of meerdere IDS sensoren in zijn organisatie netwerk implementeren. Wanneer meerdere sensoren geïmplementeerd zijn werken ze meestal in overleg, zenden ze informatie over verdachte verkeers activiteit naar een centrale IDS processor, wie dan de informatie verzamelt en integreert en een waarschuwing stuurt naar de netwerk administrator wanneer het passend wordt geacht. \noindent\textcolor{red}{Een lagere beveiligings zone} wordt ook wel de \textbf{demilitarized zone (DMZ)} genoemd.
+
+\noindent Waarom meerdere IDS sensoren gebruiken? Waarom niet enkel één sensor achter de filter plaatsen (of zelfs met de filter integreren)? Een IDS moet niet enkel aan deep packet inspection doen, maar moet ook elk passerend pakket vergelijken met tienduizenden “handtekeningen”. Dit kan een aanzienlijke hoeveelheid verwerkingstijd met zich meebrengen. Door de IDS verder in de stroom plaatsen, gaat elke sensor maar een deel van het verkeer van de organisatie 
+\noindent IDS systemen zijn geclassificeerd als oftewel signature-based systems of anomaly-based systems. Een signature-based IDS onderhoudt een uitgebreide database met aanval handtekeningen. Elke handtekening is een set van regels met betrekking tot een inbraak activiteit. 
+
+\noindent Dit kan een lijst van kenmerken zijn over een pakket. Een signature-based IDS snift elk pakket dat passeert en vergelijkt elk pakket met de handtekeningen in zijn database. Wanneer er een overeenkomst is, kan er een waarschuwing gestuurd worden door middel van een email, network management system, of gelogged voor verdere inspectie. Signature-based IDS systemen zijn veel gebruikt, maar hebben een paar beperkingen. Ze vereisen kennis van voorafgaande aanvallen om zo een accurate handtekening te genereren. Dit systeem is dus blind voor nieuwe aanvallen die nog niet opgenomen zijn. Een ander nadeel is als er zelfs een gelijkenis is met een handtekening, dit niet altijd een resultaat is van een aanval. Omdat elk pakket vergeleken moet worden met een grote hoeveelheid handtekeningen, wordt de IDS overweldigd met verwerkingen en zal uiteindelijk falen of veel kwaadaardige pakketten te detecteren.
+
+\noindent Een anomaly-based IDS creëert een verkeers profiel als het verkeer in normale toestand observeert. Kijkt vervolgens naar pakket stromen die statistisch ongewoon zijn. Het goede aan anomaly-based IDS systemen is dat ze niet afhankelijk zijn van voorafgaande kennis over bestaande aanvallen, zij kunnen potentieel nieuwe aanvallen detecteren. Aan de andere kant is het een zeer uitdagend probleem om gewoon verkeer van statistisch ongewoon verkeer te onderscheiden.
