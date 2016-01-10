@@ -27,7 +27,7 @@
 
 \noindent $\Rightarrow$ Peers zijn met wederkerend optreden geconnecteerd en veranderen van IP-adres.
 
-\textbf{Peers} = periodiek met elkaar verbonden hosts waarbij rechtstreekse communicatie toegepast wordt.
+\noindent \textbf{Peers} = periodiek met elkaar verbonden hosts waarbij rechtstreekse communicatie toegepast wordt.
 
 \noindent - Dit zijn gewone gebruikers van desktops en laptops.
 
@@ -48,13 +48,13 @@ De applicatie architectuur, is ontworpen door een applicatie ontwikkelaar en bep
 
 \noindent \textbf{Proces}: Een applicatie die draait op een host. (Communicatie tussen processen op 1 host = \textbf{interprocescommunicatie})
 
-Processen in 2 verschillende hosts communiceren met elkaar door \textbf{berichten} uit te wisselen over een computernetwerk.
+\noindent Processen in 2 verschillende hosts communiceren met elkaar door \textbf{berichten} uit te wisselen over een computernetwerk.
 
 \subsubsubsection{Client en server processen}
 
 \textbf{client proces}: het proces dat de communicatie start
 
-\textbf{server proces}: proces dat wacht om gecontacteerd te worden.
+\noindent \textbf{server proces}: proces dat wacht om gecontacteerd te worden.
 
 \subsubsubsection{De interface tussen het proces en het computer netwerk}
 
@@ -84,11 +84,12 @@ Voorziet of een dienst volledige zekerheid kan bieden of pakketten zullen aankom
 Een transport protocol kan ook tijd garanties voorzien. Dit kan ook in vele vormen voorkomen. Een garantie kan zijn dat elke bit die de zender stuurt niet later dan 100 msec mag aankomen. Zo’n service is aantrekkelijk voor interactieve real-time applicaties. Voor non-real-time applicaties is lager vertraging altijd de voorkeur op hogere vertraging, maar er zijn geen vaste beperkingen geplaatst op de vertragingen.
 
 \subsubsubsection{Security}
-$\Rightarrow$ encryptie ja/nee?
 
-$\Rightarrow$ data integriteit
+\noindent $\Rightarrow$ encryptie ja/nee?
 
-$\Rightarrow$ authenticatie.
+\noindent $\Rightarrow$ data integriteit
+
+\noindent $\Rightarrow$ authenticatie.
 
 \subsubsection{Transport diensten die door het internet voorzien worden}
 
@@ -116,16 +117,18 @@ Het TCP service model bevat een connectie georiënteerde dienst en een betrouwba
 
 De reden dat er soms voor UDP wordt gekozen is omdat er door het gebrek van veiligheid met een veel hogere snelheid kan gewerkt worden. (Minimale snelheid is nodig voor bv. Skype) Veel firewalls blokkeren echter UDP, dus wordt er ook een alternatief verzien om met TCP te kunnen werken.
 
-UDP IS:
+\noindent UDP IS:
 
 \bi
 \itf lichtgewicht transport protocol
 \itf connectie-loos $\Rightarrow$ geen handshake die voorafgaat 
 \ei
 
-\noindent UDP $\Rightarrow$ voorziet een onbetrouwbare data transfer service.
+\noindent UDP :
 
-$\Rightarrow$ Het garandeert niet dat het bericht op de juiste manier zal aankomen.
+\noindent $\Rightarrow$ voorziet een onbetrouwbare data transfer service.
+
+\noindent $\Rightarrow$ Het garandeert niet dat het bericht op de juiste manier zal aankomen.
 
 \subsubsection{Applicatie laag protocollen}
 

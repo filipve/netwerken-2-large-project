@@ -2,7 +2,7 @@
 
 \subsubsection{Eigenschappen van video}
 
-\noindent Video gebruikt een hoge \textbf{bitsnelheid} waardoor er veel bytes worden \textbf{overgedragen}. Hoe \textbf{kleiner} je bandbreedte is, hoe slechter de beeldkwaliteit.\\\\
+\noindent Video gebruikt een hoge \textbf{bitsnelheid} waardoor er veel bytes worden \textbf{overgedragen}. Hoe \textbf{kleiner} je bandbreedte is, hoe slechter de beeldkwaliteit.
 
 \noindent Het meest opvallende kenmerk van video is zijn hoge bit ratio. Video die verdeeld worden bedragen tussen 100 kbs en 3 Mbs. Dus als we netwerk voor video applicaties willen ontwikkelen, moeten we de hoge bit ratio eis in gedachte houden. Een ander belangrijk kenmerk van video is dat het gecompresseerd kan worden, dus een compromis tussen kwaliteit en snelheid. Een video is een opeenvolging van beelden die op een constante snelheid afgespeeld worden. Een ongecomprimeerde digitaal gecodeerde afbeelding bestaat uit arrays van pixels die gecodeerd zijn in een aantal bits om helderheid en kleur te vertegenwoordigen. Er zijn twee types van overtolligheid in video die beide benut kunnen worden door video compressie.
 
@@ -11,9 +11,9 @@
 \noindent Temporal redundancy weerspiegelt herhaling van een beeld op het volgende beeld. Wanneer opeenvolgende beelden hetzelfde zijn, is er geen reden om het volgende beeld de coderen. Het is efficiënter om tijdens de codering aan te geven dat het beeld hetzelfde is.
 Vandaag de dag hebben we compressie algoritmes die een video naar een gewenste bit ratio kan omzetten. Hoe hoger de bit ratio, hoe beter de kwaliteit.
 
-We kunnen compressie ook gebruiken om verschillende versies van dezelfde video te maken, elk op een ander kwaliteit niveau. Zo kan de gebruiker kiezen welke versie ze willen in functie van hun huidige beschikbare bandbreedte.
+\noindent We kunnen compressie ook gebruiken om verschillende versies van dezelfde video te maken, elk op een ander kwaliteit niveau. Zo kan de gebruiker kiezen welke versie ze willen in functie van hun huidige beschikbare bandbreedte.
 
-\clearpage
+
 
 \subsubsection{Eigenschappen van geluid}
 
@@ -32,7 +32,7 @@ Dus ook is hier net zoals bij video een compromis tussen qualiteit en de opslag 
 \noindent De basis coderings techniek die hierboven beschreven is wordt de pulse code modulation (PCM) genoemd. Spraakcodering gebruikt vaak PCM met een sample ratio van 8 000 samples per seconde en 8 bits per sample, wat dus resulteert in 64 kbps. De geluid CD gebruikt ook PCM met een sampling ratio van 44 100 samples per seconde en 16 bits per sample, resulteert in 705.6 kbps voor mono en 1.411 Mbps voor stereo.
 PCM gecodeerde spraak en geluid wordt nauwelijks gebruikt in het internet. In plaats daarvan worden compressie technieken gebruikt om de bit ratios van de stream te verminderen. Een populaire compressie techniek voor bijna CD sterio muziek kwaliteit is MPEG 1 layer 3, beter bekend als MP3. MP3 codeerders kunnen naar verschillende ratio’s compreseren. 128 kbps is de meest algemene coderings ratio en produceert heel weinig geluid degradatie. Een gerelateerde standaard is Advanced Audio Coding (AAC), welke gepopulariseerd is door Apple. Hoewel audio bit ratios algemeen veel minder zijn dan die van video, zijn gebruikers meer gevoeliger aan geluidsstoringen dan aan video storingen.
 
-\clearpage
+
 
 \subsubsection{Types van multimedia netwerk applicaties}
 
@@ -48,7 +48,7 @@ PCM gecodeerde spraak en geluid wordt nauwelijks gebruikt in het internet. In pl
 De belangrijkste prestatiemaatstaf voor het streamen van video is de gemiddelde doorvoersnelheid. Om continue afspeling te voorzien, moet het netwerk een gemiddelde doorvoersnelheid voor de streaming applicatie voorzien die minstens even groot is als de bit ratio van de video zelf.
 Voor veel video streaming applicatie zijn opgenomen video’s opgeslagen en gestreamed van een CDN (Content Delivery Network) in plaats van een enkele data center. Er zijn ook veel P2P video streaming applicaties waarbij de video opgeslagen is op de gebruikers hosts (peers), met verschillende stukken van video’s die aankomen van verschillende peers die de wereld kunnen verspreiden.
 
-\clearpage
+
 
 \subsubsubsection{Voice- en Video-over-IP conversatie}
 

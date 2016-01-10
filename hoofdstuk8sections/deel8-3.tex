@@ -5,8 +5,10 @@ Een hashfunctie neemt een invoer, m, en berekent een vaste string grootte H(m). 
 \begin{itemize}
 \item Het is rekenkundig onmogelijk om twee verschillende berichten x en y te vinden zodat H(x) = H(y).
 \end{itemize}
-Dit betekent dat het rekenkundig onmogelijk is voor een indringer om een bericht te vervangen met een ander bericht die beschermd is door de hash functie. Dat is als (m, H(m)) het bericht en hash zijn van het bericht die gecreëerd is door de zender. Dan kan de indringer de inhoud van een ander bericht y niet vervalsen, dat dezelfde hash waarde heeft als het originele bericht.\\
-Een \textcolor{red}{\textbf{simple checksum}} zoals de Internet checksum, zou een \textbf{zwakke} cryptografische hash functie zijn. Het is hier mogelijk om \textbf{dezelfde} checksum te bekomen met een verschillend bericht. Dit komt onze voorwaarde niet na. We gaan een andere krachtigere functie nodig hebben.
+
+\noindent Dit betekent dat het rekenkundig onmogelijk is voor een indringer om een bericht te vervangen met een ander bericht die beschermd is door de hash functie. Dat is als (m, H(m)) het bericht en hash zijn van het bericht die gecreëerd is door de zender. Dan kan de indringer de inhoud van een ander bericht y niet vervalsen, dat dezelfde hash waarde heeft als het originele bericht.
+
+\noindent Een \textcolor{red}{\textbf{simple checksum}} zoals de Internet checksum, zou een \textbf{zwakke} cryptografische hash functie zijn. Het is hier mogelijk om \textbf{dezelfde} checksum te bekomen met een verschillend bericht. Dit komt onze voorwaarde niet na. We gaan een andere krachtigere functie nodig hebben.
 
 \subsubsubsection{Hashfunctie algoritmes}
 
@@ -23,7 +25,7 @@ Een \textcolor{red}{\textbf{simple checksum}} zoals de Internet checksum, zou ee
     \itf 160-bit berichtsamenvatting (= message digest)
     \ei
 \ei
-De MD5 hash algoritme berekent een 128 bit hash in een vier-stappen proces bestaande uit een aanvullende-stap (aanvullen van nullen zodat de lengte van het bericht aan bepaalde condities voldoet), een toevoegings-stap (toevoeging van een 64 bit representatie van de lengte van het bericht), een initialisatie van een accumulator, en een laatste lus-stap waarin het bericht van 16-woorden blokken verwerkt zijn in vier rondes.
+De MD5 hash algoritme berekent een 128 bit hash in een vier-stappen proces bestaande uit een aanvullende-stap (aanvullen van nullen zodat de lengte van het bericht aan bepaalde condities voldoet), een toevoegingsstap (toevoeging van een 64 bit representatie van de lengte van het bericht), een initialisatie van een accumulator, en een laatste lus-stap waarin het bericht van 16-woorden blokken verwerkt zijn in vier rondes.
 
 \begin{figure}[h]
     \centering
@@ -32,7 +34,7 @@ De MD5 hash algoritme berekent een 128 bit hash in een vier-stappen proces besta
     \label{fig:internet checksum }
 \end{figure}
 
-\clearpage
+
 
 \subsubsection{Bericht authenticatie code}
 
@@ -44,16 +46,16 @@ Laten we een eerste gooi doen naar hoe we bericht integriteit kunnen uitvoeren:
 \end{enumerate}
 Deze benadering is uiteraard gebrekkig. Een indringer kan een vals bericht m´ maken waarin deze zegt dat hij de zender is, H(m´) berekent en naar de ontvanger stuurt. Wanneer de ontvanger het bericht krijgt, gaat alles in orde zijn en zal de ontvanger niets vermoeden.
 
-Om bericht integriteit uit te voeren, naast het gebruik van cryptografische hash functies, hebben de zender en ontvanger een gedeelde geheime s nodig. Dit gedeeld geheim, is niets meer dan een string van bits die de authenticatie sleutel wordt genoemd. Het gebruik van dit gedeelde geheim, kan bericht integriteit uitgevoerd worden als volgt:
+\noindent Om bericht integriteit uit te voeren, naast het gebruik van cryptografische hash functies, hebben de zender en ontvanger een gedeelde geheime s nodig. Dit gedeeld geheim, is niets meer dan een string van bits die de authenticatie sleutel wordt genoemd. Het gebruik van dit gedeelde geheim, kan bericht integriteit uitgevoerd worden als volgt:
 \begin{enumerate}
-    \item De verzender maakt een bericht m en voegt s met m om m + s te maken, en berekent de hash H(m + s). Dit wordt de \textcolor{red}{\textbf{Message Authentication Code (MAC)}} genoemd.
+    \item De verzender maakt een bericht m en voegt s met m om m + s te maken, en berekent de hash H(m + s). Dit wordt de \textcolor{red}{\textbf{\acrfull{mac}}} genoemd.
     \item De verzender voegt de MAC toe aan het bericht m door een uitgebreid bericht te maken (m, H(m + s)), en verzend deze naar de ontvanger.
     \item De ontvanger krijgt het uitgebreide bericht (m, h) and al wetend van s, berekent hij de MAC H(m + s). Als H(m + s) = h kan de ontvanger concluderen dat alles in orde is.
 \end{enumerate}
 Een leuk kenmerk van een MAC is dat er \textbf{geen nood} is aan encryptie algoritme. Door gebruik te maken van MAC, kunnen de entiteiten de berichten authenticeren die ze naar elkaar sturen zonder het integreren van een complexe encryptie algoritme.
 Er blijft nochtans een belangrijke gebrekking. Hoe kunnen we de gedeelde authenticatie sleutel verdelen naar de communicerende entiteiten?
 
-\clearpage
+
 
 \subsubsection{Digitale handtekening}
 
@@ -105,7 +107,7 @@ Een zorg bij het tekenen van data door encryptie is dat encryptie en decryptie z
 
 \noindent Bob verstuurt een bericht naar Alice. Bob zet zijn bericht in een hash functie en handtekend deze hash daarna digitaal met zijn privé sleutel. Het originele bericht samen met de digitale gehandtekend bericht wordt verzonden naar Alice. Alice voegt de publieke sleutel toe aan het bericht om zo het hash resultaat de krijgen. Alice voert de hash functie uit op de cleartext om een tweede hash resultaat te bekomen. Als deze twee gelijk zijn, kan Alice zeker zijn van de integriteit en auteur van het bericht.
 
-\noindent Een digitale handtekening is dus een “zwaardere” techniek, omdat het een onderliggende \textbf{Public Key Infrastructure (PKI)} met \textbf{certificaten autoriteiten (CA)} nodig heeft.
+\noindent Een digitale handtekening is dus een “zwaardere” techniek, omdat het een onderliggende \textbf{Public Key Infrastructure (PKI)} met \textbf{ certificaten autoriteiten (\acrshort{ca})} nodig heeft.
 
 \subsubsubsection{CA = certificatie Autoriteit}
 

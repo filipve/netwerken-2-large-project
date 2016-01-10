@@ -52,9 +52,9 @@
 
 \subsubsubsection{VPN = Virtual Private Networks}
 
-\textbf{Privénetwerk} = een op zichzelf staand netwerk dat alleen gebruikt wordt door een bepaalde instelling, dus volledig gescheiden van het publiekelijk toegankelijk internet.
+\textbf{Privénetwerk (\acrshort{vpn})} = een op zichzelf staand netwerk dat alleen gebruikt wordt door een bepaalde instelling, dus volledig gescheiden van het publiekelijk toegankelijk internet.
 
-\fra Dit is erg kostbaar, want de instelling moet hun eigen fysieke netwerkinfrastructuur kopen, installeren en onderhouden.
+\noindent $\Rightarrow$ Dit is erg kostbaar, want de instelling moet hun eigen fysieke netwerkinfrastructuur kopen, installeren en onderhouden.
 
 \noindent \textbf{Gevolg}: Instellingen versturen hun interne dataverkeer over het publieke internet maar \textbf{versleutelen alles} eerst op voorhand.
 
@@ -62,9 +62,9 @@
 
 \noindent De IPsec header dient om de IPsec te verwerken. De payload van de IPsec datagram is geëncrypteerd. Wanneer de IPsec datagram op zijn bestemming arriveert, gaat het OS de payload decrypteren en geeft de ongecrypteerde payload naar een hogere laag protocol.
 
-\subsubsection{De AH en ESP protocolen}
+\subsubsection{De AH en ESP protocollen}
 
-In de IPsec protocol suite zijn er twee hoofd protocollen: de \textbf{Authentication Header (AH) protocol} en de \textbf{Encapsulation Security Payload (ESP)} protocol. Wanneer een bron IPsec entiteit (meestal een host of router) beveiligde datagrammen stuurt naar bestemmings entiteit (ook een host of router), doet hij dit met ofwel de AH protocol of ESP protocol.
+In de IPsec protocol suite zijn er twee hoofd protocollen: de \textbf{\acrfull{ah} protocol} en de \textbf{\acrfull{esp}} protocol. Wanneer een bron IPsec entiteit (meestal een host of router) beveiligde datagrammen stuurt naar bestemmings-entiteit (ook een host of router), doet hij dit met ofwel de AH protocol of ESP protocol.
 
 \noindent De \textbf{AH protocol} voorziet bron authenticatie en data integriteit maar geen confidentialiteit.
 
@@ -84,18 +84,18 @@ In de IPsec protocol suite zijn er twee hoofd protocollen: de \textbf{Authentica
 
 \noindent De staat informatie over een SA wordt bijgehouden, hier zit ook het volgende bij:
 \begin{itemize}
-\item Een 32 bit identificatie voor de SA, dit wordt de Security Parameter Index (SPI) genoemd
+\item Een 32 bit identificatie voor de SA, dit wordt de \acrfull{spi} genoemd
 \item De oorsprong-interface van de SA en de bestemmings-interface van de SA
-\item Het type van ecnryptie die gebruikt gaat worden
+\item Het type van encryptie die gebruikt gaat worden
 \item De encryptie sleutel
 \item Het type van de integriteit check
 \item De authenticatie sleutel
 \end{itemize}
 
 \noindent Wanneer bijvoorbeeld een router een IPsec datagram moet maken om de SA door te sturen, gaat het kijken in de staat informatie om te bepalen hoe hij de datagram zou moeten authenticeren en encrypteren.
-Een IPsec entiteit bewaart de staat informatie over al zijn SA’s in zijn Security Association Database (SAD), wat een data structuur is in de OS kernel entiteit.
+Een IPsec entiteit bewaart de staat informatie over al zijn SA’s in zijn \acrfull{sad}, wat een data structuur is in de OS kernel entiteit.
 
-ù\clearpage
+
 
 \subsubsection{De IPsec Datagram}
 
@@ -117,7 +117,7 @@ De IPsec heeft twee verschillende pakket vormen, één voor de zo genoemde tunne
 
 \noindent De ESP header bestaat uit twee velden: de SPI en sequentie nummer veld. De SPI indiceert aan de ontvangende entiteit de SA tot welke de datagram behoort. De ontvangende entiteit kan dan zijn SAD indexeren met de SPI om de juiste authenticatie/decryptie algoritmes en sleutels te bepalen. De sequentie nummer is om zich te verdedigen tegen replay-attacks.
 
-\clearpage
+
 
 \noindent De ESP MAC is de MAC die berekent werd over de hele enchilada.
 
@@ -134,19 +134,17 @@ De IPsec heeft twee verschillende pakket vormen, één voor de zo genoemde tunne
 
 \noindent Er is nog een belangrijke subtiliteit. Wanneer een router een (onbeveiligde) datagram krijgt, dat naar buiten de hoofdgebouw moet, hoe weet de router of de datagram geconverteerd moet worden naar IPsec?
 
-En als het door IPsec verwerkt moet worden, hoe weet de router welke SA hij moet gebruiken om de IPsec diagram te maken?
+\noindent En als het door IPsec verwerkt moet worden, hoe weet de router welke SA hij moet gebruiken om de IPsec diagram te maken?
+
+\noindent Naast een SAD, onderhoudt de IPsec entiteit ook een andere data structuur \textbf{\acrfull{spd}. }
+
+\noindent De SPD duid aan wat voor datagram types verwerkt moet worden als IPsec, en voor diegenen die verwerkt moeten worden, welke SA er gebruikt moet worden.
+
+\noindent SPD indiceert wat er gedaan moet worden met een aankomend datagram.
+
+\noindent SAD indiceert hoe dit gedaan moet worden.
 
 
-Naast een SAD, onderhoudt de IPsec entiteit ook een andere data structuur \textbf{Security Policy Database (SPD). }
-
-De SPD duid aan wat voor datagram types verwerkt moet worden als IPsec, en voor diegenen die verwerkt moeten worden, welke SA er gebruikt moet worden.
-
-
-SPD indiceert wat er gedaan moet worden met een aankomend datagram.
-
-SAD indiceert hoe dit gedaan moet worden.
-
-\clearpage
 
 \subsubsubsection{Overzicht van IPsec diensten}
 
@@ -159,18 +157,20 @@ Een indringer zit tussen router 1 en router 2. De indringer kent de authenticati
 \item De indringer zal ook geen succesvolle replay attack kunnen uitvoeren omdat er sequentie nummers worden gebruikt.
 \end{enumerate}
 
-IPsec gaat dus nog verder dan SSL.
+\noindent IPsec gaat dus nog verder dan SSL.
 
-\clearpage
+
 
 \subsubsection{IKE: Sleutel beheer in IPsec}
 
-\textbf{Internet Key Exchange-protocol (IKE):} geautomatiseerd mechanisme voor het maken van beveiligingsassociaties.
+\textbf{\acrfull{ike}:} geautomatiseerd mechanisme voor het maken van beveiligingsassociaties.
 
-Om bij alle routers en hosts de SA informatie toe te voegen, is er een geautomatiseerde mechanisme nodig om de SA’s te creëren. IPsec doet dit met de Internet Key Exchange (IKE) protocol. IKE heeft gelijkenissen met de handshake in SSL. Elke IPsec entiteit heeft een certificaat, die de publieke sleutel van de entiteit bevat. Zoals met SSL, heeft het IKE protocol twee uitwissel entiteiten certificaten, onderhandelen van authenticatie en encryptie algoritmes, en veilig uitwisselen van sleutel materiaal voor het creëren van sessie sleutels in de IPsec SA’s.
+\noindent Om bij alle routers en hosts de SA informatie toe te voegen, is er een geautomatiseerde mechanisme nodig om de SA’s te creëren. IPsec doet dit met de Internet Key Exchange (IKE) protocol. IKE heeft gelijkenissen met de handshake in SSL. Elke IPsec entiteit heeft een certificaat, die de publieke sleutel van de entiteit bevat. Zoals met SSL, heeft het IKE protocol twee uitwissel entiteiten certificaten, onderhandelen van authenticatie en encryptie algoritmes, en veilig uitwisselen van sleutel materiaal voor het creëren van sessie sleutels in de IPsec SA’s.
 IKE heeft twee fasen om deze taken uit te voeren. De eerste fase bestaat uit twee uitwisselingen van berichten paren tussen R1 en R2:
 \begin{itemize}
-\item Doorheen de eerste uitwisseling van berichten, gebruiken beide kanten Diffie-Hellman om een bi-directionele IKE SA te creëren tussen de routers. De IKE SA voorziet een geautenticeerd en geëncrypteerd kanaal tussen de twee routers. 
+\item Doorheen de eerste uitwisseling van berichten, gebruiken beide kanten Diffie-Hellman om een bi-directionele IKE SA te creëren tussen de routers. 
+
+De IKE SA voorziet een geauthenticeerd en geëncrypteerd kanaal tussen de twee routers. 
 Doorheen dit eerste berichten paar uitwisseling, worden sleutels gevestigd voor encryptie en authenticatie voor de IKE SA. Er is ook een MS gevestigd die gaat dienen om de IPsec SA sleutels te berekenen in fase twee.
 Merk op dat doorheen de eerste stap, geen RSA sleutels werden gebruikt. Nog R1 nog R2 hebben hun identiteit bekend gemaakt door een bericht te ondertekenen met zijn privé sleutel.
 \item Doorheen de tweede uitwisseling van berichten, gaan beide kanten hun identiteit ten opzichte van elkaar bekend maken door de berichten te ondertekenen. Alhoewel de identiteiten niet zichtbaar zijn voor een passieve sniffer, omdat de berichten zijn verstuurd over een beveiligde IKE SA kanaal. Ook bij deze fase, gaan de twee kanten die IPsec encryptie en authenticatie algoritmen die gebruikt moeten worden door de IPsec SA’s onderhandelen.

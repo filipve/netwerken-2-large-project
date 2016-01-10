@@ -1,13 +1,16 @@
 \subsection{Eind punt authenticatie}
-Is het proces van een entiteit die zijn identiteit bewijst aan een andere entiteit.
+
+\noindent Is het proces van een entiteit die zijn identiteit bewijst aan een andere entiteit.
 
 \noindent \textcolor{red}{\textbf{Authenticatieprotocol}}: Een protocol dat wordt uitgevoerd voor de gegevensoverdracht om te zien met wie we aan het communiceren zijn.
 
-\noindent Doel: Bob wilt Alice zijn identiteit bewijzen aan haar. 
+\noindent Doel: Bob wilt Alice zijn identiteit bewijzen aan haar.
+
 \subsubsection{Authentication Protocol ap1.0}
 
-Het gemakkelijkste AP dat we ons kunnen inbeelden. Alice stuurt een bericht naar Bob waar ze zegt dat ze Alice is.
-De fout is duidelijk, er is geen manier voor Bob om te weten wie het bericht stuurt.
+\noindent Het gemakkelijkste AP dat we ons kunnen inbeelden. Alice stuurt een bericht naar Bob waar ze zegt dat ze Alice is.
+
+\noindent De fout is duidelijk, er is geen manier voor Bob om te weten wie het bericht stuurt.
 
 
 \begin{figure}[h]
@@ -19,7 +22,7 @@ De fout is duidelijk, er is geen manier voor Bob om te weten wie het bericht stu
 
 \subsubsection{Authentication Protocol ap2.0}
 
-Als Alice een bekende netwerk adres heeft vanwaar ze altijd communiceert, kan Bob proberen om Alice te authenticeren door te controleren dat de oorsprong adres op de IP diagram die het authenticatie bericht draagt gelijk is aan Alice’s bekende adres. In dit geval zou Alice geauthenticeerd zijn.
+\noindent Als Alice een bekende netwerk adres heeft vanwaar ze altijd communiceert, kan Bob proberen om Alice te authenticeren door te controleren dat de oorsprong adres op de IP diagram die het authenticatie bericht draagt gelijk is aan Alice’s bekende adres. In dit geval zou Alice geauthenticeerd zijn.
 Maar we weten dat het niet zo moeilijk is om een eigen IP diagram te creëren en eender welk bron adres kunnen invoegen. Dit is een vorm van IP spoofing.
 \begin{figure}[h]
     \centering
@@ -56,7 +59,7 @@ Maar deze gedacht is fout. Wanneer Trudy meeluistert op Alice’s communicatie, 
     \label{fig:Authentication protocol 3.0 foto 2 }
 \end{figure}
 
-\clearpage
+
 
 \subsubsection{Authentication Protocol ap3.1}
 
@@ -86,9 +89,9 @@ Doel: playback-aanval voorkomen.
 \noindent \textbf{Nonce}: nummer (R) dat maar 1 keer in je leven gebruikt wordt.
 
 
-\fra  Zeggen wie je bent + nonce (R) kiezen en naar de andere persoon versturen
+$\Rightarrow$ Zeggen wie je bent + nonce (R) kiezen en naar de andere persoon versturen
 
-\fra  De ontvanger moet de nonce (R) terugsturen, geëncrypteerd met haar gedeelde beveiligde sleutel.
+$\Rightarrow$ De ontvanger moet de nonce (R) terugsturen, geëncrypteerd met haar gedeelde beveiligde sleutel.
 
 \noindent In de vorige versie kon Bob niet bepalen of Alice op dit moment wel echt aan de andere kant van de communicatie was of dat de berichten die hij kreeg een opgenomen afspeling van een vorige authenticatie van Alice is. Een nonce is een nummer dat een protocol enkel eenmalig zal gebruiken in zijn bestaan. Wanneer een protocol een nonce heeft gebruikt, dan zal het nummer nooit meer gebruiken. Het protocol gebruikt de nonce als volgt:
 \begin{enumerate}

@@ -2,15 +2,15 @@
 
 \subsubsection{Overzicht van HTTP}
 
-Het \textbf{HyperText Transfer protocol (HTTP)}, de web applicatie laag protocol, is het centrum van het web. HTTP is geïmplementeerd in twee programma’s: een client en server programma. De client en server praten met elkaar door het uitwisselen van berichten.
+Het \textbf{\acrfull{http}}, de web applicatie laag protocol, is het centrum van het web. HTTP is geïmplementeerd in twee programma’s: een client en server programma. De client en server praten met elkaar door het uitwisselen van berichten.
 
-HTTP gebruikt TCP als onderliggende transport protocol. 
+\noindent HTTP gebruikt TCP als onderliggende transport protocol. 
 
-De client initialiseert eerst een TCP connectie met de server. Eenmaal dat connectie gezet is, kunnen de browser en server processen de TCP bereiken door hun socket interfaces.
+\noindent De client initialiseert eerst een TCP connectie met de server. Eenmaal dat connectie gezet is, kunnen de browser en server processen de TCP bereiken door hun socket interfaces.
 
-Berichten worden via de browser verstuurd.
+\noindent Berichten worden via de browser verstuurd.
 
-Omdat een HTTP-server geen info over de clients bijhoudt m.b.t. eerder verzonden berichten, wordt HTTP een \textbf{toestandsloos} of \textbf{stateless protocol} genoemd.
+\noindent Omdat een HTTP-server geen info over de clients bijhoudt m.b.t. eerder verzonden berichten, wordt HTTP een \textbf{toestandsloos} of \textbf{stateless protocol} genoemd.
 
 \subsubsection{Niet aanhoudende en aanhoudende connecties}
 
@@ -18,7 +18,7 @@ Omdat een HTTP-server geen info over de clients bijhoudt m.b.t. eerder verzonden
 
 Wanneer verzoeken en responsen via (verschillende) dezelfde TCP verbinding(en) lopen, noemt men deze verbinding (non-) \textbf{persistent}.
 
-\textbf{NON-persistent}: gang van zaken (10 links op index.php naar een afbeelding)
+\noindent \textbf{NON-persistent}: gang van zaken (10 links op index.php naar een afbeelding)
 \be
 \itf Client maakt TCP-verbinding met server
 \itf Client verzendt via zijn socket een HTTP-verzoekbericht met ‘/home/index.php’
@@ -30,17 +30,15 @@ Wanneer verzoeken en responsen via (verschillende) dezelfde TCP verbinding(en) l
 
 \noindent \textbf{BELANGRIJK: ELKE TCP CONNECTIE VERZENDT EXACT 1 REQUEST MESSAGE EN 1 RESPONSE MESSAGE.}
 
-De tijd die verstrijkt tussen het moment dat een client een verzoek doet om het bestand te ontvangen en het moment dat het wordt ontvangen heet de \textbf{Round Trip Time (RTT)}
+\noindent De tijd die verstrijkt tussen het moment dat een client een verzoek doet om het bestand te ontvangen en het moment dat het wordt ontvangen heet de \textbf{\acrfull{rtt}}
 
-Het RTT bevat pakket verspreiding vertragingen, pakket wachtrij vertraging in tussen routers en switches, en pakket verwerking vertragingen.
+\noindent Het RTT bevat pakket verspreiding vertragingen, pakket wachtrij vertraging in tussen routers en switches, en pakket verwerking vertragingen.
 
-Een klik op een link zorgt voor het opstarten van een TCP connectie tussen de browser en server. Dit bevat een \textbf{three way handshake}. De client stuurt een klein TCP segment naar de server, de server erkent het en antwoord met een klein TCP segment en uiteindelijk erkent de client terug naar de server. De eerste twee stappen van de handshake nemen één RTT in beslag. Na de eerste twee delen, zend de client een HTTP request gecombineerd met het derde deel van de handshake. Eenmaal dat de request bericht aankomt, zend de server de HTML bestand door de TCP connectie. Deze HTTP request/response neemt nog een RTT in beslag. Dus de totale response tijd is twee RTTs plus de transitie tijd bij de server van de HTML bestand.
+\noindent Een klik op een link zorgt voor het opstarten van een TCP connectie tussen de browser en server. Dit bevat een \textbf{three way handshake}. De client stuurt een klein TCP segment naar de server, de server erkent het en antwoord met een klein TCP segment en uiteindelijk erkent de client terug naar de server. De eerste twee stappen van de handshake nemen één RTT in beslag. Na de eerste twee delen, zend de client een HTTP request gecombineerd met het derde deel van de handshake. Eenmaal dat de request bericht aankomt, zend de server de HTML bestand door de TCP connectie. Deze HTTP request/response neemt nog een RTT in beslag. Dus de totale response tijd is twee RTTs plus de transitie tijd bij de server van de HTML bestand.
 
 \subsubsubsection{HTTP met aanhoudende connectie}
 
 De server laat de TCP connectie open na het zenden van een response. Opeenvolgende requests en responses tussen dezelfde client en server kunnen over dezelfde connectie verzonden worden. Meer zelfs, meerdere web pagina’s die afkomstig zijn van één dezelfde server kunnen over die connectie gestuurd worden. Deze requests voor objecten kan back-to-back gemaakt worden, zonder te moeten wachten voor antwoorden op hangende requests. De HTTP server sluit een connectie wanneer het voor een bepaalde tijd niet meer gebruikt is.
-
-\clearpage
 
 \subsubsection{HTTP bericht formaat}
 
@@ -63,7 +61,7 @@ De server laat de TCP connectie open na het zenden van een response. Opeenvolgen
 
 \noindent De User-Agent: is handig omdat de server verschillende versies van het zelfde object kan sturen naar verschillende types van user agents.
 
-\clearpage
+
 
 \subsubsubsection{HTTP request message: general format}
 
@@ -74,7 +72,7 @@ De server laat de TCP connectie open na het zenden van een response. Opeenvolgen
     \label{fig:http request message format}
 \end{figure}
 
-\clearpage
+
 
 \subsubsubsection{HTTP response bericht}
 
@@ -96,15 +94,15 @@ De status code en bijhorende text duiden het resultaat van het request aan. Hier
  \item 505 HTTP Version Not Supported: de gevraagde HTTP protocol versie is niet ondersteund op de server.
 \end{itemize}
 
-\clearpage
+
 
 \subsubsection{Gebruiker-server interactie: Cookies}
 
 \textbf{Cookie}: bestand dat wordt bijgehouden door de server waarin bepaalde gegevens staan opgeslagen i.v.m. met de gast op zijn webpagina.
 
-\textbf{Nadeel}? Schending van privacy. Keuzes die gemaakt worden op websites worden opgeslagen in deze cookies en kunnen worden doorverkocht aan derden met doelgerichte reclame als gevolg.
+\noindent \textbf{Nadeel}? Schending van privacy. Keuzes die gemaakt worden op websites worden opgeslagen in deze cookies en kunnen worden doorverkocht aan derden met doelgerichte reclame als gevolg.
 
-Cookie-technologie heeft 4 componenten:
+\noindent Cookie-technologie heeft 4 componenten:
 \be
 \itf Een cookie header line in de HTTP response message
 \itf Een cookie header line in de HTTP request message
@@ -130,7 +128,7 @@ Cookie-technologie heeft 4 componenten:
 
 Cookies kunnen dus gebruikt worden om een gebruikers sessie laag te maken bovenop de stateless HTTP. Cookies kunnen ook als controversieel opgevat worden omdat ze ook beschouwd worden als een inbreuk op de privacy. Zo kan een website veel leren van een gebruiker, en potentieel deze informatie verkopen.
 
-\textit{\textbf{what cookies can be used for:}}
+\noindent \textit{\textbf{what cookies can be used for:}}
 
 \bi
 \itf authorization
@@ -139,22 +137,22 @@ Cookies kunnen dus gebruikt worden om een gebruikers sessie laag te maken boveno
 \itf user session state (Web e-mail)
 \ei
 
-How to keep "state"?
+\noindent How to keep "state"?
 
 \bi
 \itf protocol endpoints: maintain state at sender/receiver over multiple transactions
 \itf cookies: http messages carry state
 \ei
 
-\clearpage
+
 
 \subsubsection{Web caching}
 
-\textbf{Webcache (proxyserver):} Een netwerkentiteit die HTTP-verzoeken afhandelt namens de oorspronkelijke webserver waar het verzoek oorspronkelijk naartoe is gestuurd.
+\noindent \textbf{Webcache (proxyserver):} Een netwerkentiteit die HTTP-verzoeken afhandelt namens de oorspronkelijke webserver waar het verzoek oorspronkelijk naartoe is gestuurd.
 
-Definition english: goal: satisfy client request without involving origin server
+\noindent Definition english: goal: satisfy client request without involving origin server
 
-De web cache heeft zijn eigen schijf opslag en houdt kopieën bij van recent opgevraagde objecten. Een gebruiker zijn browser kan zo geconfigureerd zijn dat alle HTTP requests eerst naar de Web cache gaan. Als dit zo is, dan gebeurt het volgende:
+\noindent De web cache heeft zijn eigen schijf opslag en houdt kopieën bij van recent opgevraagde objecten. Een gebruiker zijn browser kan zo geconfigureerd zijn dat alle HTTP requests eerst naar de Web cache gaan. Als dit zo is, dan gebeurt het volgende:
 \begin{enumerate}
     \item De browser zet een TCP connectie op met de Web cache en zend een HTTP request voor het object naar de web cache.
 \item De web cache kijkt of er een kopie van dat object lokaal opgeslagen is. Als dit zo is, stuurt de cache het object terug binnen een HTTP response bericht naar de client.
@@ -181,10 +179,10 @@ De web cache heeft zijn eigen schijf opslag en houdt kopieën bij van recent opg
 
 \textbf{Conditional GET}: Een GET-bericht dat de proxy naar de server stuurt om te achterhalen of het bestand dat in zijn cache staat al een oud bestand is of niet, dus of het cache een up-to-date versie heeft of niet.
 
-\textbf{cache}: specify date of cached copy in HTTP request
+\noindent \textbf{cache}: specify date of cached copy in HTTP request
 
-$\Rightarrow$ If-modified-since: <date>
+\noindent $\Rightarrow$ If-modified-since: <date>
 
-\textbf{server}: response contains no object if cached copy is up-to-date:
+\noindent \textbf{server}: response contains no object if cached copy is up-to-date:
 
-$\Rightarrow$ HTTP/1.0 304 Not Modified
+\noindent $\Rightarrow$ HTTP/1.0 304 Not Modified

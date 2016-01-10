@@ -1,12 +1,12 @@
 \subsection{DNS – het internet zijn directory dienst}
 
-Een gedistribueerde database die is geïmplementeerd in een hiërarchie van DNS-servers.
+\noindent Een gedistribueerde database die is geïmplementeerd in een hiërarchie van DNS-servers.
 
-Een applicatielaag-protocol waarmee hosts en DNS’s kunnen communiceren om de domeinnaam achter een IP-adres te vinden.
+\noindent Een applicatielaag-protocol waarmee hosts en \acrshort{dns}’s kunnen communiceren om de domeinnaam achter een IP-adres te vinden.
 
 \subsubsection{Diensten voorzien door DNS}
 
-$\Rightarrow$ Hostname naar IP-adres vertalen.
+\noindent $\Rightarrow$ Hostname naar IP-adres vertalen.
 
 \begin{itemize}
   \item \textbf{Host aliasing}. Een gecompliceerde host naam kan meerdere aliassen hebben. Een DNS kan opgeroepen worden door een applicatie om het canonical hostname te halen voor een gegeven alias.
@@ -26,7 +26,7 @@ $\Rightarrow$ Hostname naar IP-adres vertalen.
 \itf Dit IP wordt dan gebruikt door de browser om een TCP verbinding te maken met dat IP-adres.
 \ee
 
-\clearpage
+
 
 \subsubsection{Overzicht hoe DNS werkt}
 
@@ -48,7 +48,7 @@ Een simpel ontwerp voor DNS zou één DNS server zijn die alle mappings bevat. I
 \label{fig:dns hierarchie}
 \end{figure}
 
-\clearpage
+
 
 \subsubsubsection{Een verdeelde hiërarchische databank}
 
@@ -65,7 +65,7 @@ Om om te gaan met het probleem van de schaal, gebruikt DNS een groot aantal serv
 \item Authorative DNS servers. Elke organisatie met publieke toegankelijke hosts op het internet moeten publiek toegankelijke DNS records voorzien die de namen van deze hosts naar IP adressen mapped. Een organisatie zijn authorative DNS server bewaart deze DNS records. Een organisatie kan kiezen om zijn eigen authorative DNS server te implementeren om deze records bij te houden. Een alternatief is dat de organisatie kan betalen om deze records op te laten slaan in zo’n server van een service provider.
 \end{itemize}
 
-Er is nog een belangrijk type van DNS server die de local DNS server wordt genoemd. Een locale DNS behoort niet strict tot de hierarchie van servers, maar is niet te min centraal aan het DNS architectuur. 
+\noindent Er is nog een belangrijk type van DNS server die de local DNS server wordt genoemd. Een locale DNS behoort niet strict tot de hierarchie van servers, maar is niet te min centraal aan het DNS architectuur. 
 
 \subsubsubsection{DNS caching}
 
@@ -73,14 +73,13 @@ Er is nog een belangrijk type van DNS server die de local DNS server wordt genoe
 
 \noindent DNS caching is een zeer belangrijke kenmerk van het DNS systeem. DNS gebruikt dit zeer hard om de vertaging prestatie te verbeteren en de aantal DNS berichten die rond gaan te verminderen. In een query ketting, wanneer een DNS server een DNS antwoord ontvangt, kan het deze mapping in zijn locaal geheugen cachen. Als een hostname/IP adres paar gemapped zijn en er een andere query komt voor dezelfde hostname, kan de DNS server de gewenste IP adres voorzien, zelf als niet authoritative is voor de hostname. Omdat hosts en mappings tussen hostnames en IP adressen geenszins permanent zijn. Daarom doen DNS servers hun gecached om de zoveel tijd weg.
 
-\clearpage
-
 \subsubsection{DNS records en berichten}
 
-\textbf{Bronrecords}: records waarin de hostnaam met bijbehorend IP staat opgeslagen (samen met TTL en Type)\\
-Formaat bronrecord: (name, value, type, ttl)
+\noindent \textbf{Bronrecords}: records waarin de hostnaam met bijbehorend IP staat opgeslagen (samen met TTL en Type)
 
-De DNS servers die samen de DNS gedeelde databank implementeren bewaren resource records (RRs). Elke DNS reply bericht draagt één of meerdere RR mee. Een RR bevat de volgende velden:
+\noindent Formaat bronrecord: (name, value, type, ttl)
+
+\noindent De DNS servers die samen de DNS gedeelde databank implementeren bewaren resource records (RRs). Elke DNS reply bericht draagt één of meerdere RR mee. Een RR bevat de volgende velden:
 (Name, Value, Type, TTL)
 
 De betekenis van Name en Value hangen af van Type:
@@ -108,7 +107,7 @@ DNS heeft enkel twee mogelijk berichten (Query en reply). Beide berichten hebben
 
 \textbf{Registrar}: commerciële entiteit die controleert of een domeinnaam uniek is, de domeinnaam in de DNS plaatst en daar geld voor vraagt.
 
-\clearpage
+
 
 \subsubsection{DNS aanvallen}
 
@@ -151,11 +150,11 @@ DNS heeft enkel twee mogelijk berichten (Query en reply). Beide berichten hebben
 
 \subsubsection{P2P-bestandsdistributie}
 
-\textbf{Torrent}: de verzameling peers die deelnemen aan de distributie van een bepaald bestand. Wanneer een peer deelneemt aan een torrent, downloadt hij het bestand in zogenaamde \textbf{chunks} dit zijn kleine deeltjes van het bestand. Wanneer een peer alle chunks heeft verzameld, heeft hij het gehele bestand tot zijn beschikking. De peer uploadt ook zijn chunks wanneer hij ze aan het downloaden is.
+\noindent \textbf{Torrent}: de verzameling peers die deelnemen aan de distributie van een bepaald bestand. Wanneer een peer deelneemt aan een torrent, downloadt hij het bestand in zogenaamde \textbf{chunks} dit zijn kleine deeltjes van het bestand. Wanneer een peer alle chunks heeft verzameld, heeft hij het gehele bestand tot zijn beschikking. De peer uploadt ook zijn chunks wanneer hij ze aan het downloaden is.
 
-\textbf{Tracker}: Infrastructuurnode van een torrent. Wanneer een peer aan een torrent gaat deelnemen, meldt hij dit aan de tracker. Wanneer een peer zich aanmeldt, selecteert de tracker een willekeurig aantal peers waarmee de peer dan een TCP-verbinding moet leggen om zo onderling chunks te kunnen uitwisselen.
+\noindent \textbf{Tracker}: Infrastructuurnode van een torrent. Wanneer een peer aan een torrent gaat deelnemen, meldt hij dit aan de tracker. Wanneer een peer zich aanmeldt, selecteert de tracker een willekeurig aantal peers waarmee de peer dan een TCP-verbinding moet leggen om zo onderling chunks te kunnen uitwisselen.
 
-\textbf{Rarest-first}: Het principe dat gebruikt wordt wanneer een peer een chunk moet gaan halen bij andere peers. Het houdt in dat de peer de chunk die het minst voorkomt in de lijst met chunks die beschikbaar zijn bij de peers, eerst gaat downloaden.
+\noindent \textbf{Rarest-first}: Het principe dat gebruikt wordt wanneer een peer een chunk moet gaan halen bij andere peers. Het houdt in dat de peer de chunk die het minst voorkomt in de lijst met chunks die beschikbaar zijn bij de peers, eerst gaat downloaden.
 
 \subsubsection{Gedistribueerde hashtabellen}
 

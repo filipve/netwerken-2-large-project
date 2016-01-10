@@ -60,7 +60,7 @@
 
 \textcolor{red}{\textbf{\acrfull{tls}:}} Een iets gewijzigde versie van SSL
 
-\clearpage
+
 
 \subsubsection{Het grote plaatje}
 
@@ -83,13 +83,13 @@
 
 \noindent Gedurende de handshake fase, heeft Bob behoefte aan een TCP connectie op te zetten met Alice, bevestigen dat Alice echt Alice is, en vervolgens Alice de master secret key te sturen die gebruikt zal worden om bij Alice en Bob de symmetrische sleutels te genereren die ze nodig hebben voor de SSL sessie.
 
-\noindent Wanneer de TCP connectie opgezet is, zend Bob naar Alice een hallo bericht. Alice reageert met haar certificaat, die haar publieke sleutel bevat. Bob genereert vervolgens een Master Secret (MS) die enkel gebruikt gaat worden voor deze SSL sessie, ecrypteerd de MS met de publieke sleutel van Alice om zo de \textbf{Encrypted Master Secret (EMS)} te maken, en zendt deze dan door naar Alice. Alice decrypteerd het EMS met haar prive sleutel. Na deze fase kennen enkel Bob en Alice de MS voor deze SSL sessie.
+\noindent Wanneer de TCP connectie opgezet is, zend Bob naar Alice een hallo bericht. Alice reageert met haar certificaat, die haar publieke sleutel bevat. Bob genereert vervolgens een Master Secret (MS) die enkel gebruikt gaat worden voor deze SSL sessie, encrypteert de MS met de publieke sleutel van Alice om zo de \textbf{Encrypted Master Secret (EMS)} te maken, en zendt deze dan door naar Alice. Alice decrypteert het EMS met haar prive sleutel. Na deze fase kennen enkel Bob en Alice de MS voor deze SSL sessie.
 
-\clearpage
+
 
 \subsubsubsection{Key derivation = het verkrijgen van een sleutel}
 
-\noindent Gebruik verschillende sleutels voor de Message Authentication Code (=\textbf{HMAC}) en encryptie
+\noindent Gebruik verschillende sleutels voor de \acrfull{mac} en encryptie
 
 \noindent Message authenticaton code: HMAC with shared key H(m+s)
 
@@ -106,9 +106,9 @@
 \subsubsubsection{Data transfer}
 
 
-De gegevensstream wordt opgesplitst in \textbf{records}. SSL voegt een \textbf{berichtauthenticatiecode} (\textbf{MAC}) toe aan elke record.
+De gegevensstream wordt opgesplitst in \textbf{records}. SSL voegt een \textbf{berichtauthenticatiecode} (\textbf{\acrshort{mac}}) toe aan elke record.
 
-\fra  Connection closure:Speciale berichten om de connectie veilig te sluiten.
+$\Rightarrow$ Connection closure: Speciale berichten om de connectie veilig te sluiten.
 
 \noindent Sinds TCP een byte stream protocol is, zou een natuurlijke benadering voor SSL zijn om de applicatie data on the fly te encrypteren en vervolgens de geëncrypteerde data on the fly door te geven aan TCP. Maar als we dit doen, waar zouden we MAC zetten voor de integriteit check?
 SSL breekt de data stroom in verschillende records, voegt een MAC toe aan elk record voor integriteit controle en encrypteerd vervolgens de record+MAC. Om de MAC te maken voegt Bob de record data met de sleutel MB toe in een hash functie. Om het pakket te encrypteren gebruikt Bob zijn sessie sleutel $E_B$. Dit geëncrypteerde pakket wordt dan doorgestuurd naar TCP voor transport over het internet.
@@ -119,7 +119,7 @@ De gedecrypteerde byte stream gaat niet in de juiste volgerde staan, en zal dus 
 Alice volgt Bob zijn sequentie nummers, wat haar toe laat om de data integriteit met de passende sequentie nummer van een record te controleren.
 Een indringer kan nog altijd heel de communicatie opnieuw afspelen. Oplossing hiervoor is om een \textbf{nonce} te gebruiken.
 
-\clearpage
+
 
 \subsubsubsection{SSL record}
 
@@ -135,7 +135,7 @@ De SSL record bestaat uit de volgende velden:
 
 \noindent De eerste 3 velden zijn niet geëncrypteerd. Deze velden tonen aan of de record een handshshake bericht is of een bericht dat applicatie data bevat. Het wordt ook gebruikt om de SSL connectie te sluiten. De lengte is om de SSL records uit de TCP byte stream te krijgen.
 
-\clearpage
+
 
 \subsubsection{Een iets completer beeld}
 
@@ -179,11 +179,12 @@ Vervolgens stuurt de server een bericht terug naar de client, samen met zijn voo
 
 \noindent Bij stap 1 wordt een lijst van algoritmes doorgestuurd in cleartext. Een indringer kan de sterkere algoritmes uit de lijst halen zodat de server een zwakker algoritme gaat kiezen. 
 
-Om zo’n geknoei te voorkomen, wordt in stap 5 voor de client een MAC met een aaneenschakeling van alle handshake berichten gemaakt die verzonden en ontvangen zijn. De server kan deze MAC controleren door op dezelfde manier te werk te gaan. Als er een tegenstrijdig signaal is, gaat de server de connectie onmiddellijk beëindigen. De server stuurt zijn berekende MAC terug naar de client zodat deze ook kan controleren op tegenstrijdigheden.
+\noindent Om zo’n geknoei te voorkomen, wordt in stap 5 voor de client een MAC met een aaneenschakeling van alle handshake berichten gemaakt die verzonden en ontvangen zijn. De server kan deze MAC controleren door op dezelfde manier te werk te gaan. Als er een tegenstrijdig signaal is, gaat de server de connectie onmiddellijk beëindigen. De server stuurt zijn berekende MAC terug naar de client zodat deze ook kan controleren op tegenstrijdigheden.
 
 \noindent In SSL worden nonces gebruikt om zich te verdedigen tegen de connection replay attack en sequentie nummers worden gebruikt om zich te verdedigen tegen het hersturen van pakketten tijdens een open sessie.
 
 \subsubsubsection{Connection closure}
 
-Op een moment gaat Bob of Alice de SSL sessie afsluiten. Een benadering zou kunnen zijn dat Bob de SSL sessie beëindigd door de onderliggende TCP connectie af te sluiten, dat is als Bob een TCP FIN segment stuurt naar Alice. Maar zo’n ontwerp kan leiden naar een truncation attack waar een indringer een SSL sessie vroeger kan afsluiten.
-De oplossing tot dit probleem is om aan te duiden in het type veld als de record dient om de SSL sessie af te sluiten. Het type veld word on-geëncrypteerd gestuurd en kan zo gelezen worden, maar wordt geauthenticeerd bij de ontvanger door gebruik te maken van de Record’s MAC. Dus als er eerst een TCP FIN gestuurd wordt voor een closure SSL record, kan men er van uitgaan dat er iets niet juist is.
+\noindent Op een moment gaat Bob of Alice de SSL sessie afsluiten. Een benadering zou kunnen zijn dat Bob de SSL sessie beëindigd door de onderliggende TCP connectie af te sluiten, dat is als Bob een TCP FIN segment stuurt naar Alice. Maar zo’n ontwerp kan leiden naar een truncation attack waar een indringer een SSL sessie vroeger kan afsluiten.
+
+\noindent De oplossing tot dit probleem is om aan te duiden in het type veld als de record dient om de SSL sessie af te sluiten. Het type veld word on-geëncrypteerd gestuurd en kan zo gelezen worden, maar wordt geauthenticeerd bij de ontvanger door gebruik te maken van de Record’s MAC. Dus als er eerst een TCP FIN gestuurd wordt voor een closure SSL record, kan men er van uitgaan dat er iets niet juist is.

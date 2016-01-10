@@ -6,7 +6,7 @@ Een firewall is een combinatie van hardware en software dat het interne netwerk 
 
 \noindent Een firewall laat een netwerk administrator toe om toegang te controleren tussen de buiten wereld en de bronnen binnenin de geadministreerde netwerk door de verkeersstroom van en naar deze resources te beheren. 
 
-Een firewall heeft \textbf{drie} doelen:
+\noindent Een firewall heeft \textbf{drie} doelen:
 \begin{enumerate}
 \item Al het verkeer van buiten naar binnen en omgekeerd passeert langs de firewall.
 \item Enkel geautoriseerd verkeer, als gedefinieerd in de local security policy, mag toe gelaten worden.
@@ -15,13 +15,13 @@ Een firewall heeft \textbf{drie} doelen:
 
 \noindent Firewalls kunnen geclassificeerd worden in drie categorieën: traditional packet filters, stateful filters en application gateways.
 
-\clearpage
+
 
 \subsubsubsection{Traditional packet filters}
 
 Een organisatie heeft typisch een gateway router die zijn interne netwerk verbindt met zijn ISP. Al het verkeer dat binnenkomt en weg gaat, passeert via deze router, en het is dus deze router waar de packet filtering gebeurt. Een pakket filter onderzoekt elke datagram in isolatie, bepalend of de datagram door mag gaan of moet laten vallen gebaseerde op de specifieke administrator regels. 
 
-Filter beslissingen zijn typisch gebaseerd op:
+\noindent Filter beslissingen zijn typisch gebaseerd op:
 \begin{itemize}
 \item IP bron of bestemmingsadres
 \item Protocol type in IP datagram veld
@@ -48,9 +48,9 @@ Filter beslissingen zijn typisch gebaseerd op:
 
 \noindent Statefull filters houden alle lopende TCP connecties bij in een connectie tabel. 
 
-Dit is mogelijk omdat de firewall het begin van een nieuwe connectie kan observeren door de three-way handshake (SYN, SYNACK en ACK) te observeren en het kan het einde van een connectie observeren als het een FIN pakket ziet voor de connectie. 
+\noindent Dit is mogelijk omdat de firewall het begin van een nieuwe connectie kan observeren door de three-way handshake (SYN, SYNACK en ACK) te observeren en het kan het einde van een connectie observeren als het een FIN pakket ziet voor de connectie. 
 
-De firewall kan ook behoudend veronderstellen dat de connectie gedaan is wanneer er geen activiteit was op die connectie voor x-aantal seconden.
+\noindent De firewall kan ook behoudend veronderstellen dat de connectie gedaan is wanneer er geen activiteit was op die connectie voor x-aantal seconden.
 
 \subsubsubsection{Application gateway}
 
@@ -64,9 +64,9 @@ De firewall kan ook behoudend veronderstellen dat de connectie gedaan is wanneer
 
 \noindent Applicatie gateways hebben hun \textbf{nadelen}.
 
-\textbf{Ten eerste} is er een andere applicatie gateway nodig voor elke applicatie. 
+\noindent \textbf{Ten eerste} is er een andere applicatie gateway nodig voor elke applicatie. 
 
-\textbf{Ten tweede} is er een prestatie straf, omdat alle data heromgeleid wordt naar de gateway. Dit wordt een zekere zorg wanneer meerdere gebruikers of applicaties dezelfde gateway machine gebruiken. 
+\noindent \textbf{Ten tweede} is er een prestatie straf, omdat alle data heromgeleid wordt naar de gateway. Dit wordt een zekere zorg wanneer meerdere gebruikers of applicaties dezelfde gateway machine gebruiken. 
 
 \textbf{Ten laatste} moet de client software weten hoe het de applicatie gateway moet vertellen te connecteren met welke externe server.
 
@@ -76,11 +76,11 @@ De firewall kan ook behoudend veronderstellen dat de connectie gedaan is wanneer
 
 \noindent Hier voor is er een ander toestel die niet enkel de headers van alle pakketten nakijkt maar ook deep packet inspection. Wanneer zo’n toestel een verdacht pakket, of serie van verdachte pakketten observeert, kan het voorkomen dat deze pakketten doorkomt in de organisatie, of het toestel kan de pakketten doorlaten maar een waarschuwing sturen naar de netwerk administrator, wie dan een kijkje kan nemen naar het verkeer en gepaste acties ondernemen.
 
-\noindent\textcolor{red}{ Het toestel dat waarschuwingen genereert wanneer het potentiële kwaadaardig verkeer opmerkt} noemt men een \textbf{intrusion detection system (IDS)}. Een toestel die verdacht verkeer filtert noemt men een intrusion prevention system (IPS).
+\noindent\textcolor{red}{ Het toestel dat waarschuwingen genereert wanneer het potentiële kwaadaardig verkeer opmerkt} noemt men een \textbf{\acrfull{ids}}. Een toestel die verdacht verkeer filtert noemt men een \acrfull{ips}.
 
 \noindent Een IDS kan gebruikt worden om een grote waaier van aanvallen te detecteren, zoals netwerk mapping, port scans, DoS band-width-flooding attacks, worms en virussen, OS vulnerability attacks en application vulnerability attacks.
 
-\noindent Een organisatie kan één of meerdere IDS sensoren in zijn organisatie netwerk implementeren. Wanneer meerdere sensoren geïmplementeerd zijn werken ze meestal in overleg, zenden ze informatie over verdachte verkeers activiteit naar een centrale IDS processor, wie dan de informatie verzamelt en integreert en een waarschuwing stuurt naar de netwerk administrator wanneer het passend wordt geacht. \noindent\textcolor{red}{Een lagere beveiligings zone} wordt ook wel de \textbf{demilitarized zone (DMZ)} genoemd.
+\noindent Een organisatie kan één of meerdere IDS sensoren in zijn organisatie netwerk implementeren. Wanneer meerdere sensoren geïmplementeerd zijn werken ze meestal in overleg, zenden ze informatie over verdachte verkeers activiteit naar een centrale IDS processor, wie dan de informatie verzamelt en integreert en een waarschuwing stuurt naar de netwerk administrator wanneer het passend wordt geacht. \noindent\textcolor{red}{Een lagere beveiligings zone} wordt ook wel de \textbf{\acrfull{dmz}} genoemd.
 
 \noindent Waarom meerdere IDS sensoren gebruiken? Waarom niet enkel één sensor achter de filter plaatsen (of zelfs met de filter integreren)? Een IDS moet niet enkel aan deep packet inspection doen, maar moet ook elk passerend pakket vergelijken met tienduizenden “handtekeningen”. Dit kan een aanzienlijke hoeveelheid verwerkingstijd met zich meebrengen. Door de IDS verder in de stroom plaatsen, gaat elke sensor maar een deel van het verkeer van de organisatie 
 \noindent IDS systemen zijn geclassificeerd als oftewel signature-based systems of anomaly-based systems. Een signature-based IDS onderhoudt een uitgebreide database met aanval handtekeningen. Elke handtekening is een set van regels met betrekking tot een inbraak activiteit. 

@@ -10,10 +10,11 @@
 
 \noindent De zendende kant laat elk stukje van audio vooraf gaan door RTP header die het type van audio codering, een sequentie nummer en een timestamp bevat. Het audio stukje vormt samen met de RTP header de RTP pakket. Het RTP pakket wordt vervolgens gezonden naar de UDP socket interface. Aan de ontvangende kant, ontvangt de applicatie het RTP pakket en gebruikt de header velden van het RTP pakket om het audio stuk juist te decoderen en afspelen.
 Als een applicatie RTP bevat, dan zal de applicatie veel gemakkelijker samenwerken met andere genetwerkte multimedia applicaties.
-Het moet benadrukt worden dat RTP geen mechanisme voorziet om tijdige levering van data te verzekeren of andere andere quality-of-service voorzieningen garandeert. Het garandeert zelfs niet de levering van pakketten of voorkomen van out-of-order levering van pakketten.
+
+\noindent Het moet benadrukt worden dat RTP geen mechanisme voorziet om tijdige levering van data te verzekeren of andere andere quality-of-service voorzieningen garandeert. Het garandeert zelfs niet de levering van pakketten of voorkomen van out-of-order levering van pakketten.
 RTP laat toe dat elk bron zijn eigen onafhankelijke RTP stroom van pakketten wordt toegewezen. RTP pakketen zijn niet gelimiteerd tot unicast applicaties. Ze kunnen ook verzonden worden over one-to-many en many-to-many multicast trees. Voor een many-to-many multicast sessie, moeten alle sessie zijn zenders en bronnen dezelfde multicast groep gebruiken voor het zenden van hun RTP stromen. RTP multicast stromen die bij elkaar horen, zoals audio en video stromen die uitgaan van verschillende zenders, behoren tot een RTP sessie.
 
-\clearpage
+
 
 \subsubsubsection{RTP Pakket header velden}
 
@@ -21,11 +22,12 @@ RTP laat toe dat elk bron zijn eigen onafhankelijke RTP stroom van pakketten wor
 Het sequentie nummer veld wordt met één verhoogd voor elk RTP pakket die verzonden wordt, en kan gebruikt worden door de ontvanger om pakket verlies te detecteren en om de pakket sequentie te herstellen. 
 
 \noindent De timestamp veld weerspiegelt de sampling instantie van de eerste byte in het RTP data pakket. De ontvanger kan timestamps gebruiken om pakket jitter weg te doen en om synchrone doorspeling te voorzien bij de ontvanger. De timestamp wordt afgelid vaan een sampling klok bij de zender.
-De synchronisatie bron identificator veld (SSRC) identificeert de bron van de RTP stroom. Elke stroom in een RTP sessie heeft een aparte SSRC. Dit is niet het IP adres van de zender, maar in de plaatst ervan is het een nummer die de bron willekeurig toewijst wanneer een nieuwe stroom gestart wordt. Als er twee dezelfde SSRC stroom nummers gekozen worden, zullen de bronnen een nieuw waarde kiezen.
+
+\noindent De synchronisatie bron identificator veld (SSRC) identificeert de bron van de RTP stroom. Elke stroom in een RTP sessie heeft een aparte SSRC. Dit is niet het IP adres van de zender, maar in de plaatst ervan is het een nummer die de bron willekeurig toewijst wanneer een nieuwe stroom gestart wordt. Als er twee dezelfde SSRC stroom nummers gekozen worden, zullen de bronnen een nieuw waarde kiezen.
 
 \subsubsection{SIP}
 
-\noindent De Session Initiation Protocol (SIP) is een open en heel lichte protocol die het volgende doet:
+\noindent De \textbf{\acrfull{sip}} is een open en heel lichte protocol die het volgende doet:
 
 \begin{itemize}
 \item Het voorziet mechanismen om oproepen op te zetten tussen een beller en opgebelde over een IP netwerk. Het laat de beller toe om gebelde te melden dat het een oproep wil starten. Het laat deelnemers toe om overeen te komen over media coderingen. Het laat deelnemers ook toe om de oproep te stoppen.
@@ -33,28 +35,30 @@ De synchronisatie bron identificator veld (SSRC) identificeert de bron van de RT
 \item Het voorziet mechanismen voor oproep beheer, zoals nieuwe media stromen toevoegen tijdens de oproep, veranderen van de codering tijdens de oproep, nieuwe deelnemers uitnodigen, oproep doorverbinden, wachten.
 \end{itemize}
 
-\clearpage
+
 
 \subsubsubsection{Een oproep opzetten naar een gekend IP adres}
 
-Een SIP sessie begint wanneer Alice naar Bob een INVITE bericht stuurt, wat lijkt op een HTTP request bericht. Dit INVITE bericht wordt gezonden over UDP naar welgekende pport 5060 voor SIP. Het bericht bevat een indentificator voor Bob, een indicator van Alice haar huidige IP adres, een indicatie dat Alice audio wenst te ontvangen die in een bepaald formaat gecodeerd moet zijn en geëncapsuleerd in een RTP, en een indicatie dat ze de RTP pakketten wilt krijgen op poort 38060. 
+\noindent Een SIP sessie begint wanneer Alice naar Bob een INVITE bericht stuurt, wat lijkt op een HTTP request bericht. Dit INVITE bericht wordt gezonden over UDP naar welgekende poort 5060 voor SIP. Het bericht bevat een indentificator voor Bob, een indicator van Alice haar huidige IP adres, een indicatie dat Alice audio wenst te ontvangen die in een bepaald formaat gecodeerd moet zijn en geëncapsuleerd in een RTP, en een indicatie dat ze de RTP pakketten wilt krijgen op poort 38060. 
 
-Na het zenden van dit bericht, verzend Bob een SIP response bericht, wat lijkt op een HTTP response bericht. Dit response SIP bericht wordt oop naar de SIP poort 5060 gestuurd. Bob zijn response bevat een 200 OK en ook een indicatie van zijn IP ares, zijn gewenste codering en pakketisatie voor ontvangst, en zijn poort nummer waarnaar de audio pakketten naartoe gezonden moeten worden.
+\noindent Na het zenden van dit bericht, verzend Bob een SIP response bericht, wat lijkt op een HTTP response bericht. Dit response SIP bericht wordt oop naar de SIP poort 5060 gestuurd. Bob zijn response bevat een 200 OK en ook een indicatie van zijn IP ares, zijn gewenste codering en pakketisatie voor ontvangst, en zijn poort nummer waarnaar de audio pakketten naartoe gezonden moeten worden.
 
-Na het krijgen van Bob zijn response, Alice zend Bob een SIP erkennings bericht. Na deze SIP transactie, kunnen Bob en Alice praten.
+\noindent Na het krijgen van Bob zijn response, Alice zend Bob een SIP erkennings bericht. Na deze SIP transactie, kunnen Bob en Alice praten.
 
-Er zijn een paar sleutel kenmerken van SIP. Ten eerste, SIP is een out-of-band protocol: De SIP berichten zijn verzonden en ontvangen in sockets die verschillend zijn van die gebruikt worden om de media data te verzenden en ontvangen. Ten tweede, de SIP berichten op zich zijn ASCII-leesbaar en lijken op HTTP berichten. Ten derde, SIP vereist dat alle berichten erkend worden zodat het over UDP of TCP kan lopen.
+\noindent Er zijn een paar sleutel kenmerken van SIP. Ten eerste, SIP is een out-of-band protocol: De SIP berichten zijn verzonden en ontvangen in sockets die verschillend zijn van die gebruikt worden om de media data te verzenden en ontvangen. Ten tweede, de SIP berichten op zich zijn ASCII-leesbaar en lijken op HTTP berichten. Ten derde, SIP vereist dat alle berichten erkend worden zodat het over UDP of TCP kan lopen.
 
 \subsubsubsection{SIP adressen}
 
-We verwachten dat de meeste SIP adressen lijken op e-mail adressen. Bijvoorbeeld Bob zijn adres zou sip:bob@domain.com kunnen zijn. Wanneer Alice haar SIP toestel een INVITE bericht verstuurt, dan zou het bericht dit e-mail lijkend adres bevatten. De SIP infrastructuur zal het bericht dan leiden naar het IP toestel dat Bob op dit moment aan het gebruiken is. Andere mogelijk vormen voor het SIP adres kan Bob zijn nalatenschap telefoon nummer of gewoon Bob zijn voor-/midden-/achter naam zijn (verdondersteld dat deze uniek is).
-Een interresante kenmerk van SIP adressen is dat ze opgenomen kunnen worden in web pagina’s, net zoals mensen hun e-mail adresses opgenomen zijn.
+\noindent We verwachten dat de meeste SIP adressen lijken op e-mail adressen. Bijvoorbeeld Bob zijn adres zou sip:bob@domain.com kunnen zijn. Wanneer Alice haar SIP toestel een INVITE bericht verstuurt, dan zou het bericht dit e-mail lijkend adres bevatten. De SIP infrastructuur zal het bericht dan leiden naar het IP toestel dat Bob op dit moment aan het gebruiken is. Andere mogelijk vormen voor het SIP adres kan Bob zijn nalatenschap telefoon nummer of gewoon Bob zijn voor-/midden-/achter naam zijn (verondersteld dat deze uniek is).
 
-\clearpage
+\noindent Een interessant kenmerk van SIP adressen is dat ze opgenomen kunnen worden in web pagina’s, net zoals mensen hun e-mail adressen opgenomen zijn.
+
+
 
 \subsubsubsection{Naam vertaling en gebruikers locatie}
 
-Als Alice met Bob wilt bellen, moet ze eerst het IP adres van Bob verkrijgen. Om dit uit te vinden stuurt ze een INVITE bericht dat begint met INVITE bob@domain.com SIP/2.0 and zend dit bericht naar een SIP proxy. De proxy zal antwoorden met een SIP antwoord die het IP adres van het toestel dat op dit moment bob@domain.com gebruikt kan bevatten. Een alternatief is  dat het bericht het IP adres van Bob zijn voicemail box bevat. Ook het resultaat van de proxy hangt af van de beller. Hoe kan een proxy server vast stellen wat het huidige IP adres voor bob@domain.com is?
-Elke gebruiker heeft een geassocieerde SIP registrar. Wanneer een gebruiker een SIP applicatie opstart op een toestel, verzend de applicatie een SIP register bericht naar de registrar, om de registrar te informen naar huidig IP adres. Bob zijn registrar houdt Bob zijn huidige IP adres bij. Wanneer Bob naar een nieuw SIP toestel wisselt, zal er opniew een register bericht gestuurd worden. Ook als Bob voor een lange tijd op hetzelfde toestel blijft, zal het toestel refresh register berichten sturen, en zo aanduiden dat de meeste recente gezonden IP adres nog steeds geldig is. Het is niets waard dat de registrar analoog is met een DNS gezeghebbende naam server. De DNS vertaald vaste host namen naar vaste IP adressen, de SIP registrar vertaald vast menselijke identificators naar dynamische IP adressen. 
+\noindent Als Alice met Bob wilt bellen, moet ze eerst het IP adres van Bob verkrijgen. Om dit uit te vinden stuurt ze een INVITE bericht dat begint met INVITE bob@domain.com SIP/2.0 and zend dit bericht naar een SIP proxy. De proxy zal antwoorden met een SIP antwoord die het IP adres van het toestel dat op dit moment bob@domain.com gebruikt kan bevatten. Een alternatief is  dat het bericht het IP adres van Bob zijn voicemail box bevat. Ook het resultaat van de proxy hangt af van de beller. Hoe kan een proxy server vast stellen wat het huidige IP adres voor bob@domain.com is?
 
-SIP als een signaleer protocol voor het beginnen en eindigen van een oproep, kan gebruikt woren voor video conferentie oproepen en voor tekst gebaseerde sessie. In feite is SIP een fundamenteel component geworden in veel instant messaging applicaties.
+\noindent Elke gebruiker heeft een geassocieerde SIP registrar. Wanneer een gebruiker een SIP applicatie opstart op een toestel, verzend de applicatie een SIP register bericht naar de registrar, om de registrar te informeren naar huidig IP adres. Bob zijn registrar houdt Bob zijn huidige IP adres bij. Wanneer Bob naar een nieuw SIP toestel wisselt, zal er opnieuw een register bericht gestuurd worden. Ook als Bob voor een lange tijd op hetzelfde toestel blijft, zal het toestel refresh register berichten sturen, en zo aanduiden dat de meeste recente gezonden IP adres nog steeds geldig is. Het is niets waard dat de registrar analoog is met een DNS gezeghebbende naam server. De DNS vertaald vaste host namen naar vaste IP adressen, de SIP registrar vertaald vast menselijke identificators naar dynamische IP adressen. 
+
+\noindent SIP als een signaleer protocol voor het beginnen en eindigen van een oproep, kan gebruikt worden voor video conferentie oproepen en voor tekst gebaseerde sessie. In feite is SIP een fundamenteel component geworden in veel instant messaging applicaties.
