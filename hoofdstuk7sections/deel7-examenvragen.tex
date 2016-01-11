@@ -1,6 +1,6 @@
-\subsection{Examenvragen hoofdstuk 7 }
+\subsection{Examenvragen hoofdstuk 7}
 
- \begin{enumerate}
+\begin{enumerate}
  
 \item Bespreek de 2 manieren die er zij om weergavevetraging tegen te gaan bij jitter + schema.
 
@@ -25,6 +25,7 @@ $14\ bits / sample * 16 000\ samples / seconde = 224$ kbit/s = 28kB/s}
 \item jitter bij voip uitleggen
 
 \item waar of niet waar + leg uit (hierop krijg je punten)
+
     \begin{enumerate}
         \item Kan Jitter (Variatie Delay) opgelost worden door gebruik te maken van QoS
 
@@ -34,8 +35,140 @@ $14\ bits / sample * 16 000\ samples / seconde = 224$ kbit/s = 28kB/s}
 
         \item VOIP gebruikt UDP en enkel udp omdat voIP een real-time toepassing
     \end{enumerate}
+    
 \end{enumerate}
 
 
 %\enumeratext{} zorgt ervoor dat je tekst kan typen tussen lijstitems in
 %\enumeratext{}
+
+\newpage
+
+\subsection{Vragen hoofdstuk 7 uit boek}
+
+\noindent SECTION 7.1
+
+\begin{enumerate}
+
+\item Reconstruct Table 7.1 for when Victor Video is watching a 4 Mbps video, Facebook Frank is looking at a new 100 Kbyte image every 20 seconds, and Martha Music is listening to 200 kbps audio stream.
+
+%\enumeratext{ }
+
+\item There are two types of redundancy in video. Describe them, and discuss how they can be exploited for efficient compression.
+
+%\enumeratext{ }
+
+\item Suppose an analog audio signal is sampled 16,000 times per second, and each sample is quantized into one of 1024 levels. What would be the resulting bitrate of the PCM digital audio signal?
+
+
+%\enumeratext{ }
+
+\item Multimedia applications can be classified into three categories. Name and
+describe each category.
+
+%\enumeratext{ }
+
+\end{enumerate}
+
+\noindent SECTION 7.2
+
+\begin{enumerate}
+
+\item Streaming video systems can be classified into three categories. Name and briefly describe each of these categories.
+
+\enumeratext{Camp 1: No fundamental changes in TCP/IP protocols; add bandwidth where needed;
+also use caching, content distribution networks, and multicast overlay networks.
+
+\noindent Camp 2: Provide a network service that allows applications to reserve bandwidth in
+the network.
+
+\noindent Camp 3, differentiated service: introduce simple classifying and policing
+schemes at the edge of the network, and give different datagrams different levels of
+service according to their class in the router queues.}
+
+\item List three disadvantages of UDP streaming.
+
+%\enumeratext{ }
+
+\item With HTTP streaming, are the TCP receive buffer and the client’s application buffer the same thing? If not, how do they interact?
+
+%\enumeratext{ }
+
+\item Consider the simple model for HTTP streaming. Suppose the server sends bits at a constant rate of 2 Mbps and playback begins when 8 million bits have been received. What is the initial buffering delay?
+
+%\enumeratext{ }
+
+\item  CDNs typically adopt one of two different server placement philosophies. Name and briefly describe these two philosophies.
+
+%\enumeratext{ }
+
+\item  Several cluster selection strategies were described in Section 7.2.4. Which of these strategies finds a good cluster with respect to the client’s LDNS? Which of these strategies finds a good cluster with respect to the client itself?
+
+%\enumeratext{ }
+
+\item  Besides network-related considerations such as delay, loss, and bandwidth performance, there are many additional important factors that go into designing a cluster selection strategy. What are they?
+
+%\enumeratext{ }
+
+\end{enumerate}
+
+\newpage
+
+\noindent SECTION 7.3
+
+\begin{enumerate}
+
+\item What is the difference between end-to-end delay and packet jitter? What are the causes of packet jitter?
+
+\enumeratext{End-to-end delay is the time it takes a packet to travel across the network from source to destination. Delay jitter is the fluctuation of end-to-end delay from packet to the next packet.}
+
+\item Why is a packet that is received after its scheduled playout time considered lost?
+
+\enumeratext{A packet that arrives after its scheduled play out time can not be played out. Therefore, from the perspective of the application, the packet has been lost.}
+
+\item  Section 7.3 describes two FEC schemes. Briefly summarize them. Both schemes increase the transmission rate of the stream by adding overhead. Does interleaving also increase the transmission rate?
+
+\enumeratext{First scheme: send a redundant encoded chunk after every n chunks; the redundant chunk is obtained by exclusive OR-ing the n original chunks. 
+
+\noindent Second scheme: send alower-resolution low-bit rate scheme along with the original stream. Interleaving does not increase the bandwidth requirements of a stream.}
+
+\end{enumerate}
+
+\noindent SECTION 7.4
+
+\begin{enumerate}
+
+\item How are different RTP streams in different sessions identified by a receiver? How are different streams from within the same session identified?
+
+\enumeratext{RTP streams in different sessions: different multicast addresses; RTP streams in the same session: SSRC field; RTP packets are distinguished from RTCP packets by using distinct port numbers.}
+
+\item  What is the role of a SIP registrar? How is the role of an SIP registrar different
+from that of a home agent in Mobile IP?
+
+\enumeratext{The role of a SIP registrar is to keep track of the users and their corresponding IP addresses which they are currently using. Each SIP registrar keeps track of the users that belong to its domain. It also forwards INVITE messages (for users in its domain) to the IP address which the user is currently using. In this regard, its role is similar to that of an authoritative name server in DNS.}
+
+\end{enumerate}
+\newpage
+\noindent SECTION 7.5
+
+\begin{enumerate}
+
+\item In Section 7.5, we discussed non-preemptive priority queuing. What would be preemptive priority queuing? Does preemptive priority queuing make sense for computer networks?
+
+\enumeratext{In non-preemptive priority queuing, the transmission of a packet is not interrupted once it has begun. In preemptive priority queuing, the transmission of a packet will be interrupted if a higher priority packet arrives before transmission completes. This would mean that portions of the packet would be sent into the network as separate chunks; these chunks would no longer all have the appropriate header fields. For this reason, preemptive priority queuing is not used. }
+
+\item Give an example of a scheduling discipline that is not work conserving
+
+\enumeratext{A scheduling discipline that is not work conserving is time division multiplexing, whereby a rotating frame is partitioned into slots, with each slot exclusively available to a particular class.}
+
+\item Give an example from queues you experience in your everyday life of FIFO, priority, RR, and WFQ.
+
+\enumeratext{FIFO: line at Starbucks. 
+
+\noindent RR: merging traffic (taking 1 vehicle from first lane then 1 from the second, then 1 from the first, and so on).
+
+\noindent WFQ: ticket counter at airport providing service to 2 people from first class and 1 from economy, and again 2 from
+first class, and so on.}
+
+\end{enumerate}
+

@@ -1,3 +1,4 @@
+\newpage
 \subsection{Principes van cryptografie}
 \noindent Cryptografische technieken staan een zender toe om data te vermommen zodat een indringer geen informatie kan inwinnen van de onderschepte data. De ontvanger moet natuurlijk in staat zijn om het originele bericht te herstellen.
 
@@ -5,7 +6,7 @@
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=7in]{./img/imghfdst8/hfdst8puntje2.png}
+     \includegraphics[width=7in]{./img/imghfdst8/Figure8-2.PNG}
     \caption{Principes van cryptografie }      
     \label{fig:Principes van cryptografie }
 \end{figure}
@@ -35,13 +36,28 @@ In publieke sleutel systemen, wordt een sleutel paar gebruikt. Een van de sleute
 \noindent Hierbij is het belangrijk dat de verzender en ontvanger dezelfde geheime sleutel kennen.
 Alle cryptografische algoritmes betrekken het vervangen van een ding naar iets anders.
 Voorbeelden van algoritmes:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=7in]{./img/imghfdst8/Figure8-3.PNG}
+    \caption{Symmetrische sleutel cryptografie }      
+    \label{fig:Symmetrische sleutel cryptografie }
+\end{figure}
+
 \begin{itemize}
     \item \textcolor{red}{\textbf{Caesar cipher}}: elke letter vervangen door x-aantal letters verder te gaan in het alfabet. Als men het algoritme kent, kan men het snel kraken. Er zijn maar 25 mogelijkheden.
     \item \textcolor{red}{\textbf{Monoalphabetic cipher}}: verbetering van de Caesar cipher. Enkel wordt een letter vervanger door eender welke andere letter, zo lang als enkel letter een unieke vervangingsletter heeft. Hier zijn er $10^{26}$ mogelijkheden, en zal dus vrij lang duren om te kraken. Maar door gebruik te maken van statistische analyse kan men al een groot deel ontcijferen. Wanneer de indringer enige kennis heeft over de boodschap (woorden die er zeker in voorkomen), blijven er minder sleutel paren over.
     \item \textcolor{red}{\textbf{Polyalphabetic encryption}}: verbetering van de monoalphabetic cipher. Maakt gebruik van meerdere monoalphabetic ciphers, met een specifieke cipher om een letter te coderen in een bepaalde positie.
 \end{itemize}
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=7in]{./img/imghfdst8/Figure8-4.PNG}
+    \caption{Symmetrische sleutel cryptografie }      
+    \label{fig:Symmetrische sleutel cryptografie }
+\end{figure}
 
+\newpage
 
 \subsubsubsection{3 soorten aanvallen die een indringer kan uitvoeren}
 
@@ -59,8 +75,6 @@ Voorbeelden van algoritmes:
 \item \textit{Een aanval met een bekende onversleutelde tekst}: De indringer weet een beetje waarover de tekst gaat. (Er komt sowieso ‘Alice’ en ‘Bob’ in voor.)
 \item \textit{Een aanval met een specifieke onversleutelde tekst}: Hierbij kan de indringer zelf het onversleutelde bericht (=ciphertext) kiezen en daarvan de geëncrypteerde tekst (=chosen plaintext) krijgen.
 \end{enumerate}
-
-\newpage
 
 \noindent In gedachte nemend hoe gemakkelijk het kan zijn om een encryptie schema te ontcijferen, kan men drie verschillende scenario’s onderscheiden, afhankelijk van welke info de indringer heeft:
 \begin{itemize}
@@ -85,6 +99,8 @@ Voorbeelden van algoritmes:
     \ei
 \ei
 
+\newpage
+
 \subsubsubsection{Block Ciphers}
 
 Wordt gebruikt in veel beveiligde internet protocollen zoals:
@@ -101,8 +117,6 @@ Wordt gebruikt in veel beveiligde internet protocollen zoals:
 \noindent Hoewel een volledige lijst van block ciphers, met gematigde waardes van x een robuust symmetrische sleutel encryptie schema kan produceren, zijn ze ontzettend moeilijk om te implementeren. Voor x = 64 moeten de zender en ontvanger een lijst onderhouden met $2^{64}$ invoer waardes, wat een onhaalbare taak is. Bovendien, als de zender en ontvanger van sleutel zou veranderen, moeten ze elk een tabel genereren. Daarom zal men deze manier niet gebruiken.
 In plaats daarvan, gaan block ciphers typisch meestal gebruiken maken van functies die willekeurig gepermuteerde tabellen simuleren.
 
-\newpage
-
 \noindent (Voorbeeld van zo’n functie met k = 64 bits.) De functie deelt eerst een 64 block in 8 delen die 8 bits bevatten. Elke deeltje wordt verwerkt door een 8 bit op 8 bit tabel, die beheerbaar is in grote. Vervolgens worden de 8 deeltjes weer in elkaar gezet in een 64 bit blok. De posities van de 64 bits in het blok worden dan door elkaar gegooid om een 64 bit uitvoer te verkrijgen die dan weer dient voor de input van een 64 bit blok zodat de cyclus opnieuw uitgevoerd kan worden. Na n-aantal keren, geeft de functie een 64-bit block van ciphertext. De bedoeling van de rondes is om elke invoer bit een andere output te hebben.
 
 \noindent Er zijn vandaag verschillende populaire block ciphers zoals DES, 3DES en AES. Gebruiken elk functies in plaats van voorgedefinieerde tabellen.
@@ -113,6 +127,7 @@ In plaats daarvan, gaan block ciphers typisch meestal gebruiken maken van functi
 
 \end{itemize}
 
+\newpage
 
 \subsubsubsection{Cipher-Block koppelen}
 
@@ -140,13 +155,14 @@ $\rightarrow$ Een techniek die gebruikt wordt om encryptie toe te passen bij ber
 \itf Als men 1 seconde op DES rekent om een key te decrypteren met bruteforce, duurt het 149 triljoen jaar voor AES om 1 key te decrypteren
 \ei
 
+\newpage
 
 \subsubsection{Publieke sleutel encryptie}
 
 \subsubsubsection{Diffie-Hellman key echange algoritm}
 \begin{figure}[h]
     \centering
-    \includegraphics[width=7in]{./img/imghfdst8/hfdst8puntje5.png}
+    \includegraphics[width=7in]{./img/imghfdst8/Figure8-6.PNG}
     \caption{Diffie-Hellman key echange algoritm }      
     \label{fig:Diffie-Hellman key echange algoritm }
 \end{figure}
